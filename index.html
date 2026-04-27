@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Step-by-step guide to creating your first contest on Splash Sports — works for any in-season sport: NFL, PGA, NBA, MLB, NCAAB, NCAAF, and more." />
+  <title>How to Create a Contest — Splash Sports Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@700;800;900&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --splash-dark:       #1A1A1A;
+      --splash-page-bg:    #F4F4F2;
+      --splash-card:       #FFFFFF;
+      --splash-teal:       #4BEBE2;
+      --splash-teal-dim:   rgba(75,235,226,0.1);
+      --splash-teal-glow:  rgba(75,235,226,0.2);
+      --splash-white:      #FFFFFF;
+      --splash-text:       #1A1A1A;
+      --splash-muted:      #6B7280;
+      --splash-border:     #E4E4E0;
+      --splash-warn-bg:    #FFFBEB;
+      --splash-warn-border:#F59E0B;
+      --splash-tip-bg:     rgba(75,235,226,0.08);
+      --radius: 12px;
+      --shadow: 0 2px 16px rgba(0,0,0,0.07);
+      --font-heading: 'Barlow', system-ui, sans-serif;
+      --font-body:    'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--splash-page-bg);
+      color: var(--splash-text);
+      font-size: 1rem;
+      line-height: 1.65;
+      min-height: 100vh;
+    }
+
+    /* --- Header --- */
+    .site-header {
+      background: var(--splash-dark);
+      padding: 0.75rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(75,235,226,0.15);
+      box-shadow: 0 2px 24px rgba(0,0,0,0.5);
+    }
+    .logo-img {
+      height: 48px;
+      width: auto;
+    }
+    .header-label {
+      background: var(--splash-teal-dim);
+      border: 1px solid rgba(75,235,226,0.3);
+      color: var(--splash-teal);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.8rem;
+      border-radius: 99px;
+    }
+
+    /* --- Hero --- */
+    .hero {
+      background: var(--splash-dark);
+      color: var(--splash-white);
+      padding: 4.5rem 2rem 5.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -150px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(75,235,226,0.07) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--splash-teal-dim);
+      border: 1px solid rgba(75,235,226,0.35);
+      color: var(--splash-teal);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.35rem 1rem;
+      border-radius: 99px;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-family: var(--font-heading);
+      font-size: clamp(2.2rem, 5.5vw, 3.6rem);
+      font-weight: 900;
+      margin-bottom: 1rem;
+      line-height: 1.08;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .hero h1 span {
+      color: var(--splash-teal);
+      text-shadow: 0 0 50px rgba(75,235,226,0.45);
+    }
+    .hero-sub {
+      color: rgba(255,255,255,0.5);
+      max-width: 520px;
+      margin: 0 auto 2.5rem;
+      font-size: 1.05rem;
+      font-weight: 300;
+      line-height: 1.75;
+    }
+    .hero-steps {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .hero-step-pill {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.55);
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.35rem 0.9rem;
+      border-radius: 99px;
+      letter-spacing: 0.02em;
+    }
+
+    /* --- Progress Bar --- */
+    .progress-section {
+      background: var(--splash-white);
+      border-bottom: 1px solid var(--splash-border);
+      padding: 1.1rem 2rem;
+      position: sticky;
+      top: 67px;
+      z-index: 90;
+    }
+    .progress-inner {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .progress-labels {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.6rem;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #bbb;
+    }
+    .progress-labels span.active { color: var(--splash-teal); }
+    .progress-track {
+      height: 4px;
+      background: #E4E4E0;
+      border-radius: 99px;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--splash-teal), #8FF9F5);
+      border-radius: 99px;
+      transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
+      width: 20%;
+      box-shadow: 0 0 12px rgba(75,235,226,0.5);
+    }
+
+    /* --- Main Layout --- */
+    .main {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 6rem;
+    }
+
+    /* --- Step Cards --- */
+    .step-card {
+      background: var(--splash-card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin-bottom: 1rem;
+      overflow: hidden;
+      border: 1px solid var(--splash-border);
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    .step-card.active {
+      border-color: var(--splash-teal);
+      box-shadow: 0 0 0 1px rgba(75,235,226,0.15), 0 8px 48px rgba(0,0,0,0.6);
+    }
+    .step-card.complete {
+      border-color: rgba(75,235,226,0.25);
+    }
+    .step-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.25rem 1.5rem;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.15s;
+    }
+    .step-header:hover { background: rgba(255,255,255,0.03); }
+    .step-card.active .step-header { background: rgba(75,235,226,0.08); }
+    .step-card.complete .step-header { background: #F9FFFE; }
+
+    .step-number {
+      width: 2.25rem;
+      height: 2.25rem;
+      border-radius: 50%;
+      background: #E8E8E4;
+      color: #999;
+      font-weight: 900;
+      font-size: 0.88rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+      font-family: var(--font-heading);
+      letter-spacing: 0;
+    }
+    .step-card.active .step-number {
+      background: var(--splash-teal);
+      color: var(--splash-dark);
+      box-shadow: 0 0 18px rgba(75,235,226,0.55);
+    }
+    .step-card.complete .step-number {
+      background: var(--splash-teal);
+      color: var(--splash-dark);
+    }
+    .step-card.complete .step-number::before { content: '✓'; }
+
+    .step-title-group { flex: 1; }
+    .step-label {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #aaa;
+      font-weight: 700;
+    }
+    .step-card.active .step-label { color: var(--splash-teal); }
+    .step-title {
+      font-family: var(--font-heading);
+      font-size: 1.05rem;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--splash-text);
+    }
+    .step-chevron {
+      font-size: 1rem;
+      color: #bbb;
+      transition: transform 0.25s, color 0.2s;
+    }
+    .step-card.active .step-chevron { transform: rotate(180deg); color: var(--splash-teal); }
+
+    .step-body {
+      display: none;
+      padding: 0 1.5rem 2rem;
+      border-top: 1px solid var(--splash-border);
+    }
+    .step-card.active .step-body { display: block; }
+
+    /* --- Content inside step body --- */
+    .step-intro {
+      color: var(--splash-muted);
+      margin: 1.1rem 0 1.25rem;
+      font-size: 0.95rem;
+      line-height: 1.75;
+    }
+
+    .action-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 0.65rem;
+      padding: 1rem 1.1rem;
+      background: #F8F8F6;
+      border: 1px solid var(--splash-border);
+      border-radius: var(--radius);
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .action-row:hover {
+      background: rgba(75,235,226,0.07);
+      border-color: rgba(75,235,226,0.3);
+    }
+    .action-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 0.1rem; }
+    .action-text strong { display: block; margin-bottom: 0.2rem; font-size: 0.95rem; color: var(--splash-text); }
+    .action-text p { font-size: 0.875rem; color: var(--splash-muted); }
+
+    /* Tip callout */
+    .tip {
+      background: var(--splash-tip-bg);
+      border-left: 3px solid var(--splash-teal);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 0.9rem 1.1rem;
+      margin: 1rem 0;
+      font-size: 0.875rem;
+      color: var(--splash-text);
+    }
+    .tip strong { color: #0D9E97; display: block; margin-bottom: 0.25rem; }
+    .tip em { font-style: normal; font-weight: 600; color: var(--splash-text); }
+
+    /* Warning callout */
+    .warn {
+      background: var(--splash-warn-bg);
+      border-left: 3px solid var(--splash-warn-border);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 0.9rem 1.1rem;
+      margin: 1rem 0;
+      font-size: 0.875rem;
+    }
+    .warn strong { color: #92400E; display: block; margin-bottom: 0.25rem; }
+    .warn p { color: #78350F; }
+
+    /* Contest type grid */
+    .contest-types {
+      display: grid;
+      gap: 0.5rem;
+      margin: 0.5rem 0 1rem;
+    }
+    .contest-type {
+      padding: 0.85rem 1rem;
+      border: 1px solid var(--splash-border);
+      border-radius: var(--radius);
+      font-size: 0.9rem;
+      background: #FAFAF8;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0.75rem;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .contest-type:hover {
+      background: rgba(75,235,226,0.05);
+      border-color: rgba(75,235,226,0.35);
+    }
+    .contest-type.recommended {
+      border-color: var(--splash-teal);
+      background: rgba(75,235,226,0.07);
+    }
+    .contest-type .rec-badge {
+      font-size: 0.66rem;
+      background: var(--splash-teal);
+      color: var(--splash-dark);
+      font-weight: 800;
+      padding: 0.15rem 0.55rem;
+      border-radius: 99px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 0.15rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .contest-type-name { font-weight: 700; color: var(--splash-text); }
+    .contest-type-desc { font-size: 0.78rem; color: var(--splash-muted); margin-top: 0.2rem; line-height: 1.55; }
+
+    /* Format group headers */
+    .format-group-label {
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #0D9E97;
+      margin: 1.5rem 0 0.5rem;
+    }
+    .format-group-label:first-child { margin-top: 0.5rem; }
+
+    /* Decision table */
+    .decide-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      margin: 0.75rem 0 1rem;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--splash-border);
+    }
+    .decide-table th {
+      background: var(--splash-dark);
+      color: var(--splash-white);
+      padding: 0.65rem 0.9rem;
+      text-align: left;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .decide-table td {
+      padding: 0.65rem 0.9rem;
+      border-bottom: 1px solid var(--splash-border);
+      background: var(--splash-white);
+      vertical-align: top;
+      color: var(--splash-text);
+      line-height: 1.55;
+    }
+    .decide-table tr:last-child td { border-bottom: none; }
+    .decide-table tr:hover td { background: #F5FFFE; }
+
+    /* Settings grid */
+    .settings-grid {
+      display: grid;
+      gap: 0.5rem;
+      margin: 1rem 0;
+    }
+    .setting-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      padding: 0.85rem 1rem;
+      border: 1px solid var(--splash-border);
+      border-radius: var(--radius);
+      background: #FAFAF8;
+      gap: 1rem;
+      transition: background 0.15s;
+    }
+    .setting-row:hover { background: rgba(75,235,226,0.05); }
+    .setting-row .setting-info strong { display: block; font-size: 0.9rem; color: var(--splash-text); }
+    .setting-row .setting-info span { font-size: 0.8rem; color: var(--splash-muted); }
+    .setting-badge {
+      font-size: 0.7rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 99px;
+      font-weight: 700;
+      white-space: nowrap;
+      flex-shrink: 0;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .badge-required { background: #FEE2E2; color: #991B1B; }
+    .badge-optional { background: #F3F4F6; color: #6B7280; }
+    .badge-review   { background: #EDE9FE; color: #5B21B6; }
+
+    /* Invite methods */
+    .invite-methods {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.65rem;
+      margin: 1rem 0;
+    }
+    .invite-method {
+      padding: 1rem;
+      border: 1px solid var(--splash-border);
+      border-radius: var(--radius);
+      background: #FAFAF8;
+      font-size: 0.875rem;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .invite-method:hover { background: rgba(75,235,226,0.05); }
+    .invite-method.best {
+      border-color: var(--splash-teal);
+      background: rgba(75,235,226,0.07);
+    }
+    .invite-method strong { display: block; margin-bottom: 0.3rem; font-size: 0.9rem; color: var(--splash-text); }
+    .invite-method p { color: var(--splash-muted); font-size: 0.8rem; line-height: 1.5; }
+
+    /* Checklist */
+    .checklist { list-style: none; margin: 1.1rem 0 0; }
+    .checklist li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.65rem;
+      padding: 0.55rem 0;
+      border-bottom: 1px solid var(--splash-border);
+      font-size: 0.9rem;
+      color: var(--splash-text);
+    }
+    .checklist li:last-child { border-bottom: none; }
+    .checklist input[type="checkbox"] {
+      width: 1.1rem;
+      height: 1.1rem;
+      flex-shrink: 0;
+      margin-top: 0.15rem;
+      accent-color: var(--splash-teal);
+      cursor: pointer;
+    }
+    .checklist label { cursor: pointer; line-height: 1.5; }
+    .checklist label:has(input:checked) { text-decoration: line-through; color: #aaa; }
+
+    /* Navigation buttons */
+    .step-nav {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--splash-border);
+    }
+    .btn {
+      padding: 0.72rem 1.6rem;
+      border-radius: var(--radius);
+      font-size: 0.8rem;
+      font-weight: 800;
+      font-family: var(--font-heading);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border: none;
+      transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary {
+      background: var(--splash-teal);
+      color: var(--splash-dark);
+      box-shadow: 0 4px 20px rgba(75,235,226,0.25);
+    }
+    .btn-primary:hover { box-shadow: 0 6px 32px rgba(75,235,226,0.45); }
+    .btn-secondary {
+      background: #F4F4F2;
+      color: var(--splash-text);
+      border: 1px solid var(--splash-border);
+    }
+    .btn-secondary:hover { background: #E8E8E4; }
+
+    /* Done banner */
+    .done-banner {
+      display: none;
+      background: var(--splash-dark);
+      border: 1px solid rgba(75,235,226,0.3);
+      border-radius: var(--radius);
+      padding: 3.5rem 2rem;
+      text-align: center;
+      margin-top: 1.5rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 80px rgba(75,235,226,0.08);
+    }
+    .done-banner::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(75,235,226,0.07) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .done-banner.visible { display: block; }
+    .done-banner h2 {
+      font-family: var(--font-heading);
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      font-weight: 900;
+      margin-bottom: 0.75rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .done-banner h2 span { color: var(--splash-teal); text-shadow: 0 0 40px rgba(75,235,226,0.45); }
+    .done-whale {
+      position: absolute;
+      right: -10px;
+      bottom: -10px;
+      height: 150px;
+      width: auto;
+      opacity: 0.06;
+      pointer-events: none;
+      filter: grayscale(1) brightness(10);
+    }
+    .done-banner p { color: rgba(255,255,255,0.55); font-size: 0.95rem; }
+
+    /* Footer */
+    .site-footer {
+      background: var(--splash-dark);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.4);
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+      font-size: 0.8rem;
+    }
+    .footer-logo {
+      height: 40px;
+      width: auto;
+      opacity: 0.35;
+      margin: 0 auto 0.85rem;
+      display: block;
+    }
+    .site-footer a { color: var(--splash-teal); text-decoration: none; opacity: 0.7; }
+    .site-footer a:hover { opacity: 1; }
+
+    @media (max-width: 600px) {
+      .invite-methods { grid-template-columns: 1fr; }
+      .progress-labels span:not(.active) { display: none; }
+      .hero-steps { display: none; }
+      .hero { padding: 3rem 1.5rem 3.5rem; }
+      .main { padding: 1.5rem 1rem 5rem; }
+      .site-header { padding: 0.75rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <img src="assets/splash-whale.png" alt="Splash Sports" class="logo-img" />
+    <span class="header-label">Contest Creation Guide</span>
+  </header>
+
+  <section class="hero">
+    <div class="hero-badge">🏆 Commissioner Playbook — Step-by-Step</div>
+    <h1>Create Your First<br><span>Splash Contest</span></h1>
+    <p class="hero-sub">Five steps from zero to a live contest — works for every in-season sport on Splash. Pick your league, pick your format, and get your friends competing.</p>
+    <div class="hero-steps">
+      <span class="hero-step-pill">1 · Get Started</span>
+      <span class="hero-step-pill">2 · Pick Your League</span>
+      <span class="hero-step-pill">3 · Choose Contest Type</span>
+      <span class="hero-step-pill">4 · Set Up Your Contest</span>
+      <span class="hero-step-pill">5 · Invite Friends</span>
+    </div>
+  </section>
+
+  <div class="progress-section">
+    <div class="progress-inner">
+      <div class="progress-labels">
+        <span id="prog-1" class="active">Get Started</span>
+        <span id="prog-2">Pick League</span>
+        <span id="prog-3">Contest Type</span>
+        <span id="prog-4">Setup</span>
+        <span id="prog-5">Invite</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+    </div>
+  </div>
+
+  <main class="main">
+
+    <!-- Step 1 -->
+    <div class="step-card active" id="step-1">
+      <div class="step-header" onclick="toggleStep(1)">
+        <div class="step-number" id="num-1">1</div>
+        <div class="step-title-group">
+          <div class="step-label">Step 1 of 5</div>
+          <div class="step-title">Get Started on Splash</div>
+        </div>
+        <span class="step-chevron">▾</span>
+      </div>
+      <div class="step-body">
+        <p class="step-intro">When you first land on Splash Sports, you'll see the home page with trending contests, League Lobbies, and QuickPicks. Creating a new contest works the same way no matter which sport you want to run — your starting point is always in the top right corner.</p>
+
+        <div class="action-row">
+          <span class="action-icon">🖥️</span>
+          <div class="action-text">
+            <strong>Find the "+ Create contest" button</strong>
+            <p>It's the teal button in the top-right corner of the navigation bar — you'll see it on every page once you're logged in.</p>
+          </div>
+        </div>
+
+        <div class="action-row">
+          <span class="action-icon">👆</span>
+          <div class="action-text">
+            <strong>Click "+ Create contest"</strong>
+            <p>This opens the Contest Setup flow. Don't worry — nothing is created until you click the final "Create contest" button at the end.</p>
+          </div>
+        </div>
+
+        <div class="tip">
+          <strong>💡 New to Splash?</strong>
+          Make sure you're logged in first. If you don't have an account yet, sign up at <strong>app.splashsports.com</strong> — it's free to join and create contests.
+        </div>
+
+        <ul class="checklist">
+          <li><label><input type="checkbox" /> I'm logged into Splash Sports</label></li>
+          <li><label><input type="checkbox" /> I can see the "+ Create contest" button in the top right</label></li>
+          <li><label><input type="checkbox" /> I clicked it and the Contest Setup screen appeared</label></li>
+        </ul>
+
+        <div class="step-nav">
+          <button class="btn btn-primary" onclick="nextStep(1)">Next — Pick Your League →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="step-card" id="step-2">
+      <div class="step-header" onclick="toggleStep(2)">
+        <div class="step-number" id="num-2">2</div>
+        <div class="step-title-group">
+          <div class="step-label">Step 2 of 5</div>
+          <div class="step-title">Pick Your League</div>
+        </div>
+        <span class="step-chevron">▾</span>
+      </div>
+      <div class="step-body">
+        <p class="step-intro">The first screen shows a grid of available sports leagues. Pick the sport you want to run a contest for — each league has its own set of contest formats tailored to that sport.</p>
+
+        <div class="action-row">
+          <span class="action-icon">🏟️</span>
+          <div class="action-text">
+            <strong>Select your league from the grid</strong>
+            <p>Click any league tile — it highlights with a teal border to confirm your selection. Tiles with a grey eye icon are currently unavailable for new contests (usually out of season).</p>
+          </div>
+        </div>
+
+        <div class="action-row">
+          <span class="action-icon">▶️</span>
+          <div class="action-text">
+            <strong>Click "Continue"</strong>
+            <p>The Continue button activates once you've selected a league. After clicking, the contest type options for that sport will appear — the next step covers all formats by league.</p>
+          </div>
+        </div>
+
+        <div class="tip">
+          <strong>💡 Available leagues on Splash</strong>
+          NFL, PGA, NBA, MLB, NCAAB, and NCAAF each have their own contest formats — Survivor, Pick'Em, One &amp; Done, Tiers, and more. The setup flow is the same no matter which sport you pick; the format options just change to match.
+        </div>
+
+        <ul class="checklist">
+          <li><label><input type="checkbox" /> I selected my league (teal highlight border appears)</label></li>
+          <li><label><input type="checkbox" /> I clicked Continue and the contest type options appeared</label></li>
+        </ul>
+
+        <div class="step-nav">
+          <button class="btn btn-secondary" onclick="prevStep(2)">← Back</button>
+          <button class="btn btn-primary" onclick="nextStep(2)">Next — Choose Contest Type →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="step-card" id="step-3">
+      <div class="step-header" onclick="toggleStep(3)">
+        <div class="step-number" id="num-3">3</div>
+        <div class="step-title-group">
+          <div class="step-label">Step 3 of 5</div>
+          <div class="step-title">Choose Your Contest Type</div>
+        </div>
+        <span class="step-chevron">▾</span>
+      </div>
+      <div class="step-body">
+        <p class="step-intro">After selecting your league, you'll choose a contest type. The options vary by sport — here's a plain-English breakdown of every format, organized by league.</p>
+
+        <!-- ======== NFL ======== -->
+        <div class="format-group-label" style="margin-top:0;">🏈 NFL</div>
+        <div class="contest-types">
+          <div class="contest-type recommended">
+            <div>
+              <div class="contest-type-name">Survivor</div>
+              <div class="contest-type-desc">Pick one NFL team to win each week. If your team loses, you're eliminated. Last person standing wins. Classic and easy to explain to new players.</div>
+            </div>
+            <span class="rec-badge">⭐ Most popular</span>
+          </div>
+          <div class="contest-type">
+            <div>
+              <div class="contest-type-name">Pick'Em</div>
+              <div class="contest-type-desc">Pick the winner of every game each week. Whoever gets the most right wins. Simple, season-long, great for big groups.</div>
+            </div>
+          </div>
+          <div class="contest-type">
+            <div>
+              <div class="contest-type-name">Pick'Em: Confidence</div>
+              <div class="contest-type-desc">Same as Pick'Em but you assign confidence points to each pick — more points on your sure bets, fewer on the coin flips. Adds strategy.</div>
+            </div>
+          </div>
+          <div class="contest-type">
+            <div>
+              <div class="contest-type-name">Player Survivor</div>
+              <div class="contest-type-desc">Like Survivor, but instead of picking a team, you pick an individual player to perform each week. Can't reuse the same player twice.</div>
+            </div>
+          </div>
+          <div class="contest-type">
+            <div>
+              <div class="contest-type-name">Tiers: Fantasy Points</div>
+              <div class="contest-type-desc">Pick players from pre-set tiers (like a salary cap) each week. Scored by fantasy points. Less lineup-heavy than traditional DFS.</div>
+            </div>
+          </div>
+          <div class="contest-type">
+            <div>
+              <div class="contest-type-name">One &amp; Done: Fantasy Points / Touchdowns</div>
+              <div class="contest-type-desc">Pick one player per week, can never reuse them. Scored by fantasy points or touchdowns depending on the variant. Great for season-long engagement.</div>
+            </div>
+          </div>
+          <div class="contest-type">
+            <div>
+              <div class="contest-type-name">NFL Playoffs — Tiers / Pick'Em - Playoffs / Playoffs Survivor</div>
+              <div class="contest-type-desc">Playoff-specific versions of Tiers, Pick'Em, and Survivor. Run a quick contest just for the postseason — great if you don't want a full season commitment.</div>
+            </div>
+          </div>
+          <div class="contest-type">
+            <div>
+              <div class="contest-type-name">Squares</div>
+              <div class="contest-type-desc">The classic Super Bowl squares grid. Assign squares randomly and pay out based on the score at the end of each quarter.</div>
+            </div>
+          </div>
+          <div class="contest-type">
+            <div>
+              <div class="contest-type-name">SB Props</div>
+              <div class="contest-type-desc">Super Bowl prop picks — answer yes/no or multiple choice questions about Super Bowl outcomes. Fun and low-effort for casual fans.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ======== PGA ======== -->
+        <div class="format-group-label">⛳ PGA</div>
+
+        <div class="format-group-label" style="font-size:0.62rem; margin-top:0.4rem; color:#666; letter-spacing:0.06em;">One &amp; Done formats</div>
+        <div class="contest-types">
+          <div class="contest-type recommended">
+            <div>
+              <div class="contest-type-name">One &amp; Done — Dollar Winnings</div>
+              <div class="contest-type-desc">Each week, pick one golfer to represent you in that tournament. Once you use a golfer, you can't pick them again all season. Standings are based on how much prize money your chosen golfer earns. At the end of the season, the top finishers in your contest win real dollar prizes.</div>
+            </div>
+            <span class="rec-badge">⭐ Best for beginners</span>
+          </div>
+          <div class="contest-type">
+            <div>
+              <div class="contest-type-name">One &amp; Done — Total Strokes</div>
+              <div class="contest-type-desc">Same "one golfer per tournament, no repeats" format — but scored by how many total strokes your golfer shoots across the season, not by their prize earnings. Lower strokes = better.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="format-group-label" style="font-size:0.62rem; color:#666; letter-spacing:0.06em;">Golf Majors Tiers formats</div>
+        <div class="contest-types">
+          <div class="contest-type">
+            <div>
+              <div class="contest-type-name">Golf Majors Tiers — Dollar Winnings</div>
+              <div class="contest-type-desc">Pick a team of golfers from pre-set tiers for each of the four Major tournaments. Scored by prize money earned. Good for groups who only want to compete during the biggest events of the year.</div>
+            </div>
+          </div>
+          <div class="contest-type">
+            <div>
+              <div class="contest-type-name">Golf Majors Tiers — Total Strokes</div>
+              <div class="contest-type-desc">Same tier-based team picks for Majors only, but scored by cumulative strokes instead of prize money.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="format-group-label" style="font-size:0.62rem; color:#666; letter-spacing:0.06em;">Multi-Tournament Tiers formats</div>
+        <div class="contest-types">
+          <div class="contest-type">
+            <div>
+              <div class="contest-type-name">Multi-Tournament Tiers — Dollar Winnings</div>
+              <div class="contest-type-desc">Pick a team of golfers from tiers across multiple selected tournaments throughout the season. Scored by prize money. Best for long-running leagues.</div>
+            </div>
+          </div>
+          <div class="contest-type">
+            <div>
+              <div class="contest-type-name">Multi-Tournament Tiers — Total Strokes</div>
+              <div class="contest-type-desc">Same multi-tournament tier format, but scored by stroke totals across the tournaments you include.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="format-group-label" style="font-size:0.62rem; color:#666; letter-spacing:0.06em;">Single Tournament Tiers formats</div>
+        <div class="contest-types">
+          <div class="contest-type">
+            <div>
+              <div class="contest-type-name">Single Tournament Tiers — Dollar Winnings</div>
+              <div class="contest-type-desc">Pick a team of golfers from tiers for one specific tournament only. Scored by prize money earned that week. Great for one-off contests around a marquee event.</div>
+            </div>
+          </div>
+          <div class="contest-type">
+            <div>
+              <div class="contest-type-name">Single Tournament Tiers — Total Strokes</div>
+              <div class="contest-type-desc">Same single-tournament tier format, scored by stroke total for that event. Perfect for one-and-done groups who want a quick contest around a specific week.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="format-group-label" style="margin-top: 1.25rem;">🤔 Not sure which PGA format to pick?</div>
+        <table class="decide-table">
+          <thead>
+            <tr>
+              <th>If you want…</th>
+              <th>Choose this format</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Classic season-long fantasy golf — one pick per week, no repeats, with real prizes</td>
+              <td><strong>One &amp; Done — Dollar Winnings</strong></td>
+            </tr>
+            <tr>
+              <td>Same thing but scored by stroke totals instead of prize money</td>
+              <td><strong>One &amp; Done — Total Strokes</strong></td>
+            </tr>
+            <tr>
+              <td>Only compete during the 4 Major events, picking from tiers</td>
+              <td><strong>Golf Majors Tiers — Dollar Winnings</strong> or <strong>Total Strokes</strong></td>
+            </tr>
+            <tr>
+              <td>A season-long league with tier-based picks across many tournaments</td>
+              <td><strong>Multi-Tournament Tiers — Dollar Winnings</strong> or <strong>Total Strokes</strong></td>
+            </tr>
+            <tr>
+              <td>A quick one-off contest for just a single specific tournament</td>
+              <td><strong>Single Tournament Tiers — Dollar Winnings</strong> or <strong>Total Strokes</strong></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- ======== NBA ======== -->
+        <div class="format-group-label" style="margin-top:1.5rem;">🏀 NBA</div>
+        <div class="contest-types">
+          <div class="contest-type">
+            <div>
+              <div class="contest-type-name">NBA Tiers</div>
+              <div class="contest-type-desc">Pick players from pre-set tiers each week. Scored by fantasy points. Great for NBA fans who want a lighter lift than traditional DFS.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ======== MLB ======== -->
+        <div class="format-group-label" style="margin-top:1.5rem;">⚾ MLB</div>
+        <div class="contest-types">
+          <div class="contest-type">
+            <div>
+              <div class="contest-type-name">Player Survivor</div>
+              <div class="contest-type-desc">Pick one MLB player to perform each week — can't reuse them. If your player doesn't perform up to the threshold, you're out. Season-long elimination format.</div>
+            </div>
+          </div>
+          <div class="contest-type">
+            <div>
+              <div class="contest-type-name">13-Run</div>
+              <div class="contest-type-desc">A unique MLB format — pick a team and bet on whether they'll score 13 or more runs in a game. High-risk, fun, and perfect for baseball fans.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ======== NCAAB ======== -->
+        <div class="format-group-label" style="margin-top:1.5rem;">🏀 NCAAB (College Basketball)</div>
+        <div class="contest-types">
+          <div class="contest-type recommended">
+            <div>
+              <div class="contest-type-name">NCAAB Men's Bracket / Women's Bracket</div>
+              <div class="contest-type-desc">Fill out a March Madness bracket and score points for every correct pick. The classic tournament format — best for March Madness season.</div>
+            </div>
+            <span class="rec-badge">⭐ March Madness</span>
+          </div>
+          <div class="contest-type">
+            <div>
+              <div class="contest-type-name">NCAAB Survivor — Pick by Day / Pick by Round</div>
+              <div class="contest-type-desc">Pick one team to win each day (or each round). Team loses = you're eliminated. Two variants: daily picks or one pick per tournament round.</div>
+            </div>
+          </div>
+          <div class="contest-type">
+            <div>
+              <div class="contest-type-name">NCAAB Pick'Em</div>
+              <div class="contest-type-desc">Pick the winner of every college basketball game. Whoever gets the most right across the tournament wins. Great for big groups.</div>
+            </div>
+          </div>
+          <div class="contest-type">
+            <div>
+              <div class="contest-type-name">NCAAB Squares</div>
+              <div class="contest-type-desc">Classic squares grid format applied to college basketball. Payout by score at end of each quarter or half.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ======== NCAAF ======== -->
+        <div class="format-group-label" style="margin-top:1.5rem;">🏈 NCAAF (College Football)</div>
+        <div class="contest-types">
+          <div class="contest-type">
+            <div>
+              <div class="contest-type-name">CFB Playoffs Survivor</div>
+              <div class="contest-type-desc">Survivor format for the College Football Playoff. Pick one team to win each round — lose and you're out. Quick and exciting for playoff season.</div>
+            </div>
+          </div>
+          <div class="contest-type">
+            <div>
+              <div class="contest-type-name">College Bowl Pick'Em</div>
+              <div class="contest-type-desc">Pick winners across all the college bowl games. Best for the bowl season (December–January). Easy to run with a big group of college football fans.</div>
+            </div>
+          </div>
+          <div class="contest-type">
+            <div>
+              <div class="contest-type-name">Pick'Em / Pick'Em: Confidence</div>
+              <div class="contest-type-desc">Pick the winner of every college football game each week, with optional confidence point weighting. Same as the NFL format applied to college.</div>
+            </div>
+          </div>
+          <div class="contest-type">
+            <div>
+              <div class="contest-type-name">Survivor</div>
+              <div class="contest-type-desc">Pick one college team to win each week. If they lose, you're eliminated. Season-long format — good for dedicated CFB fans.</div>
+            </div>
+          </div>
+          <div class="contest-type">
+            <div>
+              <div class="contest-type-name">Squares</div>
+              <div class="contest-type-desc">Classic squares grid applied to college football. Perfect for big rivalry games or bowl games with casual fans.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="warn">
+          <strong>⚠️ Common mistake: mixing up "Dollar Winnings" vs. "Total Strokes"</strong>
+          <p>Dollar Winnings rewards your golfer's finishing position (prize purse earned). Total Strokes counts the actual number of shots — lower is better. Make sure your whole group agrees on which scoring system you're using before you create the contest.</p>
+        </div>
+
+        <div class="action-row">
+          <span class="action-icon">✅</span>
+          <div class="action-text">
+            <strong>Select your format, then click Continue</strong>
+            <p>Click your chosen format to highlight it with a teal border, then click <strong>Continue</strong> to move to the setup form.</p>
+          </div>
+        </div>
+
+        <ul class="checklist">
+          <li><label><input type="checkbox" /> I found my sport's section above and reviewed the available formats</label></li>
+          <li><label><input type="checkbox" /> I know which format I want to run</label></li>
+          <li><label><input type="checkbox" /> I selected my format in the app (teal border appears around the selected card)</label></li>
+          <li><label><input type="checkbox" /> I clicked Continue</label></li>
+        </ul>
+
+        <div class="step-nav">
+          <button class="btn btn-secondary" onclick="prevStep(3)">← Back</button>
+          <button class="btn btn-primary" onclick="nextStep(3)">Next — Set Up Your Contest →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="step-card" id="step-4">
+      <div class="step-header" onclick="toggleStep(4)">
+        <div class="step-number" id="num-4">4</div>
+        <div class="step-title-group">
+          <div class="step-label">Step 4 of 5</div>
+          <div class="step-title">Set Up Your Contest</div>
+        </div>
+        <span class="step-chevron">▾</span>
+      </div>
+      <div class="step-body">
+        <p class="step-intro">Now you're on the Contest Setup form. This has several sections — here's what each one does and what you actually need to fill out.</p>
+
+        <div class="settings-grid">
+          <div class="setting-row">
+            <div class="setting-info">
+              <strong>Contest Title</strong>
+              <span>Give your contest a name your friends will recognize — e.g. "Mike's PGA One &amp; Done 2025"</span>
+            </div>
+            <span class="setting-badge badge-required">Required</span>
+          </div>
+          <div class="setting-row">
+            <div class="setting-info">
+              <strong>Contest Description</strong>
+              <span>Add house rules, payout notes, or anything your players need to know. Totally optional.</span>
+            </div>
+            <span class="setting-badge badge-optional">Optional</span>
+          </div>
+          <div class="setting-row">
+            <div class="setting-info">
+              <strong>Contest Banner</strong>
+              <span>Upload a custom image (2880×170px, PNG/JPG, max 4MB). Skip this for now — you can always add it later.</span>
+            </div>
+            <span class="setting-badge badge-optional">Optional</span>
+          </div>
+          <div class="setting-row">
+            <div class="setting-info">
+              <strong>Sport &amp; Game Style</strong>
+              <span>Pre-filled with your selected league and format from the previous steps. No action needed — just confirm it looks right.</span>
+            </div>
+            <span class="setting-badge badge-optional">Auto-filled</span>
+          </div>
+          <div class="setting-row">
+            <div class="setting-info">
+              <strong>Schedule</strong>
+              <span>Defaults to "All Events." Click to expand if you want to exclude specific tournaments or games.</span>
+            </div>
+            <span class="setting-badge badge-review">Review</span>
+          </div>
+          <div class="setting-row">
+            <div class="setting-info">
+              <strong>Entry Fee</strong>
+              <span>Click "Set up" to configure how much each player pays to enter and how payouts are structured.</span>
+            </div>
+            <span class="setting-badge badge-required">Set up</span>
+          </div>
+          <div class="setting-row">
+            <div class="setting-info">
+              <strong>Contest Size</strong>
+              <span>Click "Set up" to set a max number of players. This controls how many invites can be accepted.</span>
+            </div>
+            <span class="setting-badge badge-required">Set up</span>
+          </div>
+          <div class="setting-row">
+            <div class="setting-info">
+              <strong>General / Advanced / Admin Settings</strong>
+              <span>Click "Review" on each to see the defaults. Most first-time commissioners can leave these as-is.</span>
+            </div>
+            <span class="setting-badge badge-review">Review</span>
+          </div>
+        </div>
+
+        <div class="warn">
+          <strong>⚠️ Don't skip Entry Fee &amp; Contest Size</strong>
+          <p>These two are the most commonly missed settings. If you skip them, your contest may not work correctly when players try to join. Click "Set up" on both before creating your contest.</p>
+        </div>
+
+        <div class="tip">
+          <strong>🙋 Prefer to handle money yourself?</strong>
+          Choose <em>"I'll collect entries and handle payouts on my own"</em> in the Entry Fee setup. Players won't pay through Splash — you collect cash, Venmo, or however you like. There's no entry fee charged to your players, but a <strong style="display:inline;">commissioner service fee</strong> still applies to host the contest on Splash.
+        </div>
+
+        <div class="action-row">
+          <span class="action-icon">🚀</span>
+          <div class="action-text">
+            <strong>Click "Create contest" when ready</strong>
+            <p>The big teal button at the bottom. This is the final step — your contest goes live immediately and you'll land on the Manage Contest dashboard.</p>
+          </div>
+        </div>
+
+        <ul class="checklist">
+          <li><label><input type="checkbox" /> I filled in the Contest Title</label></li>
+          <li><label><input type="checkbox" /> I set up Entry Fee</label></li>
+          <li><label><input type="checkbox" /> I set up Contest Size</label></li>
+          <li><label><input type="checkbox" /> I reviewed the Schedule settings</label></li>
+          <li><label><input type="checkbox" /> I clicked "Create contest"</label></li>
+        </ul>
+
+        <div class="step-nav">
+          <button class="btn btn-secondary" onclick="prevStep(4)">← Back</button>
+          <button class="btn btn-primary" onclick="nextStep(4)">Next — Invite Your Friends →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 5 -->
+    <div class="step-card" id="step-5">
+      <div class="step-header" onclick="toggleStep(5)">
+        <div class="step-number" id="num-5">5</div>
+        <div class="step-title-group">
+          <div class="step-label">Step 5 of 5</div>
+          <div class="step-title">Invite Your Friends</div>
+        </div>
+        <span class="step-chevron">▾</span>
+      </div>
+      <div class="step-body">
+        <p class="step-intro">Your contest is live! Now you're on the Manage Contest dashboard. Head to the Invites Manager to get your friends in. There are several ways to invite people:</p>
+
+        <div class="action-row">
+          <span class="action-icon">📋</span>
+          <div class="action-text">
+            <strong>Click "Invites Manager" in the left sidebar</strong>
+            <p>Or click the Invites Manager card in the main dashboard area. Both take you to the same place.</p>
+          </div>
+        </div>
+
+        <div class="invite-methods">
+          <div class="invite-method best">
+            <strong>🔗 Share link (easiest)</strong>
+            <p>Copy your contest invite link and paste it anywhere — text, email, group chat, social media. Anyone with the link can join.</p>
+          </div>
+          <div class="invite-method">
+            <strong>👥 Followers</strong>
+            <p>Invite people who already follow you on Splash. Great if your friends are already on the platform.</p>
+          </div>
+          <div class="invite-method">
+            <strong>📧 Import</strong>
+            <p>Upload a list of email addresses to invite people who aren't on Splash yet. They'll get an email to sign up and join.</p>
+          </div>
+          <div class="invite-method">
+            <strong>🏈 Previous entrants</strong>
+            <p>Re-invite people from contests you've run before. Perfect for recurring leagues.</p>
+          </div>
+        </div>
+
+        <div class="warn">
+          <strong>⚠️ Heads up — invites may go to spam</strong>
+          <p>Splash's invitation emails sometimes land in spam folders, especially for new users. Ask your friends to search their email for <strong>"noreply@splashsports.com"</strong> and mark it as "Not Spam" so they don't miss future contest communications.</p>
+        </div>
+
+        <div class="tip">
+          <strong>💡 Track your invites in the "Sent" tab</strong>
+          After sending invites, click the <strong>Sent</strong> tab to see who's been invited, who's entered, and who's still pending. You can send a reminder directly from there.
+        </div>
+
+        <ul class="checklist">
+          <li><label><input type="checkbox" /> I opened the Invites Manager</label></li>
+          <li><label><input type="checkbox" /> I chose how I want to invite my friends (Share link is fastest)</label></li>
+          <li><label><input type="checkbox" /> I sent at least one invite</label></li>
+          <li><label><input type="checkbox" /> I checked the Sent tab to confirm the invite went out</label></li>
+          <li><label><input type="checkbox" /> I warned my friends to check spam if they don't see the invite email</label></li>
+        </ul>
+
+        <div class="step-nav">
+          <button class="btn btn-secondary" onclick="prevStep(5)">← Back</button>
+          <button class="btn btn-primary" onclick="finish()">🎉 I'm done — contest is live!</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Done banner -->
+    <div class="done-banner" id="doneBanner">
+      <img src="assets/splash-whale.png" class="done-whale" alt="" aria-hidden="true" />
+      <div style="font-size:2.75rem; margin-bottom:0.75rem; position:relative;">🎉</div>
+      <h2 style="position:relative;">Your contest is <span>live!</span></h2>
+      <p style="margin-top:0.75rem; position:relative;">You've completed all five steps. Share your invite link, sit back, and let the competition begin. Good luck, commissioner!</p>
+      <p style="margin-top:1rem; font-size:0.82rem; position:relative; opacity:0.45;">Questions? Reach out in <strong>#splash-onboarding</strong> on Slack.</p>
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <img src="assets/splash-whale.png" alt="Splash Sports" class="footer-logo" />
+    <p>Contest Creation Guide &middot; For new commissioners &middot; <a href="https://app.splashsports.com" target="_blank" rel="noopener">app.splashsports.com</a></p>
+  </footer>
+
+  <script>
+    const TOTAL = 5;
+    let current = 1;
+
+    function updateProgress(step) {
+      const fill = document.getElementById('progressFill');
+      fill.style.width = (step / TOTAL * 100) + '%';
+      for (let i = 1; i <= TOTAL; i++) {
+        const el = document.getElementById('prog-' + i);
+        el.classList.toggle('active', i === step);
+      }
+    }
+
+    function toggleStep(n) {
+      const card = document.getElementById('step-' + n);
+      const isActive = card.classList.contains('active');
+      for (let i = 1; i <= TOTAL; i++) {
+        document.getElementById('step-' + i).classList.remove('active');
+      }
+      if (!isActive) {
+        card.classList.add('active');
+        current = n;
+        updateProgress(n);
+        card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    function nextStep(n) {
+      const card = document.getElementById('step-' + n);
+      card.classList.remove('active');
+      card.classList.add('complete');
+      document.getElementById('num-' + n).textContent = '';
+
+      if (n < TOTAL) {
+        const next = document.getElementById('step-' + (n + 1));
+        next.classList.add('active');
+        current = n + 1;
+        updateProgress(n + 1);
+        next.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    function prevStep(n) {
+      const card = document.getElementById('step-' + n);
+      card.classList.remove('active');
+      const prev = document.getElementById('step-' + (n - 1));
+      prev.classList.remove('complete');
+      prev.classList.add('active');
+      document.getElementById('num-' + (n - 1)).textContent = n - 1;
+      current = n - 1;
+      updateProgress(n - 1);
+      prev.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function finish() {
+      const card = document.getElementById('step-5');
+      card.classList.remove('active');
+      card.classList.add('complete');
+      document.getElementById('num-5').textContent = '';
+      updateProgress(5);
+      document.getElementById('doneBanner').classList.add('visible');
+      document.getElementById('doneBanner').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    updateProgress(1);
+  </script>
+
+</body>
+</html>
