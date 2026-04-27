@@ -587,6 +587,69 @@
     .site-footer a { color: var(--splash-teal); text-decoration: none; opacity: 0.7; }
     .site-footer a:hover { opacity: 1; }
 
+    /* --- Sport Accordions (Step 3) --- */
+    .sport-accordions {
+      display: grid;
+      gap: 0.5rem;
+      margin: 0.5rem 0 1.25rem;
+    }
+    .sport-accordion {
+      border: 1px solid var(--splash-border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .sport-accordion-header {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.9rem 1.1rem;
+      background: #F8F8F6;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+      transition: background 0.15s;
+    }
+    .sport-accordion-header:hover {
+      background: rgba(75,235,226,0.07);
+    }
+    .sport-accordion-header[aria-expanded="true"] {
+      background: rgba(75,235,226,0.08);
+      border-bottom: 1px solid var(--splash-border);
+    }
+    .sport-accordion-title {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--splash-text);
+      flex: 1;
+    }
+    .sport-accordion-count {
+      font-size: 0.72rem;
+      color: var(--splash-muted);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .sport-accordion-chevron {
+      color: #bbb;
+      font-size: 0.9rem;
+      transition: transform 0.25s, color 0.2s;
+      flex-shrink: 0;
+    }
+    .sport-accordion-header[aria-expanded="true"] .sport-accordion-chevron {
+      transform: rotate(180deg);
+      color: var(--splash-teal);
+    }
+    .sport-accordion-body {
+      display: none;
+      padding: 1rem 1.1rem 1.25rem;
+    }
+    .sport-accordion-body.open {
+      display: block;
+    }
+
     @media (max-width: 600px) {
       .invite-methods { grid-template-columns: 1fr; }
       .progress-labels span:not(.active) { display: none; }
@@ -737,264 +800,281 @@
         <span class="step-chevron">▾</span>
       </div>
       <div class="step-body">
-        <p class="step-intro">After selecting your league, you'll choose a contest type. The options vary by sport — here's a plain-English breakdown of every format, organized by league.</p>
+        <p class="step-intro">After selecting your league, you'll choose a contest type. Click your sport below to see the available formats and what each one means.</p>
 
-        <!-- ======== NFL ======== -->
-        <div class="format-group-label" style="margin-top:0;">🏈 NFL</div>
-        <div class="contest-types">
-          <div class="contest-type recommended">
-            <div>
-              <div class="contest-type-name">Survivor</div>
-              <div class="contest-type-desc">Pick one NFL team to win each week. If your team loses, you're eliminated. Last person standing wins. Classic and easy to explain to new players.</div>
-            </div>
-            <span class="rec-badge">⭐ Most popular</span>
-          </div>
-          <div class="contest-type">
-            <div>
-              <div class="contest-type-name">Pick'Em</div>
-              <div class="contest-type-desc">Pick the winner of every game each week. Whoever gets the most right wins. Simple, season-long, great for big groups.</div>
-            </div>
-          </div>
-          <div class="contest-type">
-            <div>
-              <div class="contest-type-name">Pick'Em: Confidence</div>
-              <div class="contest-type-desc">Same as Pick'Em but you assign confidence points to each pick — more points on your sure bets, fewer on the coin flips. Adds strategy.</div>
-            </div>
-          </div>
-          <div class="contest-type">
-            <div>
-              <div class="contest-type-name">Player Survivor</div>
-              <div class="contest-type-desc">Like Survivor, but instead of picking a team, you pick an individual player to perform each week. Can't reuse the same player twice.</div>
-            </div>
-          </div>
-          <div class="contest-type">
-            <div>
-              <div class="contest-type-name">Tiers: Fantasy Points</div>
-              <div class="contest-type-desc">Pick players from pre-set tiers (like a salary cap) each week. Scored by fantasy points. Less lineup-heavy than traditional DFS.</div>
-            </div>
-          </div>
-          <div class="contest-type">
-            <div>
-              <div class="contest-type-name">One &amp; Done: Fantasy Points / Touchdowns</div>
-              <div class="contest-type-desc">Pick one player per week, can never reuse them. Scored by fantasy points or touchdowns depending on the variant. Great for season-long engagement.</div>
-            </div>
-          </div>
-          <div class="contest-type">
-            <div>
-              <div class="contest-type-name">NFL Playoffs — Tiers / Pick'Em - Playoffs / Playoffs Survivor</div>
-              <div class="contest-type-desc">Playoff-specific versions of Tiers, Pick'Em, and Survivor. Run a quick contest just for the postseason — great if you don't want a full season commitment.</div>
-            </div>
-          </div>
-          <div class="contest-type">
-            <div>
-              <div class="contest-type-name">Squares</div>
-              <div class="contest-type-desc">The classic Super Bowl squares grid. Assign squares randomly and pay out based on the score at the end of each quarter.</div>
-            </div>
-          </div>
-          <div class="contest-type">
-            <div>
-              <div class="contest-type-name">SB Props</div>
-              <div class="contest-type-desc">Super Bowl prop picks — answer yes/no or multiple choice questions about Super Bowl outcomes. Fun and low-effort for casual fans.</div>
-            </div>
-          </div>
-        </div>
+        <!-- Sport accordions -->
+        <div class="sport-accordions">
 
-        <!-- ======== PGA ======== -->
-        <div class="format-group-label">⛳ PGA</div>
+          <!-- NFL -->
+          <div class="sport-accordion" id="sport-nfl">
+            <button class="sport-accordion-header" onclick="toggleSport('nfl')" aria-expanded="false">
+              <span class="sport-accordion-title">🏈 NFL</span>
+              <span class="sport-accordion-count">9 formats</span>
+              <span class="sport-accordion-chevron">▾</span>
+            </button>
+            <div class="sport-accordion-body">
+              <div class="contest-types">
+                <div class="contest-type recommended">
+                  <div>
+                    <div class="contest-type-name">Survivor</div>
+                    <div class="contest-type-desc">Pick one NFL team to win each week. If your team loses, you're eliminated. Last person standing wins. Classic and easy to explain to new players.</div>
+                  </div>
+                  <span class="rec-badge">⭐ Most popular</span>
+                </div>
+                <div class="contest-type">
+                  <div>
+                    <div class="contest-type-name">Pick'Em</div>
+                    <div class="contest-type-desc">Pick the winner of every game each week. Whoever gets the most right wins. Simple, season-long, great for big groups.</div>
+                  </div>
+                </div>
+                <div class="contest-type">
+                  <div>
+                    <div class="contest-type-name">Pick'Em: Confidence</div>
+                    <div class="contest-type-desc">Same as Pick'Em but you assign confidence points to each pick — more points on your sure bets, fewer on the coin flips. Adds strategy.</div>
+                  </div>
+                </div>
+                <div class="contest-type">
+                  <div>
+                    <div class="contest-type-name">Player Survivor</div>
+                    <div class="contest-type-desc">Like Survivor, but instead of picking a team, you pick an individual player to perform each week. Can't reuse the same player twice.</div>
+                  </div>
+                </div>
+                <div class="contest-type">
+                  <div>
+                    <div class="contest-type-name">Tiers: Fantasy Points</div>
+                    <div class="contest-type-desc">Pick players from pre-set tiers (like a salary cap) each week. Scored by fantasy points. Less lineup-heavy than traditional DFS.</div>
+                  </div>
+                </div>
+                <div class="contest-type">
+                  <div>
+                    <div class="contest-type-name">One &amp; Done: Fantasy Points / Touchdowns</div>
+                    <div class="contest-type-desc">Pick one player per week, can never reuse them. Scored by fantasy points or touchdowns depending on the variant. Great for season-long engagement.</div>
+                  </div>
+                </div>
+                <div class="contest-type">
+                  <div>
+                    <div class="contest-type-name">NFL Playoffs — Tiers / Pick'Em / Survivor</div>
+                    <div class="contest-type-desc">Playoff-specific versions of Tiers, Pick'Em, and Survivor. Run a quick contest just for the postseason — great if you don't want a full season commitment.</div>
+                  </div>
+                </div>
+                <div class="contest-type">
+                  <div>
+                    <div class="contest-type-name">Squares</div>
+                    <div class="contest-type-desc">The classic Super Bowl squares grid. Assign squares randomly and pay out based on the score at the end of each quarter.</div>
+                  </div>
+                </div>
+                <div class="contest-type">
+                  <div>
+                    <div class="contest-type-name">SB Props</div>
+                    <div class="contest-type-desc">Super Bowl prop picks — answer yes/no or multiple choice questions about Super Bowl outcomes. Fun and low-effort for casual fans.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
-        <div class="format-group-label" style="font-size:0.62rem; margin-top:0.4rem; color:#666; letter-spacing:0.06em;">One &amp; Done formats</div>
-        <div class="contest-types">
-          <div class="contest-type recommended">
-            <div>
-              <div class="contest-type-name">One &amp; Done — Dollar Winnings</div>
-              <div class="contest-type-desc">Each week, pick one golfer to represent you in that tournament. Once you use a golfer, you can't pick them again all season. Standings are based on how much prize money your chosen golfer earns. At the end of the season, the top finishers in your contest win real dollar prizes.</div>
+          <!-- PGA -->
+          <div class="sport-accordion" id="sport-pga">
+            <button class="sport-accordion-header" onclick="toggleSport('pga')" aria-expanded="false">
+              <span class="sport-accordion-title">⛳ PGA</span>
+              <span class="sport-accordion-count">8 formats</span>
+              <span class="sport-accordion-chevron">▾</span>
+            </button>
+            <div class="sport-accordion-body">
+              <div class="contest-types">
+                <div class="contest-type recommended">
+                  <div>
+                    <div class="contest-type-name">One &amp; Done — Dollar Winnings</div>
+                    <div class="contest-type-desc">Each week, pick one golfer. Once you use them, you can't pick them again all season. Scored by prize money earned. Best starting point for new commissioners.</div>
+                  </div>
+                  <span class="rec-badge">⭐ Best for beginners</span>
+                </div>
+                <div class="contest-type">
+                  <div>
+                    <div class="contest-type-name">One &amp; Done — Total Strokes</div>
+                    <div class="contest-type-desc">Same one-pick-per-tournament format — scored by total strokes instead of prize money. Lower strokes = better.</div>
+                  </div>
+                </div>
+                <div class="contest-type">
+                  <div>
+                    <div class="contest-type-name">Golf Majors Tiers — Dollar Winnings</div>
+                    <div class="contest-type-desc">Pick a team of golfers from pre-set tiers for each of the four Majors only. Scored by prize money. Good for groups who want to compete during the biggest events of the year.</div>
+                  </div>
+                </div>
+                <div class="contest-type">
+                  <div>
+                    <div class="contest-type-name">Golf Majors Tiers — Total Strokes</div>
+                    <div class="contest-type-desc">Same tier-based Majors format, scored by cumulative strokes instead of prize money.</div>
+                  </div>
+                </div>
+                <div class="contest-type">
+                  <div>
+                    <div class="contest-type-name">Multi-Tournament Tiers — Dollar Winnings</div>
+                    <div class="contest-type-desc">Tier-based picks across multiple tournaments throughout the season. Scored by prize money. Best for long-running season leagues.</div>
+                  </div>
+                </div>
+                <div class="contest-type">
+                  <div>
+                    <div class="contest-type-name">Multi-Tournament Tiers — Total Strokes</div>
+                    <div class="contest-type-desc">Same multi-tournament tier format, scored by stroke totals across all included tournaments.</div>
+                  </div>
+                </div>
+                <div class="contest-type">
+                  <div>
+                    <div class="contest-type-name">Single Tournament Tiers — Dollar Winnings</div>
+                    <div class="contest-type-desc">Tier-based picks for one specific tournament only. Scored by prize money. Great for a quick one-off contest around a marquee event.</div>
+                  </div>
+                </div>
+                <div class="contest-type">
+                  <div>
+                    <div class="contest-type-name">Single Tournament Tiers — Total Strokes</div>
+                    <div class="contest-type-desc">Same single-tournament tier format, scored by stroke total. Perfect for groups who want a quick one-and-done contest.</div>
+                  </div>
+                </div>
+              </div>
+              <div class="warn" style="margin-top:0.75rem;">
+                <strong>⚠️ Dollar Winnings vs. Total Strokes</strong>
+                <p>Dollar Winnings rewards finishing position (prize purse). Total Strokes counts actual shots — lower is better. Make sure your whole group agrees before you create the contest.</p>
+              </div>
+              <div class="format-group-label" style="margin-top:1rem;">🤔 Not sure which PGA format to pick?</div>
+              <table class="decide-table">
+                <thead><tr><th>If you want…</th><th>Choose this</th></tr></thead>
+                <tbody>
+                  <tr><td>Classic season-long golf, one pick per week, no repeats</td><td><strong>One &amp; Done — Dollar Winnings</strong></td></tr>
+                  <tr><td>Same but scored by strokes</td><td><strong>One &amp; Done — Total Strokes</strong></td></tr>
+                  <tr><td>Only the 4 Majors, tier-based picks</td><td><strong>Golf Majors Tiers</strong></td></tr>
+                  <tr><td>Season-long tier picks across many tournaments</td><td><strong>Multi-Tournament Tiers</strong></td></tr>
+                  <tr><td>One-off contest for a single tournament</td><td><strong>Single Tournament Tiers</strong></td></tr>
+                </tbody>
+              </table>
             </div>
-            <span class="rec-badge">⭐ Best for beginners</span>
           </div>
-          <div class="contest-type">
-            <div>
-              <div class="contest-type-name">One &amp; Done — Total Strokes</div>
-              <div class="contest-type-desc">Same "one golfer per tournament, no repeats" format — but scored by how many total strokes your golfer shoots across the season, not by their prize earnings. Lower strokes = better.</div>
-            </div>
-          </div>
-        </div>
 
-        <div class="format-group-label" style="font-size:0.62rem; color:#666; letter-spacing:0.06em;">Golf Majors Tiers formats</div>
-        <div class="contest-types">
-          <div class="contest-type">
-            <div>
-              <div class="contest-type-name">Golf Majors Tiers — Dollar Winnings</div>
-              <div class="contest-type-desc">Pick a team of golfers from pre-set tiers for each of the four Major tournaments. Scored by prize money earned. Good for groups who only want to compete during the biggest events of the year.</div>
+          <!-- NBA -->
+          <div class="sport-accordion" id="sport-nba">
+            <button class="sport-accordion-header" onclick="toggleSport('nba')" aria-expanded="false">
+              <span class="sport-accordion-title">🏀 NBA</span>
+              <span class="sport-accordion-count">1 format</span>
+              <span class="sport-accordion-chevron">▾</span>
+            </button>
+            <div class="sport-accordion-body">
+              <div class="contest-types">
+                <div class="contest-type">
+                  <div>
+                    <div class="contest-type-name">NBA Tiers</div>
+                    <div class="contest-type-desc">Pick players from pre-set tiers each week. Scored by fantasy points. Great for NBA fans who want a lighter lift than traditional DFS.</div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="contest-type">
-            <div>
-              <div class="contest-type-name">Golf Majors Tiers — Total Strokes</div>
-              <div class="contest-type-desc">Same tier-based team picks for Majors only, but scored by cumulative strokes instead of prize money.</div>
-            </div>
-          </div>
-        </div>
 
-        <div class="format-group-label" style="font-size:0.62rem; color:#666; letter-spacing:0.06em;">Multi-Tournament Tiers formats</div>
-        <div class="contest-types">
-          <div class="contest-type">
-            <div>
-              <div class="contest-type-name">Multi-Tournament Tiers — Dollar Winnings</div>
-              <div class="contest-type-desc">Pick a team of golfers from tiers across multiple selected tournaments throughout the season. Scored by prize money. Best for long-running leagues.</div>
+          <!-- MLB -->
+          <div class="sport-accordion" id="sport-mlb">
+            <button class="sport-accordion-header" onclick="toggleSport('mlb')" aria-expanded="false">
+              <span class="sport-accordion-title">⚾ MLB</span>
+              <span class="sport-accordion-count">2 formats</span>
+              <span class="sport-accordion-chevron">▾</span>
+            </button>
+            <div class="sport-accordion-body">
+              <div class="contest-types">
+                <div class="contest-type">
+                  <div>
+                    <div class="contest-type-name">Player Survivor</div>
+                    <div class="contest-type-desc">Pick one MLB player to perform each week — can't reuse them. If your player doesn't hit the threshold, you're out. Season-long elimination format.</div>
+                  </div>
+                </div>
+                <div class="contest-type">
+                  <div>
+                    <div class="contest-type-name">13-Run</div>
+                    <div class="contest-type-desc">Pick a team and bet on whether they'll score 13 or more runs in a game. High-risk, fun, and perfect for baseball fans.</div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="contest-type">
-            <div>
-              <div class="contest-type-name">Multi-Tournament Tiers — Total Strokes</div>
-              <div class="contest-type-desc">Same multi-tournament tier format, but scored by stroke totals across the tournaments you include.</div>
-            </div>
-          </div>
-        </div>
 
-        <div class="format-group-label" style="font-size:0.62rem; color:#666; letter-spacing:0.06em;">Single Tournament Tiers formats</div>
-        <div class="contest-types">
-          <div class="contest-type">
-            <div>
-              <div class="contest-type-name">Single Tournament Tiers — Dollar Winnings</div>
-              <div class="contest-type-desc">Pick a team of golfers from tiers for one specific tournament only. Scored by prize money earned that week. Great for one-off contests around a marquee event.</div>
+          <!-- NCAAB -->
+          <div class="sport-accordion" id="sport-ncaab">
+            <button class="sport-accordion-header" onclick="toggleSport('ncaab')" aria-expanded="false">
+              <span class="sport-accordion-title">🏀 NCAAB — College Basketball</span>
+              <span class="sport-accordion-count">4 formats</span>
+              <span class="sport-accordion-chevron">▾</span>
+            </button>
+            <div class="sport-accordion-body">
+              <div class="contest-types">
+                <div class="contest-type recommended">
+                  <div>
+                    <div class="contest-type-name">Men's Bracket / Women's Bracket</div>
+                    <div class="contest-type-desc">Fill out a March Madness bracket and score points for every correct pick. The classic tournament format.</div>
+                  </div>
+                  <span class="rec-badge">⭐ March Madness</span>
+                </div>
+                <div class="contest-type">
+                  <div>
+                    <div class="contest-type-name">Survivor — Pick by Day / Pick by Round</div>
+                    <div class="contest-type-desc">Pick one team to win each day or each round. Team loses = you're eliminated. Two variants depending on how often you want picks.</div>
+                  </div>
+                </div>
+                <div class="contest-type">
+                  <div>
+                    <div class="contest-type-name">Pick'Em</div>
+                    <div class="contest-type-desc">Pick the winner of every college basketball game. Whoever gets the most right wins. Great for big groups.</div>
+                  </div>
+                </div>
+                <div class="contest-type">
+                  <div>
+                    <div class="contest-type-name">Squares</div>
+                    <div class="contest-type-desc">Classic squares grid applied to college basketball. Payout by score at end of each quarter or half.</div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="contest-type">
-            <div>
-              <div class="contest-type-name">Single Tournament Tiers — Total Strokes</div>
-              <div class="contest-type-desc">Same single-tournament tier format, scored by stroke total for that event. Perfect for one-and-done groups who want a quick contest around a specific week.</div>
-            </div>
-          </div>
-        </div>
 
-        <div class="format-group-label" style="margin-top: 1.25rem;">🤔 Not sure which PGA format to pick?</div>
-        <table class="decide-table">
-          <thead>
-            <tr>
-              <th>If you want…</th>
-              <th>Choose this format</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Classic season-long fantasy golf — one pick per week, no repeats, with real prizes</td>
-              <td><strong>One &amp; Done — Dollar Winnings</strong></td>
-            </tr>
-            <tr>
-              <td>Same thing but scored by stroke totals instead of prize money</td>
-              <td><strong>One &amp; Done — Total Strokes</strong></td>
-            </tr>
-            <tr>
-              <td>Only compete during the 4 Major events, picking from tiers</td>
-              <td><strong>Golf Majors Tiers — Dollar Winnings</strong> or <strong>Total Strokes</strong></td>
-            </tr>
-            <tr>
-              <td>A season-long league with tier-based picks across many tournaments</td>
-              <td><strong>Multi-Tournament Tiers — Dollar Winnings</strong> or <strong>Total Strokes</strong></td>
-            </tr>
-            <tr>
-              <td>A quick one-off contest for just a single specific tournament</td>
-              <td><strong>Single Tournament Tiers — Dollar Winnings</strong> or <strong>Total Strokes</strong></td>
-            </tr>
-          </tbody>
-        </table>
+          <!-- NCAAF -->
+          <div class="sport-accordion" id="sport-ncaaf">
+            <button class="sport-accordion-header" onclick="toggleSport('ncaaf')" aria-expanded="false">
+              <span class="sport-accordion-title">🏈 NCAAF — College Football</span>
+              <span class="sport-accordion-count">5 formats</span>
+              <span class="sport-accordion-chevron">▾</span>
+            </button>
+            <div class="sport-accordion-body">
+              <div class="contest-types">
+                <div class="contest-type">
+                  <div>
+                    <div class="contest-type-name">CFB Playoffs Survivor</div>
+                    <div class="contest-type-desc">Survivor format for the College Football Playoff. Pick one team to win each round — lose and you're out.</div>
+                  </div>
+                </div>
+                <div class="contest-type">
+                  <div>
+                    <div class="contest-type-name">College Bowl Pick'Em</div>
+                    <div class="contest-type-desc">Pick winners across all the college bowl games. Best for bowl season (December–January). Easy to run with a big group.</div>
+                  </div>
+                </div>
+                <div class="contest-type">
+                  <div>
+                    <div class="contest-type-name">Pick'Em / Pick'Em: Confidence</div>
+                    <div class="contest-type-desc">Pick the winner of every college football game each week, with optional confidence point weighting.</div>
+                  </div>
+                </div>
+                <div class="contest-type">
+                  <div>
+                    <div class="contest-type-name">Survivor</div>
+                    <div class="contest-type-desc">Pick one college team to win each week. If they lose, you're eliminated. Season-long format for dedicated CFB fans.</div>
+                  </div>
+                </div>
+                <div class="contest-type">
+                  <div>
+                    <div class="contest-type-name">Squares</div>
+                    <div class="contest-type-desc">Classic squares grid applied to college football. Perfect for big rivalry games or bowl games with casual fans.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
-        <!-- ======== NBA ======== -->
-        <div class="format-group-label" style="margin-top:1.5rem;">🏀 NBA</div>
-        <div class="contest-types">
-          <div class="contest-type">
-            <div>
-              <div class="contest-type-name">NBA Tiers</div>
-              <div class="contest-type-desc">Pick players from pre-set tiers each week. Scored by fantasy points. Great for NBA fans who want a lighter lift than traditional DFS.</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ======== MLB ======== -->
-        <div class="format-group-label" style="margin-top:1.5rem;">⚾ MLB</div>
-        <div class="contest-types">
-          <div class="contest-type">
-            <div>
-              <div class="contest-type-name">Player Survivor</div>
-              <div class="contest-type-desc">Pick one MLB player to perform each week — can't reuse them. If your player doesn't perform up to the threshold, you're out. Season-long elimination format.</div>
-            </div>
-          </div>
-          <div class="contest-type">
-            <div>
-              <div class="contest-type-name">13-Run</div>
-              <div class="contest-type-desc">A unique MLB format — pick a team and bet on whether they'll score 13 or more runs in a game. High-risk, fun, and perfect for baseball fans.</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ======== NCAAB ======== -->
-        <div class="format-group-label" style="margin-top:1.5rem;">🏀 NCAAB (College Basketball)</div>
-        <div class="contest-types">
-          <div class="contest-type recommended">
-            <div>
-              <div class="contest-type-name">NCAAB Men's Bracket / Women's Bracket</div>
-              <div class="contest-type-desc">Fill out a March Madness bracket and score points for every correct pick. The classic tournament format — best for March Madness season.</div>
-            </div>
-            <span class="rec-badge">⭐ March Madness</span>
-          </div>
-          <div class="contest-type">
-            <div>
-              <div class="contest-type-name">NCAAB Survivor — Pick by Day / Pick by Round</div>
-              <div class="contest-type-desc">Pick one team to win each day (or each round). Team loses = you're eliminated. Two variants: daily picks or one pick per tournament round.</div>
-            </div>
-          </div>
-          <div class="contest-type">
-            <div>
-              <div class="contest-type-name">NCAAB Pick'Em</div>
-              <div class="contest-type-desc">Pick the winner of every college basketball game. Whoever gets the most right across the tournament wins. Great for big groups.</div>
-            </div>
-          </div>
-          <div class="contest-type">
-            <div>
-              <div class="contest-type-name">NCAAB Squares</div>
-              <div class="contest-type-desc">Classic squares grid format applied to college basketball. Payout by score at end of each quarter or half.</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ======== NCAAF ======== -->
-        <div class="format-group-label" style="margin-top:1.5rem;">🏈 NCAAF (College Football)</div>
-        <div class="contest-types">
-          <div class="contest-type">
-            <div>
-              <div class="contest-type-name">CFB Playoffs Survivor</div>
-              <div class="contest-type-desc">Survivor format for the College Football Playoff. Pick one team to win each round — lose and you're out. Quick and exciting for playoff season.</div>
-            </div>
-          </div>
-          <div class="contest-type">
-            <div>
-              <div class="contest-type-name">College Bowl Pick'Em</div>
-              <div class="contest-type-desc">Pick winners across all the college bowl games. Best for the bowl season (December–January). Easy to run with a big group of college football fans.</div>
-            </div>
-          </div>
-          <div class="contest-type">
-            <div>
-              <div class="contest-type-name">Pick'Em / Pick'Em: Confidence</div>
-              <div class="contest-type-desc">Pick the winner of every college football game each week, with optional confidence point weighting. Same as the NFL format applied to college.</div>
-            </div>
-          </div>
-          <div class="contest-type">
-            <div>
-              <div class="contest-type-name">Survivor</div>
-              <div class="contest-type-desc">Pick one college team to win each week. If they lose, you're eliminated. Season-long format — good for dedicated CFB fans.</div>
-            </div>
-          </div>
-          <div class="contest-type">
-            <div>
-              <div class="contest-type-name">Squares</div>
-              <div class="contest-type-desc">Classic squares grid applied to college football. Perfect for big rivalry games or bowl games with casual fans.</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="warn">
-          <strong>⚠️ Common mistake: mixing up "Dollar Winnings" vs. "Total Strokes"</strong>
-          <p>Dollar Winnings rewards your golfer's finishing position (prize purse earned). Total Strokes counts the actual number of shots — lower is better. Make sure your whole group agrees on which scoring system you're using before you create the contest.</p>
         </div>
 
         <div class="action-row">
@@ -1267,6 +1347,15 @@
       updateProgress(5);
       document.getElementById('doneBanner').classList.add('visible');
       document.getElementById('doneBanner').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function toggleSport(id) {
+      const acc = document.getElementById('sport-' + id);
+      const btn = acc.querySelector('.sport-accordion-header');
+      const body = acc.querySelector('.sport-accordion-body');
+      const isOpen = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!isOpen));
+      body.classList.toggle('open', !isOpen);
     }
 
     updateProgress(1);
