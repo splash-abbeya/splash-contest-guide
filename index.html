@@ -140,6 +140,18 @@
       padding: 0.35rem 0.9rem;
       border-radius: 99px;
       letter-spacing: 0.02em;
+      cursor: pointer;
+      font-family: var(--font-body);
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+    }
+    .hero-step-pill:hover {
+      background: rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.8);
+    }
+    .hero-step-pill.active {
+      background: rgba(75,235,226,0.18);
+      border-color: rgba(75,235,226,0.55);
+      color: var(--splash-teal);
     }
 
     /* --- Progress Bar --- */
@@ -673,11 +685,11 @@
     <h1>Be the Commissioner.<br><span>Get Everyone Playing.</span></h1>
     <p class="hero-sub">Five steps from zero to a live contest — works for every in-season sport on Splash. Pick your league, pick your format, and get your friends competing.</p>
     <div class="hero-steps">
-      <span class="hero-step-pill">1 · Get Started</span>
-      <span class="hero-step-pill">2 · Pick Your League</span>
-      <span class="hero-step-pill">3 · Choose Contest Type</span>
-      <span class="hero-step-pill">4 · Set Up Your Contest</span>
-      <span class="hero-step-pill">5 · Invite Friends</span>
+      <button class="hero-step-pill active" id="pill-1" onclick="goToStep(1)">1 · Get Started</button>
+      <button class="hero-step-pill" id="pill-2" onclick="goToStep(2)">2 · Pick Your League</button>
+      <button class="hero-step-pill" id="pill-3" onclick="goToStep(3)">3 · Choose Contest Type</button>
+      <button class="hero-step-pill" id="pill-4" onclick="goToStep(4)">4 · Set Up Your Contest</button>
+      <button class="hero-step-pill" id="pill-5" onclick="goToStep(5)">5 · Invite Friends</button>
     </div>
   </section>
 
@@ -1289,9 +1301,25 @@
       const fill = document.getElementById('progressFill');
       fill.style.width = (step / TOTAL * 100) + '%';
       for (let i = 1; i <= TOTAL; i++) {
-        const el = document.getElementById('prog-' + i);
-        el.classList.toggle('active', i === step);
+        document.getElementById('prog-' + i).classList.toggle('active', i === step);
+        const pill = document.getElementById('pill-' + i);
+        if (pill) pill.classList.toggle('active', i === step);
       }
+    }
+
+    function goToStep(n) {
+      // Close all steps, open the target
+      for (let i = 1; i <= TOTAL; i++) {
+        document.getElementById('step-' + i).classList.remove('active');
+      }
+      const target = document.getElementById('step-' + n);
+      target.classList.add('active');
+      current = n;
+      updateProgress(n);
+      // Scroll past the sticky header to the step
+      setTimeout(() => {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 50);
     }
 
     function toggleStep(n) {
