@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Troubleshooting guide for Splash Sports contest commissioners — fixes for invites, picks, payments, scoring, and more." />
+  <title>Troubleshooting — Splash Sports Contest Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@700;800;900&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --splash-dark:       #1A1A1A;
+      --splash-page-bg:    #F4F4F2;
+      --splash-card:       #FFFFFF;
+      --splash-teal:       #4BEBE2;
+      --splash-teal-dim:   rgba(75,235,226,0.1);
+      --splash-teal-glow:  rgba(75,235,226,0.2);
+      --splash-white:      #FFFFFF;
+      --splash-text:       #1A1A1A;
+      --splash-muted:      #6B7280;
+      --splash-border:     #E4E4E0;
+      --splash-warn-bg:    #FFFBEB;
+      --splash-warn-border:#F59E0B;
+      --splash-tip-bg:     rgba(75,235,226,0.08);
+      --radius: 12px;
+      --shadow: 0 2px 16px rgba(0,0,0,0.07);
+      --font-heading: 'Barlow', system-ui, sans-serif;
+      --font-body:    'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--splash-page-bg);
+      color: var(--splash-text);
+      font-size: 1rem;
+      line-height: 1.65;
+      min-height: 100vh;
+    }
+
+    /* --- Header --- */
+    .site-header {
+      background: var(--splash-dark);
+      padding: 0.75rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(75,235,226,0.15);
+      box-shadow: 0 2px 24px rgba(0,0,0,0.5);
+    }
+    .logo-img { height: 48px; width: auto; }
+    .header-nav { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
+    .nav-link {
+      color: rgba(255,255,255,0.55);
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-decoration: none;
+      padding: 0.35rem 0.85rem;
+      border-radius: 99px;
+      transition: color 0.15s, background 0.15s;
+      letter-spacing: 0.02em;
+    }
+    .nav-link:hover { color: var(--splash-white); background: rgba(255,255,255,0.07); }
+    .nav-link.active {
+      background: var(--splash-teal-dim);
+      border: 1px solid rgba(75,235,226,0.3);
+      color: var(--splash-teal);
+    }
+
+    /* --- Hero --- */
+    .hero {
+      background: var(--splash-dark);
+      color: var(--splash-white);
+      padding: 4rem 2rem 5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -150px; left: 50%;
+      transform: translateX(-50%);
+      width: 800px; height: 800px;
+      background: radial-gradient(circle, rgba(75,235,226,0.07) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--splash-teal-dim);
+      border: 1px solid rgba(75,235,226,0.35);
+      color: var(--splash-teal);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.35rem 1rem;
+      border-radius: 99px;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 900;
+      margin-bottom: 1rem;
+      line-height: 1.1;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--splash-white);
+    }
+    .hero h1 span { color: var(--splash-teal); text-shadow: 0 0 50px rgba(75,235,226,0.45); }
+    .hero-sub {
+      color: rgba(255,255,255,0.5);
+      max-width: 520px;
+      margin: 0 auto;
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.75;
+    }
+
+    /* --- Search bar --- */
+    .search-wrap {
+      background: var(--splash-white);
+      border-bottom: 1px solid var(--splash-border);
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 67px;
+      z-index: 90;
+    }
+    .search-inner {
+      max-width: 760px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .search-icon {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #bbb;
+      font-size: 0.9rem;
+      pointer-events: none;
+    }
+    .search-input {
+      width: 100%;
+      padding: 0.65rem 1rem 0.65rem 2.5rem;
+      border: 1px solid var(--splash-border);
+      border-radius: var(--radius);
+      font-size: 0.9rem;
+      font-family: var(--font-body);
+      background: var(--splash-page-bg);
+      color: var(--splash-text);
+      outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .search-input:focus {
+      border-color: var(--splash-teal);
+      box-shadow: 0 0 0 3px rgba(75,235,226,0.12);
+    }
+    .search-input::placeholder { color: #bbb; }
+
+    /* --- Main layout --- */
+    .main {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 6rem;
+    }
+
+    /* --- Topic sections --- */
+    .topic-section {
+      background: var(--splash-card);
+      border: 1px solid var(--splash-border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+    .topic-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.1rem 1.4rem;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.15s;
+    }
+    .topic-header:hover { background: rgba(75,235,226,0.04); }
+    .topic-section.open .topic-header {
+      background: rgba(75,235,226,0.06);
+      border-bottom: 1px solid var(--splash-border);
+    }
+    .topic-icon { font-size: 1.3rem; flex-shrink: 0; }
+    .topic-title-group { flex: 1; }
+    .topic-title {
+      font-family: var(--font-heading);
+      font-size: 1rem;
+      font-weight: 900;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--splash-text);
+    }
+    .topic-count {
+      font-size: 0.72rem;
+      color: var(--splash-muted);
+      font-weight: 600;
+      margin-top: 0.1rem;
+    }
+    .topic-chevron {
+      color: #bbb;
+      font-size: 0.9rem;
+      transition: transform 0.25s, color 0.2s;
+      flex-shrink: 0;
+    }
+    .topic-section.open .topic-chevron { transform: rotate(180deg); color: var(--splash-teal); }
+
+    .topic-body { display: none; }
+    .topic-section.open .topic-body { display: block; }
+
+    /* --- Q&A items inside topics --- */
+    .qa-item {
+      border-bottom: 1px solid var(--splash-border);
+    }
+    .qa-item:last-child { border-bottom: none; }
+    .qa-question {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.9rem 1.4rem;
+      cursor: pointer;
+      user-select: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--splash-text);
+      transition: background 0.15s;
+      list-style: none;
+    }
+    .qa-question:hover { background: #F8F8F6; }
+    .qa-item.open .qa-question { background: #F5FFFE; color: #0D9E97; }
+    .qa-q-icon { color: #ccc; font-size: 0.75rem; flex-shrink: 0; transition: transform 0.2s, color 0.2s; }
+    .qa-item.open .qa-q-icon { transform: rotate(90deg); color: var(--splash-teal); }
+    .qa-answer {
+      display: none;
+      padding: 0 1.4rem 1.1rem 3rem;
+      font-size: 0.875rem;
+      color: var(--splash-muted);
+      line-height: 1.75;
+    }
+    .qa-item.open .qa-answer { display: block; }
+    .qa-answer p { margin-bottom: 0.6rem; }
+    .qa-answer p:last-child { margin-bottom: 0; }
+    .qa-answer strong { color: var(--splash-text); }
+    .qa-answer a { color: var(--splash-teal); text-decoration: none; }
+    .qa-answer a:hover { text-decoration: underline; }
+    .qa-answer .tip-inline {
+      background: var(--splash-tip-bg);
+      border-left: 3px solid var(--splash-teal);
+      border-radius: 0 6px 6px 0;
+      padding: 0.65rem 0.9rem;
+      margin-top: 0.6rem;
+      font-size: 0.83rem;
+    }
+    .qa-answer .warn-inline {
+      background: var(--splash-warn-bg);
+      border-left: 3px solid var(--splash-warn-border);
+      border-radius: 0 6px 6px 0;
+      padding: 0.65rem 0.9rem;
+      margin-top: 0.6rem;
+      font-size: 0.83rem;
+      color: #78350F;
+    }
+
+    /* --- No results --- */
+    .no-results {
+      display: none;
+      text-align: center;
+      padding: 3rem 1.5rem;
+      color: var(--splash-muted);
+    }
+    .no-results.visible { display: block; }
+
+    /* --- Footer --- */
+    .site-footer {
+      background: var(--splash-dark);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.4);
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+      font-size: 0.8rem;
+    }
+    .footer-logo {
+      height: 40px;
+      width: auto;
+      opacity: 0.35;
+      margin: 0 auto 0.85rem;
+      display: block;
+    }
+    .site-footer a { color: var(--splash-teal); text-decoration: none; opacity: 0.7; }
+    .site-footer a:hover { opacity: 1; }
+
+    @media (max-width: 600px) {
+      .hero { padding: 3rem 1.5rem 3.5rem; }
+      .main { padding: 1.5rem 1rem 5rem; }
+      .site-header { padding: 0.75rem 1.25rem; }
+      .search-wrap { padding: 0.85rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <img src="assets/splash-whale.png" alt="Splash Sports" class="logo-img" />
+    <nav class="header-nav">
+      <a href="index.html" class="nav-link">Contest Guide</a>
+      <a href="troubleshooting.html" class="nav-link active">Troubleshooting</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-badge">🛠 Commissioner Support</div>
+    <h1>Something not working? <span>We've got you.</span></h1>
+    <p class="hero-sub">Common issues organized by topic. Click a category to expand, then click a question for the fix.</p>
+  </section>
+
+  <div class="search-wrap">
+    <div class="search-inner">
+      <span class="search-icon">🔍</span>
+      <input type="text" class="search-input" id="searchInput" placeholder="Search issues — e.g. 'invite', 'payout', 'picks'..." />
+    </div>
+  </div>
+
+  <main class="main">
+
+    <!-- Topic 1: Invites & Joining -->
+    <div class="topic-section" id="topic-invites">
+      <div class="topic-header" onclick="toggleTopic('invites')">
+        <span class="topic-icon">📨</span>
+        <div class="topic-title-group">
+          <div class="topic-title">Invites &amp; Joining</div>
+          <div class="topic-count">6 issues</div>
+        </div>
+        <span class="topic-chevron">▾</span>
+      </div>
+      <div class="topic-body">
+
+        <div class="qa-item">
+          <div class="qa-question" onclick="toggleQA(this)">
+            <span class="qa-q-icon">▶</span>
+            My invite email went to spam — what should I tell my players?
+          </div>
+          <div class="qa-answer">
+            <p>This is the most common issue new Splash players encounter. Ask them to search their inbox (including Spam/Junk) for <strong>noreply@splashsports.com</strong> and mark it as "Not Spam." Future emails will land in their inbox.</p>
+            <div class="tip-inline">💡 Share the contest invite link directly via text or group chat instead — it bypasses email entirely and is the fastest way to get players into the contest.</div>
+          </div>
+        </div>
+
+        <div class="qa-item">
+          <div class="qa-question" onclick="toggleQA(this)">
+            <span class="qa-q-icon">▶</span>
+            A player can't join using the invite link — what's wrong?
+          </div>
+          <div class="qa-answer">
+            <p>A few things to check:</p>
+            <p><strong>1. Contest is full</strong> — if you set a max player limit and it's been reached, no one else can join. Go to the contest settings and increase the Contest Size.</p>
+            <p><strong>2. Entry deadline passed</strong> — some contest types lock entries before the first game. If the deadline has passed, new players can't join.</p>
+            <p><strong>3. Player isn't logged in</strong> — the link requires a Splash account. If they don't have one, clicking the link will prompt them to sign up first.</p>
+          </div>
+        </div>
+
+        <div class="qa-item">
+          <div class="qa-question" onclick="toggleQA(this)">
+            <span class="qa-q-icon">▶</span>
+            How do I resend an invite or send a reminder?
+          </div>
+          <div class="qa-answer">
+            <p>Go to your contest dashboard → <strong>Invites Manager</strong> → click the <strong>Sent</strong> tab. You'll see everyone who was invited and their status. Click <strong>Remind</strong> next to anyone who hasn't entered yet to send a follow-up email.</p>
+          </div>
+        </div>
+
+        <div class="qa-item">
+          <div class="qa-question" onclick="toggleQA(this)">
+            <span class="qa-q-icon">▶</span>
+            Can I invite someone after the contest has started?
+          </div>
+          <div class="qa-answer">
+            <p>It depends on the contest type. For some formats (like Survivor or Pick'Em), you can invite additional players after the contest starts, but they'll join mid-season. For formats with a single entry window (like Squares or Bracket), the window closes once the event begins.</p>
+            <div class="warn-inline">⚠️ Always check your contest's entry deadline in the contest settings before sending late invites.</div>
+          </div>
+        </div>
+
+        <div class="qa-item">
+          <div class="qa-question" onclick="toggleQA(this)">
+            <span class="qa-q-icon">▶</span>
+            A player joined but I don't see them in the contest — where are they?
+          </div>
+          <div class="qa-answer">
+            <p>Check the <strong>Invites Manager → Accepted</strong> tab. They may have joined but not yet submitted their picks. A player who accepted the invite but hasn't made picks will appear in Accepted but not on the leaderboard until picks are submitted.</p>
+          </div>
+        </div>
+
+        <div class="qa-item">
+          <div class="qa-question" onclick="toggleQA(this)">
+            <span class="qa-q-icon">▶</span>
+            How do I remove a player from my contest?
+          </div>
+          <div class="qa-answer">
+            <p>Go to your contest dashboard → <strong>Manage Players</strong>. Find the player and select <strong>Remove</strong>. Note: if they paid an entry fee through Splash, a refund may need to be processed separately. Reach out to Splash support if a paid entry is involved.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Topic 2: Picks & Entries -->
+    <div class="topic-section" id="topic-picks">
+      <div class="topic-header" onclick="toggleTopic('picks')">
+        <span class="topic-icon">✏️</span>
+        <div class="topic-title-group">
+          <div class="topic-title">Picks &amp; Entries</div>
+          <div class="topic-count">5 issues</div>
+        </div>
+        <span class="topic-chevron">▾</span>
+      </div>
+      <div class="topic-body">
+
+        <div class="qa-item">
+          <div class="qa-question" onclick="toggleQA(this)">
+            <span class="qa-q-icon">▶</span>
+            A player says they can't make their picks — what should I check?
+          </div>
+          <div class="qa-answer">
+            <p><strong>1. Pick deadline has passed</strong> — most contest types lock picks before the first game of the week/round. Check the contest's pick deadline in the settings.</p>
+            <p><strong>2. They haven't accepted the invite</strong> — players must accept the invite and have an active entry before they can submit picks.</p>
+            <p><strong>3. Wrong sport/week selected</strong> — in multi-week formats, players need to make picks for the current active week, not a past one.</p>
+          </div>
+        </div>
+
+        <div class="qa-item">
+          <div class="qa-question" onclick="toggleQA(this)">
+            <span class="qa-q-icon">▶</span>
+            A player's picks didn't save — what do they do?
+          </div>
+          <div class="qa-answer">
+            <p>Ask them to try the following:</p>
+            <p><strong>1.</strong> Refresh the page and check if their picks appear — sometimes picks save but don't visually confirm immediately.</p>
+            <p><strong>2.</strong> Try a different browser or clear their browser cache.</p>
+            <p><strong>3.</strong> Try on the Splash mobile app instead of the web browser.</p>
+            <div class="warn-inline">⚠️ If the pick deadline has already passed, picks cannot be retroactively submitted. Encourage players to submit picks early.</div>
+          </div>
+        </div>
+
+        <div class="qa-item">
+          <div class="qa-question" onclick="toggleQA(this)">
+            <span class="qa-q-icon">▶</span>
+            Can a player change their pick after submitting?
+          </div>
+          <div class="qa-answer">
+            <p>Yes — picks can be changed any time <strong>before the pick deadline</strong>. Once the deadline passes and games begin, picks are locked and cannot be changed. Remind players to double-check before the deadline closes.</p>
+          </div>
+        </div>
+
+        <div class="qa-item">
+          <div class="qa-question" onclick="toggleQA(this)">
+            <span class="qa-q-icon">▶</span>
+            A player forgot to submit picks — are they eliminated?
+          </div>
+          <div class="qa-answer">
+            <p>It depends on your contest type and settings. In <strong>Survivor</strong>, missing a week's pick typically counts as a loss. In <strong>Pick'Em</strong>, missing picks for a week means 0 points for that round. Check your specific contest's rules under <strong>Contest Settings → General Settings</strong> for how missed picks are handled.</p>
+          </div>
+        </div>
+
+        <div class="qa-item">
+          <div class="qa-question" onclick="toggleQA(this)">
+            <span class="qa-q-icon">▶</span>
+            Can I make picks on behalf of a player?
+          </div>
+          <div class="qa-answer">
+            <p>No — commissioners cannot submit picks on behalf of other players. Each player must log in to their own account to make picks. This is by design to ensure fairness.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Topic 3: Entry Fees & Payments -->
+    <div class="topic-section" id="topic-payments">
+      <div class="topic-header" onclick="toggleTopic('payments')">
+        <span class="topic-icon">💰</span>
+        <div class="topic-title-group">
+          <div class="topic-title">Entry Fees &amp; Payments</div>
+          <div class="topic-count">6 issues</div>
+        </div>
+        <span class="topic-chevron">▾</span>
+      </div>
+      <div class="topic-body">
+
+        <div class="qa-item">
+          <div class="qa-question" onclick="toggleQA(this)">
+            <span class="qa-q-icon">▶</span>
+            What is the commissioner service fee and why is it charged?
+          </div>
+          <div class="qa-answer">
+            <p>The commissioner service fee is charged to the contest creator (you) for hosting the contest on Splash's platform. It covers the infrastructure, scoring, and tools that Splash provides — regardless of whether players pay an entry fee through Splash or you collect money yourself.</p>
+            <div class="tip-inline">💡 The fee amount varies by contest type and size. You can see the exact fee before finalizing your contest setup.</div>
+          </div>
+        </div>
+
+        <div class="qa-item">
+          <div class="qa-question" onclick="toggleQA(this)">
+            <span class="qa-q-icon">▶</span>
+            What's the difference between Splash-managed and self-managed payouts?
+          </div>
+          <div class="qa-answer">
+            <p><strong>Splash-managed:</strong> Players pay their entry fee directly through Splash. Splash holds the pool and pays out winners automatically when the contest ends.</p>
+            <p><strong>Self-managed:</strong> You set a $0 entry fee through Splash. You collect money from players yourself (cash, Venmo, etc.) and handle payouts manually. The commissioner service fee still applies to you, but your players pay nothing through Splash.</p>
+          </div>
+        </div>
+
+        <div class="qa-item">
+          <div class="qa-question" onclick="toggleQA(this)">
+            <span class="qa-q-icon">▶</span>
+            A player was charged but says they can't access the contest — what do I do?
+          </div>
+          <div class="qa-answer">
+            <p>First, check that the player appears in your <strong>Invites Manager → Accepted</strong> tab. If they're there, they have access — walk them through finding the contest on their account dashboard.</p>
+            <p>If they paid but don't appear in your contest at all, contact Splash support directly at <a href="mailto:support@splashsports.com">support@splashsports.com</a> with the player's account email and the contest name.</p>
+          </div>
+        </div>
+
+        <div class="qa-item">
+          <div class="qa-question" onclick="toggleQA(this)">
+            <span class="qa-q-icon">▶</span>
+            How long does it take for winnings to be paid out?
+          </div>
+          <div class="qa-answer">
+            <p>For Splash-managed contests, payouts are typically processed within <strong>3–5 business days</strong> after the contest ends and results are finalized. Players will receive an email notification when their payout is processed.</p>
+            <div class="tip-inline">💡 Players need a verified payment method on their Splash account to receive payouts. Remind winners to check their account settings if they don't see their payout.</div>
+          </div>
+        </div>
+
+        <div class="qa-item">
+          <div class="qa-question" onclick="toggleQA(this)">
+            <span class="qa-q-icon">▶</span>
+            Can I get a refund if I cancel my contest?
+          </div>
+          <div class="qa-answer">
+            <p>Refund eligibility depends on whether the contest has started and how many players have joined. Contact Splash support at <a href="mailto:support@splashsports.com">support@splashsports.com</a> as soon as possible — refunds are handled on a case-by-case basis.</p>
+            <div class="warn-inline">⚠️ Commissioner service fees are generally non-refundable once a contest is live and players have joined.</div>
+          </div>
+        </div>
+
+        <div class="qa-item">
+          <div class="qa-question" onclick="toggleQA(this)">
+            <span class="qa-q-icon">▶</span>
+            Can I change the entry fee after the contest is created?
+          </div>
+          <div class="qa-answer">
+            <p>No — once a contest is live and players have joined, the entry fee cannot be changed. If no players have joined yet, you may be able to cancel and recreate the contest with the correct fee. Contact Splash support if you need help.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Topic 4: Scoring & Results -->
+    <div class="topic-section" id="topic-scoring">
+      <div class="topic-header" onclick="toggleTopic('scoring')">
+        <span class="topic-icon">📊</span>
+        <div class="topic-title-group">
+          <div class="topic-title">Scoring &amp; Results</div>
+          <div class="topic-count">5 issues</div>
+        </div>
+        <span class="topic-chevron">▾</span>
+      </div>
+      <div class="topic-body">
+
+        <div class="qa-item">
+          <div class="qa-question" onclick="toggleQA(this)">
+            <span class="qa-q-icon">▶</span>
+            Scores aren't updating — is there a delay?
+          </div>
+          <div class="qa-answer">
+            <p>Yes — Splash scores update in near real-time but there can be a lag of <strong>5–15 minutes</strong> during live games. If scores haven't updated several hours after a game ended, try refreshing the page. If it's still stuck, the data feed may be delayed — it usually self-corrects within a few hours.</p>
+          </div>
+        </div>
+
+        <div class="qa-item">
+          <div class="qa-question" onclick="toggleQA(this)">
+            <span class="qa-q-icon">▶</span>
+            A player thinks their score is wrong — what do I tell them?
+          </div>
+          <div class="qa-answer">
+            <p>Direct them to check their <strong>entry detail page</strong> inside the contest — it shows exactly what picks were recorded and how each one scored. This is the source of truth.</p>
+            <p>If a score still looks wrong after the game has been final for 24 hours, contact Splash support with the contest name, player username, and the specific game/week in question.</p>
+          </div>
+        </div>
+
+        <div class="qa-item">
+          <div class="qa-question" onclick="toggleQA(this)">
+            <span class="qa-q-icon">▶</span>
+            When do final results post after the season ends?
+          </div>
+          <div class="qa-answer">
+            <p>Final results are typically posted within <strong>24–48 hours</strong> after the last game of the contest is played. For season-long contests, this happens after the final week's games are complete. Players receive an email when final results are available.</p>
+          </div>
+        </div>
+
+        <div class="qa-item">
+          <div class="qa-question" onclick="toggleQA(this)">
+            <span class="qa-q-icon">▶</span>
+            What happens if a game is postponed or cancelled?
+          </div>
+          <div class="qa-answer">
+            <p>Splash follows official league rules for postponed or cancelled games. Typically:</p>
+            <p><strong>Postponed games</strong> are treated as pending until rescheduled, and picks are carried over or voided depending on the contest type.</p>
+            <p><strong>Cancelled games</strong> are usually voided — picks for that game don't count toward scoring either way.</p>
+            <div class="tip-inline">💡 Check the specific contest's rules page for how your contest format handles cancelled games.</div>
+          </div>
+        </div>
+
+        <div class="qa-item">
+          <div class="qa-question" onclick="toggleQA(this)">
+            <span class="qa-q-icon">▶</span>
+            There's a tie — how are tiebreakers handled?
+          </div>
+          <div class="qa-answer">
+            <p>Tiebreaker rules vary by contest type. Some formats include a built-in tiebreaker (like a confidence point system or a specific tiebreaker question). If no tiebreaker is configured and a tie occurs, the prize is typically split between tied players. Check your contest's <strong>General Settings</strong> for the specific tiebreaker rule that was set at creation.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Topic 5: Contest Settings & Editing -->
+    <div class="topic-section" id="topic-settings">
+      <div class="topic-header" onclick="toggleTopic('settings')">
+        <span class="topic-icon">⚙️</span>
+        <div class="topic-title-group">
+          <div class="topic-title">Contest Settings &amp; Editing</div>
+          <div class="topic-count">5 issues</div>
+        </div>
+        <span class="topic-chevron">▾</span>
+      </div>
+      <div class="topic-body">
+
+        <div class="qa-item">
+          <div class="qa-question" onclick="toggleQA(this)">
+            <span class="qa-q-icon">▶</span>
+            Can I change the contest format after it's been created?
+          </div>
+          <div class="qa-answer">
+            <p>No — the contest format (e.g. Survivor, Pick'Em, One &amp; Done) cannot be changed once the contest is live. If you selected the wrong format, you'll need to cancel the contest and create a new one. Contact Splash support if players have already joined and paid.</p>
+          </div>
+        </div>
+
+        <div class="qa-item">
+          <div class="qa-question" onclick="toggleQA(this)">
+            <span class="qa-q-icon">▶</span>
+            Can I change the contest name or description after creating it?
+          </div>
+          <div class="qa-answer">
+            <p>Yes — go to your contest dashboard → <strong>Contest Settings → General</strong>. You can edit the contest name, description, and banner image at any time, even after players have joined.</p>
+          </div>
+        </div>
+
+        <div class="qa-item">
+          <div class="qa-question" onclick="toggleQA(this)">
+            <span class="qa-q-icon">▶</span>
+            How do I increase the maximum number of players?
+          </div>
+          <div class="qa-answer">
+            <p>Go to <strong>Contest Settings → Contest Size</strong> and update the max player limit. You can increase this at any time as long as the contest is still accepting entries. Decreasing below the current number of joined players is not allowed.</p>
+          </div>
+        </div>
+
+        <div class="qa-item">
+          <div class="qa-question" onclick="toggleQA(this)">
+            <span class="qa-q-icon">▶</span>
+            How do I cancel a contest?
+          </div>
+          <div class="qa-answer">
+            <p>Go to your contest dashboard → <strong>Contest Settings → Advanced Settings</strong> → scroll to the bottom for the cancel option. If players have joined and paid, cancelling will trigger refunds — contact Splash support before cancelling if this is the case to ensure the process goes smoothly.</p>
+            <div class="warn-inline">⚠️ Cancellations cannot be undone. Make sure you want to cancel before confirming.</div>
+          </div>
+        </div>
+
+        <div class="qa-item">
+          <div class="qa-question" onclick="toggleQA(this)">
+            <span class="qa-q-icon">▶</span>
+            I accidentally set the wrong schedule (wrong weeks / tournaments) — can I fix it?
+          </div>
+          <div class="qa-answer">
+            <p>Schedule changes after contest creation are generally not supported once players have joined. If no players have joined yet, try editing under <strong>Contest Settings → Schedule</strong>. If that option isn't available or players have already entered, contact Splash support as soon as possible.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Topic 6: Account & Login -->
+    <div class="topic-section" id="topic-account">
+      <div class="topic-header" onclick="toggleTopic('account')">
+        <span class="topic-icon">🔐</span>
+        <div class="topic-title-group">
+          <div class="topic-title">Account &amp; Login</div>
+          <div class="topic-count">4 issues</div>
+        </div>
+        <span class="topic-chevron">▾</span>
+      </div>
+      <div class="topic-body">
+
+        <div class="qa-item">
+          <div class="qa-question" onclick="toggleQA(this)">
+            <span class="qa-q-icon">▶</span>
+            A player can't log into their Splash account — what do they do?
+          </div>
+          <div class="qa-answer">
+            <p>Direct them to <a href="https://app.splashsports.com" target="_blank" rel="noopener">app.splashsports.com</a> and use the <strong>Forgot Password</strong> link on the login screen. They'll receive a reset email. If the reset email doesn't arrive, ask them to check their spam folder.</p>
+          </div>
+        </div>
+
+        <div class="qa-item">
+          <div class="qa-question" onclick="toggleQA(this)">
+            <span class="qa-q-icon">▶</span>
+            A player created an account but can't find the contest — how do they locate it?
+          </div>
+          <div class="qa-answer">
+            <p>Once logged in, they should check <strong>My Contests</strong> in the navigation. If the contest doesn't appear there, they may have signed up with a different email than the one the invite was sent to. Ask them to check which email they used to sign up vs. which email received the invite.</p>
+          </div>
+        </div>
+
+        <div class="qa-item">
+          <div class="qa-question" onclick="toggleQA(this)">
+            <span class="qa-q-icon">▶</span>
+            A player has two Splash accounts — can they merge them?
+          </div>
+          <div class="qa-answer">
+            <p>Account merges aren't self-service. They need to contact Splash support at <a href="mailto:support@splashsports.com">support@splashsports.com</a> with both account email addresses to request a merge.</p>
+          </div>
+        </div>
+
+        <div class="qa-item">
+          <div class="qa-question" onclick="toggleQA(this)">
+            <span class="qa-q-icon">▶</span>
+            How do I transfer commissioner ownership of a contest to someone else?
+          </div>
+          <div class="qa-answer">
+            <p>Commissioner transfer isn't currently a self-service feature. Contact Splash support with the contest name and the new commissioner's account email to request the transfer.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Topic 7: Commissioner Dashboard -->
+    <div class="topic-section" id="topic-dashboard">
+      <div class="topic-header" onclick="toggleTopic('dashboard')">
+        <span class="topic-icon">📋</span>
+        <div class="topic-title-group">
+          <div class="topic-title">Commissioner Dashboard</div>
+          <div class="topic-count">4 issues</div>
+        </div>
+        <span class="topic-chevron">▾</span>
+      </div>
+      <div class="topic-body">
+
+        <div class="qa-item">
+          <div class="qa-question" onclick="toggleQA(this)">
+            <span class="qa-q-icon">▶</span>
+            Where do I find my contest after creating it?
+          </div>
+          <div class="qa-answer">
+            <p>After creating a contest, you land on the <strong>Manage Contest dashboard</strong> automatically. To find it later, log in and go to <strong>My Contests</strong> in the top navigation — your contest will appear under "Contests I Manage."</p>
+          </div>
+        </div>
+
+        <div class="qa-item">
+          <div class="qa-question" onclick="toggleQA(this)">
+            <span class="qa-q-icon">▶</span>
+            How do I see who has entered vs. who hasn't submitted picks yet?
+          </div>
+          <div class="qa-answer">
+            <p>From the contest dashboard, go to <strong>Invites Manager → Accepted</strong> to see who has joined. Check the leaderboard to see who has submitted picks for the current week — players who joined but haven't picked won't appear on the leaderboard yet.</p>
+          </div>
+        </div>
+
+        <div class="qa-item">
+          <div class="qa-question" onclick="toggleQA(this)">
+            <span class="qa-q-icon">▶</span>
+            Can I post a message or announcement to all players in my contest?
+          </div>
+          <div class="qa-answer">
+            <p>Splash doesn't currently have a built-in announcement feature. The best approach is to use the contest's invite link to get players into a group chat (text thread, WhatsApp, GroupMe, Discord) where you can communicate directly with everyone.</p>
+          </div>
+        </div>
+
+        <div class="qa-item">
+          <div class="qa-question" onclick="toggleQA(this)">
+            <span class="qa-q-icon">▶</span>
+            The season ended — how do I officially close the contest?
+          </div>
+          <div class="qa-answer">
+            <p>For most contest types, Splash closes the contest automatically when the final game is scored and results are finalized. You don't need to do anything manually. For self-managed payouts, you'll need to distribute winnings to players yourself once you know the final standings.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Still stuck -->
+    <div style="text-align:center; margin-top:2.5rem; padding:2rem; background:var(--splash-card); border:1px solid var(--splash-border); border-radius:var(--radius); box-shadow:var(--shadow);">
+      <div style="font-size:2rem; margin-bottom:0.75rem;">🤝</div>
+      <h3 style="font-family:var(--font-heading); font-size:1.1rem; font-weight:900; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:0.5rem;">Still stuck?</h3>
+      <p style="color:var(--splash-muted); font-size:0.9rem; max-width:440px; margin:0 auto 1rem;">If none of the above solved your issue, reach out to the Splash support team directly.</p>
+      <a href="mailto:support@splashsports.com" style="display:inline-block; background:var(--splash-teal); color:var(--splash-dark); font-family:var(--font-heading); font-weight:900; font-size:0.8rem; letter-spacing:0.08em; text-transform:uppercase; padding:0.7rem 1.6rem; border-radius:var(--radius); text-decoration:none; transition:box-shadow 0.15s;">Email Splash Support</a>
+    </div>
+
+    <div class="no-results" id="noResults">
+      <div style="font-size:2.5rem; margin-bottom:0.75rem;">🔍</div>
+      <p style="font-weight:600; margin-bottom:0.25rem;">No results found</p>
+      <p style="font-size:0.875rem;">Try a different keyword or browse the topics above.</p>
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <img src="assets/splash-whale.png" alt="Splash Sports" class="footer-logo" />
+    <p>Contest Creation Guide &middot; For new commissioners &middot; <a href="https://app.splashsports.com" target="_blank" rel="noopener">app.splashsports.com</a></p>
+  </footer>
+
+  <script>
+    function toggleTopic(id) {
+      const section = document.getElementById('topic-' + id);
+      section.classList.toggle('open');
+    }
+
+    function toggleQA(btn) {
+      const item = btn.closest('.qa-item');
+      item.classList.toggle('open');
+    }
+
+    // Search
+    const searchInput = document.getElementById('searchInput');
+    searchInput.addEventListener('input', function () {
+      const query = this.value.toLowerCase().trim();
+      const topics = document.querySelectorAll('.topic-section');
+      let anyVisible = false;
+
+      topics.forEach(topic => {
+        const questions = topic.querySelectorAll('.qa-item');
+        let topicHasMatch = false;
+
+        questions.forEach(item => {
+          const text = item.textContent.toLowerCase();
+          const match = !query || text.includes(query);
+          item.style.display = match ? '' : 'none';
+          if (match) topicHasMatch = true;
+        });
+
+        topic.style.display = topicHasMatch ? '' : 'none';
+        if (topicHasMatch) {
+          anyVisible = true;
+          if (query) topic.classList.add('open');
+        }
+      });
+
+      document.getElementById('noResults').classList.toggle('visible', !anyVisible);
+      if (!query) {
+        topics.forEach(t => { t.style.display = ''; t.classList.remove('open'); });
+        document.getElementById('noResults').classList.remove('visible');
+      }
+    });
+  </script>
+
+</body>
+</html>
