@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Best Practices — Splash Sports Commissioner Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@700;800;900&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --splash-dark: #1A1A1A; --splash-page-bg: #F4F4F2; --splash-card: #FFFFFF;
+      --splash-teal: #4BEBE2; --splash-teal-dim: rgba(75,235,226,0.1);
+      --splash-white: #FFFFFF; --splash-text: #1A1A1A; --splash-muted: #6B7280;
+      --splash-border: #E4E4E0; --splash-warn-bg: #FFFBEB; --splash-warn-border: #F59E0B;
+      --splash-tip-bg: rgba(75,235,226,0.08); --radius: 12px;
+      --shadow: 0 2px 16px rgba(0,0,0,0.07);
+      --font-heading: 'Barlow', system-ui, sans-serif;
+      --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); background: var(--splash-page-bg); color: var(--splash-text); font-size: 1rem; line-height: 1.65; min-height: 100vh; }
+
+    .site-header { background: var(--splash-dark); padding: 0.75rem 2rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(75,235,226,0.15); box-shadow: 0 2px 24px rgba(0,0,0,0.5); flex-wrap: wrap; gap: 0.5rem; }
+    .logo-link { display: flex; align-items: center; }
+    .logo-img { height: 40px; width: auto; }
+    .site-nav { display: flex; gap: 0.25rem; flex-wrap: wrap; align-items: center; }
+    .nav-link { color: rgba(255,255,255,0.55); font-size: 0.75rem; font-weight: 600; text-decoration: none; padding: 0.3rem 0.7rem; border-radius: 99px; transition: color 0.15s, background 0.15s; letter-spacing: 0.02em; white-space: nowrap; }
+    .nav-link:hover { color: #fff; background: rgba(255,255,255,0.08); }
+    .nav-link.active { background: var(--splash-teal-dim); border: 1px solid rgba(75,235,226,0.3); color: var(--splash-teal); }
+
+    .hero { background: var(--splash-dark); color: var(--splash-white); padding: 3.5rem 2rem 4.5rem; text-align: center; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; top: -150px; left: 50%; transform: translateX(-50%); width: 800px; height: 800px; background: radial-gradient(circle, rgba(75,235,226,0.07) 0%, transparent 60%); pointer-events: none; }
+    .hero-badge { display: inline-flex; align-items: center; background: var(--splash-teal-dim); border: 1px solid rgba(75,235,226,0.35); color: var(--splash-teal); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.35rem 1rem; border-radius: 99px; margin-bottom: 1.5rem; }
+    .hero h1 { font-family: var(--font-heading); font-size: clamp(1.8rem, 4.5vw, 3rem); font-weight: 900; margin-bottom: 1rem; line-height: 1.1; letter-spacing: 0.04em; text-transform: uppercase; color: var(--splash-white); }
+    .hero h1 span { color: var(--splash-teal); text-shadow: 0 0 50px rgba(75,235,226,0.45); }
+    .hero-sub { color: rgba(255,255,255,0.5); max-width: 520px; margin: 0 auto; font-size: 1rem; font-weight: 300; line-height: 1.75; }
+
+    .main { max-width: 800px; margin: 0 auto; padding: 2.5rem 1.5rem 6rem; }
+
+    .phase { margin-bottom: 2.5rem; }
+    .phase-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
+    .phase-icon { font-size: 1.5rem; }
+    .phase-title { font-family: var(--font-heading); font-size: 1.1rem; font-weight: 900; letter-spacing: 0.06em; text-transform: uppercase; color: var(--splash-text); }
+    .phase-tag { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; background: var(--splash-teal-dim); border: 1px solid rgba(75,235,226,0.3); color: var(--splash-teal); padding: 0.2rem 0.6rem; border-radius: 99px; }
+
+    .tips-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 0.75rem; }
+    .tip-card { background: var(--splash-card); border: 1px solid var(--splash-border); border-radius: var(--radius); box-shadow: var(--shadow); padding: 1.25rem; }
+    .tip-card-icon { font-size: 1.3rem; margin-bottom: 0.5rem; }
+    .tip-card h3 { font-size: 0.9rem; font-weight: 700; color: var(--splash-text); margin-bottom: 0.4rem; }
+    .tip-card p { font-size: 0.85rem; color: var(--splash-muted); line-height: 1.65; }
+
+    .do-dont { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-top: 1rem; }
+    .do-box, .dont-box { border-radius: var(--radius); padding: 1.1rem; }
+    .do-box { background: rgba(75,235,226,0.07); border: 1px solid rgba(75,235,226,0.25); }
+    .dont-box { background: #FFF5F5; border: 1px solid #FECACA; }
+    .do-box .box-label { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: #0D9E97; margin-bottom: 0.5rem; }
+    .dont-box .box-label { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: #991B1B; margin-bottom: 0.5rem; }
+    .box-list { list-style: none; }
+    .box-list li { font-size: 0.83rem; color: var(--splash-text); padding: 0.3rem 0; border-bottom: 1px solid rgba(0,0,0,0.05); line-height: 1.45; }
+    .box-list li:last-child { border-bottom: none; }
+
+    .callout { background: var(--splash-dark); border: 1px solid rgba(75,235,226,0.25); border-radius: var(--radius); padding: 2rem; margin-top: 2rem; text-align: center; }
+    .callout h2 { font-family: var(--font-heading); font-size: 1.2rem; font-weight: 900; letter-spacing: 0.06em; text-transform: uppercase; color: var(--splash-white); margin-bottom: 0.5rem; }
+    .callout h2 span { color: var(--splash-teal); }
+    .callout p { color: rgba(255,255,255,0.5); font-size: 0.875rem; max-width: 480px; margin: 0 auto 1.25rem; }
+    .callout-link { display: inline-block; background: var(--splash-teal); color: var(--splash-dark); font-family: var(--font-heading); font-weight: 900; font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.7rem 1.6rem; border-radius: var(--radius); text-decoration: none; }
+
+    .site-footer { background: var(--splash-dark); border-top: 1px solid rgba(255,255,255,0.06); color: rgba(255,255,255,0.4); text-align: center; padding: 2.5rem 1.5rem; font-size: 0.8rem; }
+    .footer-logo { height: 40px; width: auto; opacity: 0.35; margin: 0 auto 0.85rem; display: block; }
+    .site-footer a { color: var(--splash-teal); text-decoration: none; opacity: 0.7; }
+    .site-footer a:hover { opacity: 1; }
+
+    @media (max-width: 600px) { .hero { padding: 2.5rem 1.5rem 3rem; } .main { padding: 1.5rem 1rem 4rem; } .site-header { padding: 0.75rem 1.25rem; } .tips-grid { grid-template-columns: 1fr; } .do-dont { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="index.html" class="logo-link"><img src="assets/splash-whale.png" alt="Splash Sports" class="logo-img" /></a>
+    <nav class="site-nav">
+      <a href="index.html" class="nav-link">Contest Guide</a>
+      <a href="contest-picker.html" class="nav-link">Contest Picker</a>
+      <a href="payout-calculator.html" class="nav-link">Payouts</a>
+      <a href="pre-launch.html" class="nav-link">Pre-Launch</a>
+      <a href="player-guide.html" class="nav-link">Player Guide</a>
+      <a href="calendar.html" class="nav-link">Calendar</a>
+      <a href="best-practices.html" class="nav-link active">Best Practices</a>
+      <a href="troubleshooting.html" class="nav-link">Troubleshoot</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-badge">💡 Commissioner Playbook</div>
+    <h1>Run a Contest <span>People Come Back To</span></h1>
+    <p class="hero-sub">The difference between a one-and-done contest and a league that's been running for 10 years is almost always the commissioner. Here's what the best ones do.</p>
+  </section>
+
+  <main class="main">
+
+    <!-- Phase 1: Before you launch -->
+    <div class="phase">
+      <div class="phase-header">
+        <span class="phase-icon">🧱</span>
+        <span class="phase-title">Before You Launch</span>
+        <span class="phase-tag">Setup</span>
+      </div>
+      <div class="tips-grid">
+        <div class="tip-card">
+          <div class="tip-card-icon">🎯</div>
+          <h3>Pick the right format for your group — not the most complex one</h3>
+          <p>A Survivor pool with 8 friends who've never played fantasy before will outperform a Tiers contest where no one knows the scoring. Match the format to the room. Use the Contest Picker if you're unsure.</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-card-icon">💬</div>
+          <h3>Agree on the rules before you create the contest</h3>
+          <p>Entry fee, payout structure, what happens with ties, missed picks — get group agreement before you launch. The Payout Calculator helps. A quick group text goes a long way.</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-card-icon">📅</div>
+          <h3>Create 1–2 weeks before the season, not the night before</h3>
+          <p>Players need time to join, create accounts if they're new, and understand the format. Rushing the setup leads to missed first-week picks — the most common commissioner complaint.</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-card-icon">📢</div>
+          <h3>Use the share link, not email invites</h3>
+          <p>Splash invite emails land in spam for first-time players more often than you'd think. Text the invite link to your group — it's instant, works on any device, and doesn't require an email account.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 2: Getting players in -->
+    <div class="phase">
+      <div class="phase-header">
+        <span class="phase-icon">📣</span>
+        <span class="phase-title">Getting Players In</span>
+        <span class="phase-tag">Recruitment</span>
+      </div>
+      <div class="tips-grid">
+        <div class="tip-card">
+          <div class="tip-card-icon">⏰</div>
+          <h3>Set a firm join deadline and announce it upfront</h3>
+          <p>Tell people: "You need to join by Sunday at noon or you're out." A deadline creates urgency and prevents you from chasing stragglers all week. Use the Sent tab in Invites Manager to see who hasn't joined.</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-card-icon">📱</div>
+          <h3>Send the Player Quick-Start Guide to new Splash users</h3>
+          <p>New players don't know how to find the contest, make picks, or what to do when they win. Send them the Player Guide — it answers every question they'll ask you in the first week.</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-card-icon">🎁</div>
+          <h3>Lower the barrier for hesitant players</h3>
+          <p>Someone on the fence about joining? Offer a $0 entry for the first week to let them try it out. Or run a free contest the first year to build the habit — paid entries work better once people are hooked.</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-card-icon">👥</div>
+          <h3>Create a group chat specifically for the contest</h3>
+          <p>A dedicated text thread, WhatsApp group, or Discord channel is your communication layer for the whole season. It's where you share reminders, trash talk, and results. It's what makes a contest feel like a league.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 3: Mid-season -->
+    <div class="phase">
+      <div class="phase-header">
+        <span class="phase-icon">🔥</span>
+        <span class="phase-title">Keeping It Alive Mid-Season</span>
+        <span class="phase-tag">Engagement</span>
+      </div>
+      <div class="tips-grid">
+        <div class="tip-card">
+          <div class="tip-card-icon">🔔</div>
+          <h3>Send a pick reminder every week — without exception</h3>
+          <p>A Tuesday or Wednesday message in the group chat: "Picks lock Sunday at 1pm ET — don't forget." People are busy. Even veterans miss picks because life happens. The reminder is the single highest-ROI commissioner action.</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-card-icon">📊</div>
+          <h3>Share the leaderboard at the halfway point</h3>
+          <p>Post a screenshot of the standings at the midpoint of the season. People who are winning get excited. People in the middle feel like they still have a shot. Even people at the bottom start paying more attention.</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-card-icon">😂</div>
+          <h3>Let trash talk happen — it's the glue</h3>
+          <p>The group chat banter between picks is half the reason people come back. Celebrate big wins. Roast brutal losses. The more it feels like a community, the more people re-up next year.</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-card-icon">🏅</div>
+          <h3>Keep eliminated players engaged</h3>
+          <p>In Survivor, players who get knocked out still care — if they have friends still in. Ask eliminated players to make "shadow picks" in the group chat. Or run a side game (best remaining record) to keep everyone watching.</p>
+        </div>
+      </div>
+
+      <div class="do-dont">
+        <div class="do-box">
+          <div class="box-label">✅ Do this</div>
+          <ul class="box-list">
+            <li>Send weekly pick reminders</li>
+            <li>Share leaderboard screenshots</li>
+            <li>Acknowledge big wins publicly</li>
+            <li>Set clear deadlines upfront</li>
+            <li>Use the group chat constantly</li>
+          </ul>
+        </div>
+        <div class="dont-box">
+          <div class="box-label">❌ Avoid this</div>
+          <ul class="box-list">
+            <li>Changing rules mid-season</li>
+            <li>Going silent after launch</li>
+            <li>Letting pick disputes fester</li>
+            <li>Delaying payouts after the contest ends</li>
+            <li>Making the format too complex for the group</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 4: Handling issues -->
+    <div class="phase">
+      <div class="phase-header">
+        <span class="phase-icon">⚖️</span>
+        <span class="phase-title">Handling Disputes & Issues</span>
+        <span class="phase-tag">Commissioner Calls</span>
+      </div>
+      <div class="tips-grid">
+        <div class="tip-card">
+          <div class="tip-card-icon">📜</div>
+          <h3>The rules you set at the start are the rules — full stop</h3>
+          <p>When someone disputes a scoring decision or a missed pick, refer back to the rules you agreed on before the season. "It's in the rules we set up" is a complete sentence. Don't make case-by-case exceptions — it always leads to more disputes.</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-card-icon">🤝</div>
+          <h3>Handle money disputes fast and transparently</h3>
+          <p>If there's a payout question, share the math publicly in the group chat — exact prize pool, exact split, exact amount per place. Transparency kills 90% of payment disputes before they start.</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-card-icon">🚫</div>
+          <h3>Don't override Splash's scoring — it's the source of truth</h3>
+          <p>If a score looks wrong, check the official entry detail page before making any judgment call. Splash pulls from official data feeds. A score that "looks wrong" is almost always correct — the official game stats updated before the broadcaster did.</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-card-icon">📞</div>
+          <h3>Know when to escalate to Splash support</h3>
+          <p>Payment issues, platform errors, or anything you can't resolve in the Manage Contest dashboard — contact <a href="mailto:support@splashsports.com" style="color:var(--splash-teal);text-decoration:none;font-weight:600;">support@splashsports.com</a>. Don't try to work around platform issues yourself.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 5: Running it back -->
+    <div class="phase">
+      <div class="phase-header">
+        <span class="phase-icon">🔄</span>
+        <span class="phase-title">Running It Back Next Year</span>
+        <span class="phase-tag">Retention</span>
+      </div>
+      <div class="tips-grid">
+        <div class="tip-card">
+          <div class="tip-card-icon">📋</div>
+          <h3>Do a quick debrief after the season ends</h3>
+          <p>One message in the group chat: "What did everyone think? Should we do this again next year? Any changes?" You'll get honest feedback and social proof that people want to come back — use it.</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-card-icon">💰</div>
+          <h3>Pay out fast — same week the contest ends</h3>
+          <p>For self-managed payouts: don't wait. Send Venmo or collect cash at a wrap-up event the same week. The longer you wait, the more it feels like an afterthought. Fast payouts = people who sign up again next year.</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-card-icon">🏆</div>
+          <h3>Create a tradition around the champion</h3>
+          <p>A trophy, a plaque, a Twitter/group shoutout, a "Champion" role in Discord — something that marks the winner as different. Bragging rights are often worth more than the prize money. Make the win feel real.</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-card-icon">📆</div>
+          <h3>Announce next year's contest before the current one ends</h3>
+          <p>The best time to recruit for next year is while everyone is emotionally invested in the current season. Drop a "who's in for next year?" message in the final weeks — you'll get more sign-ups than any other time.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <h2>Ready to <span>launch?</span></h2>
+      <p>Run through the pre-launch checklist to make sure everything is set before you hit Create Contest.</p>
+      <a href="pre-launch.html" class="callout-link">Go to Pre-Launch Checklist →</a>
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <img src="assets/splash-whale.png" alt="Splash Sports" class="footer-logo" />
+    <p>Splash Sports Commissioner Hub &middot; <a href="https://app.splashsports.com" target="_blank" rel="noopener">app.splashsports.com</a></p>
+  </footer>
+
+</body>
+</html>

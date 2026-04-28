@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Payout Calculator — Splash Sports Commissioner Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@700;800;900&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --splash-dark: #1A1A1A; --splash-page-bg: #F4F4F2; --splash-card: #FFFFFF;
+      --splash-teal: #4BEBE2; --splash-teal-dim: rgba(75,235,226,0.1);
+      --splash-white: #FFFFFF; --splash-text: #1A1A1A; --splash-muted: #6B7280;
+      --splash-border: #E4E4E0; --splash-warn-bg: #FFFBEB; --splash-warn-border: #F59E0B;
+      --splash-tip-bg: rgba(75,235,226,0.08); --radius: 12px;
+      --shadow: 0 2px 16px rgba(0,0,0,0.07);
+      --font-heading: 'Barlow', system-ui, sans-serif;
+      --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); background: var(--splash-page-bg); color: var(--splash-text); font-size: 1rem; line-height: 1.65; min-height: 100vh; }
+
+    .site-header { background: var(--splash-dark); padding: 0.75rem 2rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(75,235,226,0.15); box-shadow: 0 2px 24px rgba(0,0,0,0.5); flex-wrap: wrap; gap: 0.5rem; }
+    .logo-link { display: flex; align-items: center; }
+    .logo-img { height: 40px; width: auto; }
+    .site-nav { display: flex; gap: 0.25rem; flex-wrap: wrap; align-items: center; }
+    .nav-link { color: rgba(255,255,255,0.55); font-size: 0.75rem; font-weight: 600; text-decoration: none; padding: 0.3rem 0.7rem; border-radius: 99px; transition: color 0.15s, background 0.15s; letter-spacing: 0.02em; white-space: nowrap; }
+    .nav-link:hover { color: #fff; background: rgba(255,255,255,0.08); }
+    .nav-link.active { background: var(--splash-teal-dim); border: 1px solid rgba(75,235,226,0.3); color: var(--splash-teal); }
+
+    .hero { background: var(--splash-dark); color: var(--splash-white); padding: 3.5rem 2rem 4.5rem; text-align: center; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; top: -150px; left: 50%; transform: translateX(-50%); width: 800px; height: 800px; background: radial-gradient(circle, rgba(75,235,226,0.07) 0%, transparent 60%); pointer-events: none; }
+    .hero-badge { display: inline-flex; align-items: center; background: var(--splash-teal-dim); border: 1px solid rgba(75,235,226,0.35); color: var(--splash-teal); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.35rem 1rem; border-radius: 99px; margin-bottom: 1.5rem; }
+    .hero h1 { font-family: var(--font-heading); font-size: clamp(1.8rem, 4.5vw, 3rem); font-weight: 900; margin-bottom: 1rem; line-height: 1.1; letter-spacing: 0.04em; text-transform: uppercase; color: var(--splash-white); }
+    .hero h1 span { color: var(--splash-teal); text-shadow: 0 0 50px rgba(75,235,226,0.45); }
+    .hero-sub { color: rgba(255,255,255,0.5); max-width: 480px; margin: 0 auto; font-size: 1rem; font-weight: 300; line-height: 1.75; }
+
+    .main { max-width: 720px; margin: 0 auto; padding: 2.5rem 1.5rem 6rem; }
+
+    .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    .calc-card { background: var(--splash-card); border: 1px solid var(--splash-border); border-radius: var(--radius); box-shadow: var(--shadow); padding: 1.75rem; }
+    .calc-card.full { grid-column: 1 / -1; }
+
+    .field-label { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--splash-muted); margin-bottom: 0.5rem; display: block; }
+    .field-input {
+      width: 100%; padding: 0.7rem 1rem; border: 1px solid var(--splash-border);
+      border-radius: var(--radius); font-size: 1rem; font-family: var(--font-body);
+      color: var(--splash-text); background: var(--splash-page-bg);
+      outline: none; transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .field-input:focus { border-color: var(--splash-teal); box-shadow: 0 0 0 3px rgba(75,235,226,0.12); }
+    .input-prefix { position: relative; }
+    .input-prefix .prefix { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--splash-muted); font-weight: 600; pointer-events: none; }
+    .input-prefix .field-input { padding-left: 1.75rem; }
+
+    .places-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; }
+    .place-btn { padding: 0.65rem 0.5rem; border: 1px solid var(--splash-border); border-radius: var(--radius); background: #F8F8F6; cursor: pointer; font-family: var(--font-body); font-size: 0.85rem; font-weight: 700; color: var(--splash-text); transition: border-color 0.15s, background 0.15s; text-align: center; }
+    .place-btn:hover { border-color: rgba(75,235,226,0.45); background: rgba(75,235,226,0.05); }
+    .place-btn.selected { border-color: var(--splash-teal); background: rgba(75,235,226,0.1); color: #0D9E97; }
+
+    /* Results */
+    .results-card { background: var(--splash-dark); border: 1px solid rgba(75,235,226,0.3); border-radius: var(--radius); padding: 2rem; margin-top: 1rem; display: none; position: relative; overflow: hidden; }
+    .results-card::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 500px; height: 500px; background: radial-gradient(circle, rgba(75,235,226,0.06) 0%, transparent 65%); pointer-events: none; }
+    .results-card.visible { display: block; }
+
+    .pool-total { text-align: center; margin-bottom: 1.5rem; position: relative; }
+    .pool-label { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: rgba(255,255,255,0.4); margin-bottom: 0.25rem; }
+    .pool-amount { font-family: var(--font-heading); font-size: clamp(2rem, 5vw, 3rem); font-weight: 900; color: var(--splash-teal); letter-spacing: 0.04em; text-shadow: 0 0 40px rgba(75,235,226,0.35); }
+    .pool-sub { font-size: 0.8rem; color: rgba(255,255,255,0.35); margin-top: 0.25rem; }
+
+    .payout-rows { position: relative; }
+    .payout-row { display: flex; align-items: center; gap: 1rem; padding: 0.85rem 1rem; border-radius: var(--radius); margin-bottom: 0.5rem; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); }
+    .payout-row.first { background: rgba(75,235,226,0.1); border-color: rgba(75,235,226,0.25); }
+    .payout-place { font-family: var(--font-heading); font-size: 0.85rem; font-weight: 900; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.06em; width: 60px; flex-shrink: 0; }
+    .payout-row.first .payout-place { color: var(--splash-teal); }
+    .payout-bar-wrap { flex: 1; height: 6px; background: rgba(255,255,255,0.08); border-radius: 99px; }
+    .payout-bar { height: 100%; border-radius: 99px; background: rgba(75,235,226,0.35); transition: width 0.4s ease; }
+    .payout-row.first .payout-bar { background: var(--splash-teal); box-shadow: 0 0 12px rgba(75,235,226,0.4); }
+    .payout-amount { font-family: var(--font-heading); font-size: 1.1rem; font-weight: 900; color: var(--splash-white); letter-spacing: 0.03em; width: 90px; text-align: right; flex-shrink: 0; }
+    .payout-pct { font-size: 0.72rem; color: rgba(255,255,255,0.3); width: 36px; text-align: right; flex-shrink: 0; }
+
+    .note { font-size: 0.78rem; color: rgba(255,255,255,0.35); margin-top: 1.25rem; line-height: 1.6; text-align: center; position: relative; }
+
+    .tip { background: var(--splash-tip-bg); border-left: 3px solid var(--splash-teal); border-radius: 0 var(--radius) var(--radius) 0; padding: 0.9rem 1.1rem; margin: 1rem 0; font-size: 0.875rem; }
+    .tip strong { color: #0D9E97; display: block; margin-bottom: 0.25rem; }
+
+    .site-footer { background: var(--splash-dark); border-top: 1px solid rgba(255,255,255,0.06); color: rgba(255,255,255,0.4); text-align: center; padding: 2.5rem 1.5rem; font-size: 0.8rem; }
+    .footer-logo { height: 40px; width: auto; opacity: 0.35; margin: 0 auto 0.85rem; display: block; }
+    .site-footer a { color: var(--splash-teal); text-decoration: none; opacity: 0.7; }
+    .site-footer a:hover { opacity: 1; }
+
+    @media (max-width: 600px) {
+      .hero { padding: 2.5rem 1.5rem 3rem; } .main { padding: 1.5rem 1rem 4rem; }
+      .site-header { padding: 0.75rem 1.25rem; } .calc-grid { grid-template-columns: 1fr; }
+      .places-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="index.html" class="logo-link"><img src="assets/splash-whale.png" alt="Splash Sports" class="logo-img" /></a>
+    <nav class="site-nav">
+      <a href="index.html" class="nav-link">Contest Guide</a>
+      <a href="contest-picker.html" class="nav-link">Contest Picker</a>
+      <a href="payout-calculator.html" class="nav-link active">Payouts</a>
+      <a href="pre-launch.html" class="nav-link">Pre-Launch</a>
+      <a href="player-guide.html" class="nav-link">Player Guide</a>
+      <a href="calendar.html" class="nav-link">Calendar</a>
+      <a href="best-practices.html" class="nav-link">Best Practices</a>
+      <a href="troubleshooting.html" class="nav-link">Troubleshoot</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-badge">💰 Prize Pool Calculator</div>
+    <h1>Know Your <span>Payouts</span> Before You Launch</h1>
+    <p class="hero-sub">Enter your players and entry fee — we'll show you the prize pool and a suggested payout breakdown.</p>
+  </section>
+
+  <main class="main">
+
+    <div class="calc-grid">
+      <div class="calc-card">
+        <label class="field-label" for="numPlayers">Number of Players</label>
+        <input type="number" id="numPlayers" class="field-input" min="2" max="500" placeholder="e.g. 20" oninput="calculate()" />
+      </div>
+      <div class="calc-card">
+        <label class="field-label" for="entryFee">Entry Fee Per Player</label>
+        <div class="input-prefix">
+          <span class="prefix">$</span>
+          <input type="number" id="entryFee" class="field-input" min="0" max="10000" placeholder="e.g. 25" oninput="calculate()" />
+        </div>
+      </div>
+      <div class="calc-card full">
+        <label class="field-label">Number of Paid Places</label>
+        <div class="places-grid">
+          <button class="place-btn selected" id="place-1" onclick="setPlaces(1)">1st only</button>
+          <button class="place-btn" id="place-2" onclick="setPlaces(2)">Top 2</button>
+          <button class="place-btn" id="place-3" onclick="setPlaces(3)">Top 3</button>
+          <button class="place-btn" id="place-5" onclick="setPlaces(5)">Top 5</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="tip">
+      <strong>💡 Self-managed contest?</strong>
+      This calculator shows the gross prize pool from entry fees. If you're running a self-managed contest, you keep and distribute this yourself. Remember to account for the Splash commissioner service fee separately.
+    </div>
+
+    <div class="results-card" id="resultsCard">
+      <div class="pool-total">
+        <div class="pool-label">Total Prize Pool</div>
+        <div class="pool-amount" id="poolAmount">$0</div>
+        <div class="pool-sub" id="poolSub">—</div>
+      </div>
+      <div class="payout-rows" id="payoutRows"></div>
+      <p class="note">Suggested split based on standard industry payout structures. You can adjust percentages however you and your group agree.</p>
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <img src="assets/splash-whale.png" alt="Splash Sports" class="footer-logo" />
+    <p>Splash Sports Commissioner Hub &middot; <a href="https://app.splashsports.com" target="_blank" rel="noopener">app.splashsports.com</a></p>
+  </footer>
+
+  <script>
+    const payoutStructures = {
+      1: [{ label: '🥇 1st Place', pct: 100 }],
+      2: [{ label: '🥇 1st Place', pct: 65 }, { label: '🥈 2nd Place', pct: 35 }],
+      3: [{ label: '🥇 1st Place', pct: 50 }, { label: '🥈 2nd Place', pct: 30 }, { label: '🥉 3rd Place', pct: 20 }],
+      5: [{ label: '🥇 1st Place', pct: 40 }, { label: '🥈 2nd Place', pct: 25 }, { label: '🥉 3rd Place', pct: 18 }, { label: '4th Place', pct: 10 }, { label: '5th Place', pct: 7 }]
+    };
+
+    let selectedPlaces = 1;
+
+    function setPlaces(n) {
+      selectedPlaces = n;
+      document.querySelectorAll('.place-btn').forEach(b => b.classList.remove('selected'));
+      document.getElementById('place-' + n).classList.add('selected');
+      calculate();
+    }
+
+    function calculate() {
+      const players = parseInt(document.getElementById('numPlayers').value) || 0;
+      const fee = parseFloat(document.getElementById('entryFee').value) || 0;
+      if (players < 2 || fee < 0) { document.getElementById('resultsCard').classList.remove('visible'); return; }
+
+      const pool = players * fee;
+      const structure = payoutStructures[selectedPlaces];
+
+      document.getElementById('poolAmount').textContent = formatMoney(pool);
+      document.getElementById('poolSub').textContent = players + ' players × $' + fee.toFixed(2) + ' entry fee';
+
+      const rows = structure.map((s, i) => {
+        const amount = pool * (s.pct / 100);
+        return `
+          <div class="payout-row ${i === 0 ? 'first' : ''}">
+            <span class="payout-place">${s.label}</span>
+            <div class="payout-bar-wrap"><div class="payout-bar" style="width:${s.pct}%"></div></div>
+            <span class="payout-amount">${formatMoney(amount)}</span>
+            <span class="payout-pct">${s.pct}%</span>
+          </div>`;
+      }).join('');
+
+      document.getElementById('payoutRows').innerHTML = rows;
+      document.getElementById('resultsCard').classList.add('visible');
+    }
+
+    function formatMoney(n) {
+      if (n === 0) return '$0';
+      return '$' + n.toLocaleString('en-US', { minimumFractionDigits: n % 1 === 0 ? 0 : 2, maximumFractionDigits: 2 });
+    }
+  </script>
+
+</body>
+</html>

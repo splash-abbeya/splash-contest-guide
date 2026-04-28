@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pre-Launch Checklist — Splash Sports Commissioner Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@700;800;900&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --splash-dark: #1A1A1A; --splash-page-bg: #F4F4F2; --splash-card: #FFFFFF;
+      --splash-teal: #4BEBE2; --splash-teal-dim: rgba(75,235,226,0.1);
+      --splash-white: #FFFFFF; --splash-text: #1A1A1A; --splash-muted: #6B7280;
+      --splash-border: #E4E4E0; --splash-warn-bg: #FFFBEB; --splash-warn-border: #F59E0B;
+      --splash-tip-bg: rgba(75,235,226,0.08); --radius: 12px;
+      --shadow: 0 2px 16px rgba(0,0,0,0.07);
+      --font-heading: 'Barlow', system-ui, sans-serif;
+      --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); background: var(--splash-page-bg); color: var(--splash-text); font-size: 1rem; line-height: 1.65; min-height: 100vh; }
+
+    .site-header { background: var(--splash-dark); padding: 0.75rem 2rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(75,235,226,0.15); box-shadow: 0 2px 24px rgba(0,0,0,0.5); flex-wrap: wrap; gap: 0.5rem; }
+    .logo-link { display: flex; align-items: center; }
+    .logo-img { height: 40px; width: auto; }
+    .site-nav { display: flex; gap: 0.25rem; flex-wrap: wrap; align-items: center; }
+    .nav-link { color: rgba(255,255,255,0.55); font-size: 0.75rem; font-weight: 600; text-decoration: none; padding: 0.3rem 0.7rem; border-radius: 99px; transition: color 0.15s, background 0.15s; letter-spacing: 0.02em; white-space: nowrap; }
+    .nav-link:hover { color: #fff; background: rgba(255,255,255,0.08); }
+    .nav-link.active { background: var(--splash-teal-dim); border: 1px solid rgba(75,235,226,0.3); color: var(--splash-teal); }
+
+    .hero { background: var(--splash-dark); color: var(--splash-white); padding: 3.5rem 2rem 4.5rem; text-align: center; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; top: -150px; left: 50%; transform: translateX(-50%); width: 800px; height: 800px; background: radial-gradient(circle, rgba(75,235,226,0.07) 0%, transparent 60%); pointer-events: none; }
+    .hero-badge { display: inline-flex; align-items: center; background: var(--splash-teal-dim); border: 1px solid rgba(75,235,226,0.35); color: var(--splash-teal); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.35rem 1rem; border-radius: 99px; margin-bottom: 1.5rem; }
+    .hero h1 { font-family: var(--font-heading); font-size: clamp(1.8rem, 4.5vw, 3rem); font-weight: 900; margin-bottom: 1rem; line-height: 1.1; letter-spacing: 0.04em; text-transform: uppercase; color: var(--splash-white); }
+    .hero h1 span { color: var(--splash-teal); text-shadow: 0 0 50px rgba(75,235,226,0.45); }
+    .hero-sub { color: rgba(255,255,255,0.5); max-width: 480px; margin: 0 auto; font-size: 1rem; font-weight: 300; line-height: 1.75; }
+
+    /* Progress bar */
+    .progress-wrap { background: var(--splash-white); border-bottom: 1px solid var(--splash-border); padding: 1rem 2rem; position: sticky; top: 67px; z-index: 90; }
+    .progress-inner { max-width: 720px; margin: 0 auto; }
+    .progress-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
+    .progress-text { font-size: 0.75rem; font-weight: 700; color: var(--splash-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+    .progress-count { font-size: 0.75rem; font-weight: 700; color: var(--splash-teal); }
+    .progress-track { height: 5px; background: var(--splash-border); border-radius: 99px; }
+    .progress-fill { height: 100%; background: linear-gradient(90deg, var(--splash-teal), #8FF9F5); border-radius: 99px; transition: width 0.4s ease; box-shadow: 0 0 10px rgba(75,235,226,0.4); width: 0%; }
+
+    .main { max-width: 720px; margin: 0 auto; padding: 2.5rem 1.5rem 6rem; }
+
+    .section-label { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: var(--splash-teal); margin-bottom: 0.75rem; margin-top: 2rem; }
+    .section-label:first-child { margin-top: 0; }
+
+    .checklist-card { background: var(--splash-card); border: 1px solid var(--splash-border); border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 1rem; overflow: hidden; }
+    .check-item { display: flex; align-items: flex-start; gap: 0.85rem; padding: 0.9rem 1.25rem; border-bottom: 1px solid var(--splash-border); cursor: pointer; transition: background 0.15s; }
+    .check-item:last-child { border-bottom: none; }
+    .check-item:hover { background: #F8F8F6; }
+    .check-item.checked { background: rgba(75,235,226,0.04); }
+    .check-box { width: 1.2rem; height: 1.2rem; border: 2px solid var(--splash-border); border-radius: 4px; flex-shrink: 0; margin-top: 0.15rem; display: flex; align-items: center; justify-content: center; transition: border-color 0.2s, background 0.2s; }
+    .check-item.checked .check-box { background: var(--splash-teal); border-color: var(--splash-teal); }
+    .check-mark { display: none; color: var(--splash-dark); font-size: 0.75rem; font-weight: 900; }
+    .check-item.checked .check-mark { display: block; }
+    .check-content strong { display: block; font-size: 0.9rem; color: var(--splash-text); margin-bottom: 0.15rem; transition: color 0.2s; }
+    .check-item.checked .check-content strong { color: #0D9E97; text-decoration: line-through; text-decoration-color: rgba(75,235,226,0.4); }
+    .check-content span { font-size: 0.8rem; color: var(--splash-muted); line-height: 1.5; }
+
+    /* Done state */
+    .done-state { display: none; background: var(--splash-dark); border: 1px solid rgba(75,235,226,0.3); border-radius: var(--radius); padding: 2.5rem; text-align: center; margin-top: 1.5rem; position: relative; overflow: hidden; }
+    .done-state::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 500px; height: 500px; background: radial-gradient(circle, rgba(75,235,226,0.07) 0%, transparent 65%); pointer-events: none; }
+    .done-state.visible { display: block; }
+    .done-state h2 { font-family: var(--font-heading); font-size: clamp(1.5rem, 3.5vw, 2rem); font-weight: 900; letter-spacing: 0.06em; text-transform: uppercase; color: var(--splash-white); margin-bottom: 0.5rem; position: relative; }
+    .done-state h2 span { color: var(--splash-teal); }
+    .done-state p { color: rgba(255,255,255,0.55); font-size: 0.9rem; position: relative; }
+    .done-cta { display: inline-block; margin-top: 1.25rem; background: var(--splash-teal); color: var(--splash-dark); font-family: var(--font-heading); font-weight: 900; font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.7rem 1.6rem; border-radius: var(--radius); text-decoration: none; position: relative; transition: box-shadow 0.15s; }
+    .done-cta:hover { box-shadow: 0 6px 24px rgba(75,235,226,0.4); }
+
+    .reset-btn { background: none; border: none; font-size: 0.8rem; color: var(--splash-muted); cursor: pointer; text-decoration: underline; margin-top: 1rem; }
+    .reset-btn:hover { color: var(--splash-text); }
+
+    .site-footer { background: var(--splash-dark); border-top: 1px solid rgba(255,255,255,0.06); color: rgba(255,255,255,0.4); text-align: center; padding: 2.5rem 1.5rem; font-size: 0.8rem; }
+    .footer-logo { height: 40px; width: auto; opacity: 0.35; margin: 0 auto 0.85rem; display: block; }
+    .site-footer a { color: var(--splash-teal); text-decoration: none; opacity: 0.7; }
+    .site-footer a:hover { opacity: 1; }
+
+    @media (max-width: 600px) { .hero { padding: 2.5rem 1.5rem 3rem; } .main { padding: 1.5rem 1rem 4rem; } .site-header { padding: 0.75rem 1.25rem; } .progress-wrap { padding: 0.85rem 1.25rem; } }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="index.html" class="logo-link"><img src="assets/splash-whale.png" alt="Splash Sports" class="logo-img" /></a>
+    <nav class="site-nav">
+      <a href="index.html" class="nav-link">Contest Guide</a>
+      <a href="contest-picker.html" class="nav-link">Contest Picker</a>
+      <a href="payout-calculator.html" class="nav-link">Payouts</a>
+      <a href="pre-launch.html" class="nav-link active">Pre-Launch</a>
+      <a href="player-guide.html" class="nav-link">Player Guide</a>
+      <a href="calendar.html" class="nav-link">Calendar</a>
+      <a href="best-practices.html" class="nav-link">Best Practices</a>
+      <a href="troubleshooting.html" class="nav-link">Troubleshoot</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-badge">✅ Pre-Launch Checklist</div>
+    <h1>Don't Go Live Until <span>This is Done</span></h1>
+    <p class="hero-sub">Run through every item before you hit "Create Contest." Progress saves automatically.</p>
+  </section>
+
+  <div class="progress-wrap">
+    <div class="progress-inner">
+      <div class="progress-header">
+        <span class="progress-text">Pre-Launch Checklist</span>
+        <span class="progress-count" id="progressCount">0 / 15 complete</span>
+      </div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    </div>
+  </div>
+
+  <main class="main">
+
+    <div class="section-label">📋 Contest Basics</div>
+    <div class="checklist-card">
+      <div class="check-item" data-key="basics-1" onclick="toggle(this)">
+        <div class="check-box"><span class="check-mark">✓</span></div>
+        <div class="check-content"><strong>I picked the right sport and league</strong><span>Double-check — you can't change the format or league after the contest is created.</span></div>
+      </div>
+      <div class="check-item" data-key="basics-2" onclick="toggle(this)">
+        <div class="check-box"><span class="check-mark">✓</span></div>
+        <div class="check-content"><strong>I chose the right contest type / format</strong><span>Review the Contest Picker if unsure — format can't be changed post-launch.</span></div>
+      </div>
+      <div class="check-item" data-key="basics-3" onclick="toggle(this)">
+        <div class="check-box"><span class="check-mark">✓</span></div>
+        <div class="check-content"><strong>I gave the contest a clear, recognizable name</strong><span>e.g. "Mike's NFL Survivor 2025" — something your players will recognize immediately.</span></div>
+      </div>
+      <div class="check-item" data-key="basics-4" onclick="toggle(this)">
+        <div class="check-box"><span class="check-mark">✓</span></div>
+        <div class="check-content"><strong>I reviewed the Schedule settings</strong><span>Defaults to "All Events." Expand this if you want to exclude specific games or weeks.</span></div>
+      </div>
+    </div>
+
+    <div class="section-label">💰 Entry Fee & Prize Pool</div>
+    <div class="checklist-card">
+      <div class="check-item" data-key="fee-1" onclick="toggle(this)">
+        <div class="check-box"><span class="check-mark">✓</span></div>
+        <div class="check-content"><strong>I clicked "Set up" on Entry Fee — it is not blank</strong><span>This is the most commonly missed step. Skipping it means your contest may not collect fees.</span></div>
+      </div>
+      <div class="check-item" data-key="fee-2" onclick="toggle(this)">
+        <div class="check-box"><span class="check-mark">✓</span></div>
+        <div class="check-content"><strong>I chose Splash-managed or self-managed payouts</strong><span>Splash-managed = players pay through the app. Self-managed = you collect money yourself.</span></div>
+      </div>
+      <div class="check-item" data-key="fee-3" onclick="toggle(this)">
+        <div class="check-box"><span class="check-mark">✓</span></div>
+        <div class="check-content"><strong>I confirmed the payout structure with my group</strong><span>Use the Payout Calculator to agree on splits before launching.</span></div>
+      </div>
+    </div>
+
+    <div class="section-label">👥 Contest Size</div>
+    <div class="checklist-card">
+      <div class="check-item" data-key="size-1" onclick="toggle(this)">
+        <div class="check-box"><span class="check-mark">✓</span></div>
+        <div class="check-content"><strong>I clicked "Set up" on Contest Size — it is not blank</strong><span>Another commonly skipped step. If left blank, your contest may not limit entries correctly.</span></div>
+      </div>
+      <div class="check-item" data-key="size-2" onclick="toggle(this)">
+        <div class="check-box"><span class="check-mark">✓</span></div>
+        <div class="check-content"><strong>The max player count is set higher than my expected group size</strong><span>Set it a bit higher than you expect — you can always fill remaining spots later.</span></div>
+      </div>
+    </div>
+
+    <div class="section-label">📢 Invites & Players</div>
+    <div class="checklist-card">
+      <div class="check-item" data-key="invite-1" onclick="toggle(this)">
+        <div class="check-box"><span class="check-mark">✓</span></div>
+        <div class="check-content"><strong>I have my invite link or invite method ready</strong><span>Share link is fastest. Have it copied before you tell people the contest is live.</span></div>
+      </div>
+      <div class="check-item" data-key="invite-2" onclick="toggle(this)">
+        <div class="check-box"><span class="check-mark">✓</span></div>
+        <div class="check-content"><strong>I've told my players the pick deadline</strong><span>Let them know when picks lock before the first game — this avoids missed-pick complaints.</span></div>
+      </div>
+      <div class="check-item" data-key="invite-3" onclick="toggle(this)">
+        <div class="check-box"><span class="check-mark">✓</span></div>
+        <div class="check-content"><strong>I've warned my players to check spam for Splash emails</strong><span>Ask them to search for noreply@splashsports.com and mark as "Not Spam."</span></div>
+      </div>
+    </div>
+
+    <div class="section-label">⚙️ Settings Review</div>
+    <div class="checklist-card">
+      <div class="check-item" data-key="settings-1" onclick="toggle(this)">
+        <div class="check-box"><span class="check-mark">✓</span></div>
+        <div class="check-content"><strong>I reviewed General Settings</strong><span>Check visibility, public vs. private, and any format-specific rules.</span></div>
+      </div>
+      <div class="check-item" data-key="settings-2" onclick="toggle(this)">
+        <div class="check-box"><span class="check-mark">✓</span></div>
+        <div class="check-content"><strong>I reviewed Advanced & Admin Settings</strong><span>Most first-timers can leave defaults. Just confirm you understand what each does.</span></div>
+      </div>
+      <div class="check-item" data-key="settings-3" onclick="toggle(this)">
+        <div class="check-box"><span class="check-mark">✓</span></div>
+        <div class="check-content"><strong>I'm ready to click "Create Contest"</strong><span>Your contest goes live immediately when you click this. Everything above should be green.</span></div>
+      </div>
+    </div>
+
+    <div style="text-align:center; margin-top: 1rem;">
+      <button class="reset-btn" onclick="resetAll()">Reset checklist</button>
+    </div>
+
+    <div class="done-state" id="doneState">
+      <div style="font-size:2.5rem; margin-bottom:0.75rem; position:relative;">🚀</div>
+      <h2 style="position:relative;">You're <span>good to go!</span></h2>
+      <p style="margin-top:0.5rem; position:relative;">Every box is checked. Go launch your contest — your players are waiting.</p>
+      <a href="https://app.splashsports.com" target="_blank" rel="noopener" class="done-cta">Launch on Splash →</a>
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <img src="assets/splash-whale.png" alt="Splash Sports" class="footer-logo" />
+    <p>Splash Sports Commissioner Hub &middot; <a href="https://app.splashsports.com" target="_blank" rel="noopener">app.splashsports.com</a></p>
+  </footer>
+
+  <script>
+    const TOTAL = 15;
+    const state = {};
+
+    // Load saved state
+    document.querySelectorAll('.check-item').forEach(item => {
+      const key = item.dataset.key;
+      if (localStorage.getItem('prelaunch-' + key) === 'true') {
+        item.classList.add('checked');
+        state[key] = true;
+      }
+    });
+    updateProgress();
+
+    function toggle(item) {
+      const key = item.dataset.key;
+      const isChecked = item.classList.contains('checked');
+      item.classList.toggle('checked', !isChecked);
+      state[key] = !isChecked;
+      localStorage.setItem('prelaunch-' + key, !isChecked);
+      updateProgress();
+    }
+
+    function updateProgress() {
+      const done = Object.values(state).filter(Boolean).length;
+      document.getElementById('progressCount').textContent = done + ' / ' + TOTAL + ' complete';
+      document.getElementById('progressFill').style.width = (done / TOTAL * 100) + '%';
+      document.getElementById('doneState').classList.toggle('visible', done === TOTAL);
+    }
+
+    function resetAll() {
+      document.querySelectorAll('.check-item').forEach(item => {
+        item.classList.remove('checked');
+        localStorage.removeItem('prelaunch-' + item.dataset.key);
+        delete state[item.dataset.key];
+      });
+      updateProgress();
+    }
+  </script>
+
+</body>
+</html>

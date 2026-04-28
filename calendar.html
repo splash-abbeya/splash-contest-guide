@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Season Calendar — Splash Sports Commissioner Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@700;800;900&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --splash-dark: #1A1A1A; --splash-page-bg: #F4F4F2; --splash-card: #FFFFFF;
+      --splash-teal: #4BEBE2; --splash-teal-dim: rgba(75,235,226,0.1);
+      --splash-white: #FFFFFF; --splash-text: #1A1A1A; --splash-muted: #6B7280;
+      --splash-border: #E4E4E0; --splash-warn-bg: #FFFBEB; --splash-warn-border: #F59E0B;
+      --splash-tip-bg: rgba(75,235,226,0.08); --radius: 12px;
+      --shadow: 0 2px 16px rgba(0,0,0,0.07);
+      --font-heading: 'Barlow', system-ui, sans-serif;
+      --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); background: var(--splash-page-bg); color: var(--splash-text); font-size: 1rem; line-height: 1.65; min-height: 100vh; }
+
+    .site-header { background: var(--splash-dark); padding: 0.75rem 2rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(75,235,226,0.15); box-shadow: 0 2px 24px rgba(0,0,0,0.5); flex-wrap: wrap; gap: 0.5rem; }
+    .logo-link { display: flex; align-items: center; }
+    .logo-img { height: 40px; width: auto; }
+    .site-nav { display: flex; gap: 0.25rem; flex-wrap: wrap; align-items: center; }
+    .nav-link { color: rgba(255,255,255,0.55); font-size: 0.75rem; font-weight: 600; text-decoration: none; padding: 0.3rem 0.7rem; border-radius: 99px; transition: color 0.15s, background 0.15s; letter-spacing: 0.02em; white-space: nowrap; }
+    .nav-link:hover { color: #fff; background: rgba(255,255,255,0.08); }
+    .nav-link.active { background: var(--splash-teal-dim); border: 1px solid rgba(75,235,226,0.3); color: var(--splash-teal); }
+
+    .hero { background: var(--splash-dark); color: var(--splash-white); padding: 3.5rem 2rem 4.5rem; text-align: center; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; top: -150px; left: 50%; transform: translateX(-50%); width: 800px; height: 800px; background: radial-gradient(circle, rgba(75,235,226,0.07) 0%, transparent 60%); pointer-events: none; }
+    .hero-badge { display: inline-flex; align-items: center; background: var(--splash-teal-dim); border: 1px solid rgba(75,235,226,0.35); color: var(--splash-teal); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.35rem 1rem; border-radius: 99px; margin-bottom: 1.5rem; }
+    .hero h1 { font-family: var(--font-heading); font-size: clamp(1.8rem, 4.5vw, 3rem); font-weight: 900; margin-bottom: 1rem; line-height: 1.1; letter-spacing: 0.04em; text-transform: uppercase; color: var(--splash-white); }
+    .hero h1 span { color: var(--splash-teal); text-shadow: 0 0 50px rgba(75,235,226,0.45); }
+    .hero-sub { color: rgba(255,255,255,0.5); max-width: 520px; margin: 0 auto; font-size: 1rem; font-weight: 300; line-height: 1.75; }
+
+    .main { max-width: 900px; margin: 0 auto; padding: 2.5rem 1.5rem 6rem; }
+
+    /* Sport cards */
+    .sport-cards { display: grid; gap: 1rem; margin-bottom: 2.5rem; }
+    .sport-card { background: var(--splash-card); border: 1px solid var(--splash-border); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+    .sport-card-header { display: flex; align-items: center; gap: 1rem; padding: 1.1rem 1.4rem; border-bottom: 1px solid var(--splash-border); }
+    .sport-icon { font-size: 1.6rem; }
+    .sport-name { font-family: var(--font-heading); font-size: 1rem; font-weight: 900; letter-spacing: 0.06em; text-transform: uppercase; }
+    .sport-season-tag { margin-left: auto; font-size: 0.72rem; font-weight: 700; padding: 0.2rem 0.65rem; border-radius: 99px; white-space: nowrap; }
+    .tag-active { background: #D1FAE5; color: #065F46; }
+    .tag-offseason { background: #F3F4F6; color: #6B7280; }
+    .tag-soon { background: #FEF3C7; color: #92400E; }
+
+    .sport-card-body { padding: 1.1rem 1.4rem; }
+    .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.75rem 1.5rem; margin-bottom: 1rem; }
+    .info-item .info-label { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--splash-muted); margin-bottom: 0.2rem; }
+    .info-item .info-value { font-size: 0.875rem; font-weight: 600; color: var(--splash-text); }
+
+    .formats-label { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--splash-teal); margin-bottom: 0.5rem; }
+    .format-pills { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .format-pill { font-size: 0.75rem; font-weight: 600; padding: 0.2rem 0.65rem; border-radius: 99px; background: #F4F4F2; border: 1px solid var(--splash-border); color: var(--splash-text); }
+    .format-pill.rec { background: rgba(75,235,226,0.1); border-color: rgba(75,235,226,0.35); color: #0D9E97; }
+
+    .key-dates-section { margin-top: 2rem; }
+    .section-title { font-family: var(--font-heading); font-size: 1.1rem; font-weight: 900; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.75rem; color: var(--splash-text); }
+    .dates-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.65rem; }
+    .date-card { background: var(--splash-card); border: 1px solid var(--splash-border); border-radius: var(--radius); padding: 0.9rem 1.1rem; box-shadow: var(--shadow); }
+    .date-event { font-weight: 700; font-size: 0.875rem; color: var(--splash-text); margin-bottom: 0.15rem; }
+    .date-when { font-size: 0.78rem; color: var(--splash-teal); font-weight: 700; }
+    .date-tip { font-size: 0.75rem; color: var(--splash-muted); margin-top: 0.2rem; }
+
+    .tip { background: var(--splash-tip-bg); border-left: 3px solid var(--splash-teal); border-radius: 0 var(--radius) var(--radius) 0; padding: 0.9rem 1.1rem; margin: 1.25rem 0; font-size: 0.875rem; }
+    .tip strong { color: #0D9E97; display: block; margin-bottom: 0.25rem; }
+
+    .site-footer { background: var(--splash-dark); border-top: 1px solid rgba(255,255,255,0.06); color: rgba(255,255,255,0.4); text-align: center; padding: 2.5rem 1.5rem; font-size: 0.8rem; }
+    .footer-logo { height: 40px; width: auto; opacity: 0.35; margin: 0 auto 0.85rem; display: block; }
+    .site-footer a { color: var(--splash-teal); text-decoration: none; opacity: 0.7; }
+    .site-footer a:hover { opacity: 1; }
+
+    @media (max-width: 600px) { .hero { padding: 2.5rem 1.5rem 3rem; } .main { padding: 1.5rem 1rem 4rem; } .site-header { padding: 0.75rem 1.25rem; } .info-grid { grid-template-columns: 1fr 1fr; } }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="index.html" class="logo-link"><img src="assets/splash-whale.png" alt="Splash Sports" class="logo-img" /></a>
+    <nav class="site-nav">
+      <a href="index.html" class="nav-link">Contest Guide</a>
+      <a href="contest-picker.html" class="nav-link">Contest Picker</a>
+      <a href="payout-calculator.html" class="nav-link">Payouts</a>
+      <a href="pre-launch.html" class="nav-link">Pre-Launch</a>
+      <a href="player-guide.html" class="nav-link">Player Guide</a>
+      <a href="calendar.html" class="nav-link active">Calendar</a>
+      <a href="best-practices.html" class="nav-link">Best Practices</a>
+      <a href="troubleshooting.html" class="nav-link">Troubleshoot</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-badge">📅 Season Calendar</div>
+    <h1>Know <span>When to Create</span></h1>
+    <p class="hero-sub">When each sport's season runs on Splash, what formats are available, and the best time to get your contest set up.</p>
+  </section>
+
+  <main class="main">
+
+    <div class="tip">
+      <strong>💡 Create your contest 1–2 weeks before the season starts.</strong>
+      This gives players enough time to join and make their opening picks before the first deadline.
+    </div>
+
+    <div class="sport-cards">
+
+      <!-- NFL -->
+      <div class="sport-card">
+        <div class="sport-card-header">
+          <span class="sport-icon">🏈</span>
+          <span class="sport-name">NFL</span>
+          <span class="sport-season-tag tag-active">Sep – Feb</span>
+        </div>
+        <div class="sport-card-body">
+          <div class="info-grid">
+            <div class="info-item"><div class="info-label">Season Window</div><div class="info-value">September – February (Super Bowl)</div></div>
+            <div class="info-item"><div class="info-label">Playoffs Only</div><div class="info-value">January – February</div></div>
+            <div class="info-item"><div class="info-label">Best Time to Create</div><div class="info-value">Late August – Week 1</div></div>
+            <div class="info-item"><div class="info-label">Group Size Sweet Spot</div><div class="info-value">Any — scales from 5 to 500+</div></div>
+          </div>
+          <div class="formats-label">Available Formats</div>
+          <div class="format-pills">
+            <span class="format-pill rec">⭐ Survivor</span>
+            <span class="format-pill rec">⭐ Pick'Em</span>
+            <span class="format-pill">Pick'Em: Confidence</span>
+            <span class="format-pill">Player Survivor</span>
+            <span class="format-pill">Tiers: Fantasy Points</span>
+            <span class="format-pill">One & Done</span>
+            <span class="format-pill">Playoffs Formats</span>
+            <span class="format-pill">Squares</span>
+            <span class="format-pill">SB Props</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PGA -->
+      <div class="sport-card">
+        <div class="sport-card-header">
+          <span class="sport-icon">⛳</span>
+          <span class="sport-name">PGA Tour</span>
+          <span class="sport-season-tag tag-active">Jan – Aug</span>
+        </div>
+        <div class="sport-card-body">
+          <div class="info-grid">
+            <div class="info-item"><div class="info-label">Season Window</div><div class="info-value">January – August</div></div>
+            <div class="info-item"><div class="info-label">Majors</div><div class="info-value">Masters (Apr), PGA (May), US Open (Jun), The Open (Jul)</div></div>
+            <div class="info-item"><div class="info-label">Best Time to Create</div><div class="info-value">Early January (season-long) or week before any Major</div></div>
+            <div class="info-item"><div class="info-label">Group Size Sweet Spot</div><div class="info-value">10–50 ideal for One & Done</div></div>
+          </div>
+          <div class="formats-label">Available Formats</div>
+          <div class="format-pills">
+            <span class="format-pill rec">⭐ One & Done — Dollar Winnings</span>
+            <span class="format-pill">One & Done — Strokes</span>
+            <span class="format-pill">Golf Majors Tiers</span>
+            <span class="format-pill">Multi-Tournament Tiers</span>
+            <span class="format-pill">Single Tournament Tiers</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- NBA -->
+      <div class="sport-card">
+        <div class="sport-card-header">
+          <span class="sport-icon">🏀</span>
+          <span class="sport-name">NBA</span>
+          <span class="sport-season-tag tag-active">Oct – Jun</span>
+        </div>
+        <div class="sport-card-body">
+          <div class="info-grid">
+            <div class="info-item"><div class="info-label">Season Window</div><div class="info-value">October – June (Finals)</div></div>
+            <div class="info-item"><div class="info-label">Best Time to Create</div><div class="info-value">Opening week of October</div></div>
+            <div class="info-item"><div class="info-label">Group Size Sweet Spot</div><div class="info-value">10–30</div></div>
+            <div class="info-item"><div class="info-label">Commitment Level</div><div class="info-value">Weekly picks, lower lift than DFS</div></div>
+          </div>
+          <div class="formats-label">Available Formats</div>
+          <div class="format-pills">
+            <span class="format-pill rec">⭐ NBA Tiers</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- MLB -->
+      <div class="sport-card">
+        <div class="sport-card-header">
+          <span class="sport-icon">⚾</span>
+          <span class="sport-name">MLB</span>
+          <span class="sport-season-tag tag-active">Apr – Oct</span>
+        </div>
+        <div class="sport-card-body">
+          <div class="info-grid">
+            <div class="info-item"><div class="info-label">Season Window</div><div class="info-value">April – October (World Series)</div></div>
+            <div class="info-item"><div class="info-label">Best Time to Create</div><div class="info-value">Opening Day (early April)</div></div>
+            <div class="info-item"><div class="info-label">Group Size Sweet Spot</div><div class="info-value">15–40 for Player Survivor</div></div>
+            <div class="info-item"><div class="info-label">Commitment Level</div><div class="info-value">Season-long or single-game</div></div>
+          </div>
+          <div class="formats-label">Available Formats</div>
+          <div class="format-pills">
+            <span class="format-pill rec">⭐ Player Survivor</span>
+            <span class="format-pill">13-Run</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- NCAAB -->
+      <div class="sport-card">
+        <div class="sport-card-header">
+          <span class="sport-icon">🏀</span>
+          <span class="sport-name">NCAAB — College Basketball</span>
+          <span class="sport-season-tag tag-soon">Mar–Apr Peak</span>
+        </div>
+        <div class="sport-card-body">
+          <div class="info-grid">
+            <div class="info-item"><div class="info-label">Season Window</div><div class="info-value">November – April</div></div>
+            <div class="info-item"><div class="info-label">March Madness</div><div class="info-value">Mid-March – first weekend in April</div></div>
+            <div class="info-item"><div class="info-label">Best Time to Create</div><div class="info-value">Selection Sunday (bracket drops mid-March)</div></div>
+            <div class="info-item"><div class="info-label">Group Size Sweet Spot</div><div class="info-value">Any — bracket works for 5 to 500+</div></div>
+          </div>
+          <div class="formats-label">Available Formats</div>
+          <div class="format-pills">
+            <span class="format-pill rec">⭐ Men's Bracket</span>
+            <span class="format-pill rec">⭐ Women's Bracket</span>
+            <span class="format-pill">Survivor — Pick by Round</span>
+            <span class="format-pill">Pick'Em</span>
+            <span class="format-pill">Squares</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- NCAAF -->
+      <div class="sport-card">
+        <div class="sport-card-header">
+          <span class="sport-icon">🏈</span>
+          <span class="sport-name">NCAAF — College Football</span>
+          <span class="sport-season-tag tag-active">Sep – Jan</span>
+        </div>
+        <div class="sport-card-body">
+          <div class="info-grid">
+            <div class="info-item"><div class="info-label">Season Window</div><div class="info-value">September – January (CFP)</div></div>
+            <div class="info-item"><div class="info-label">Bowl Season</div><div class="info-value">Late December – early January</div></div>
+            <div class="info-item"><div class="info-label">Best Time to Create</div><div class="info-value">Late August (season) or early December (bowls)</div></div>
+            <div class="info-item"><div class="info-label">Group Size Sweet Spot</div><div class="info-value">10–60 for Pick'Em</div></div>
+          </div>
+          <div class="formats-label">Available Formats</div>
+          <div class="format-pills">
+            <span class="format-pill rec">⭐ Pick'Em</span>
+            <span class="format-pill rec">⭐ College Bowl Pick'Em</span>
+            <span class="format-pill">Pick'Em: Confidence</span>
+            <span class="format-pill">Survivor</span>
+            <span class="format-pill">CFB Playoffs Survivor</span>
+            <span class="format-pill">Squares</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Key dates -->
+    <div class="key-dates-section">
+      <div class="section-title">📌 Key Dates to Know</div>
+      <div class="dates-grid">
+        <div class="date-card"><div class="date-event">NFL Season Kickoff</div><div class="date-when">Early September</div><div class="date-tip">Create Survivor & Pick'Em by late August</div></div>
+        <div class="date-card"><div class="date-event">Super Bowl</div><div class="date-when">Early February</div><div class="date-tip">Great time for Squares & SB Props contests</div></div>
+        <div class="date-card"><div class="date-event">The Masters</div><div class="date-when">Early April</div><div class="date-tip">Biggest PGA event — launch Single Tournament Tiers</div></div>
+        <div class="date-card"><div class="date-event">NCAA Selection Sunday</div><div class="date-when">Mid-March</div><div class="date-tip">Bracket drops — create your contest that day</div></div>
+        <div class="date-card"><div class="date-event">MLB Opening Day</div><div class="date-when">Late March / Early April</div><div class="date-tip">Launch Player Survivor opening week</div></div>
+        <div class="date-card"><div class="date-event">NBA Season Tip-Off</div><div class="date-when">Mid-October</div><div class="date-tip">Create NBA Tiers in opening week</div></div>
+        <div class="date-card"><div class="date-event">College Bowl Season</div><div class="date-when">Late December</div><div class="date-tip">Launch College Bowl Pick'Em in early December</div></div>
+        <div class="date-card"><div class="date-event">CFB Playoffs</div><div class="date-when">Late December – January</div><div class="date-tip">CFB Playoffs Survivor — create when bracket is set</div></div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <img src="assets/splash-whale.png" alt="Splash Sports" class="footer-logo" />
+    <p>Splash Sports Commissioner Hub &middot; <a href="https://app.splashsports.com" target="_blank" rel="noopener">app.splashsports.com</a></p>
+  </footer>
+
+</body>
+</html>

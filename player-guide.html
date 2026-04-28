@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Player Quick-Start Guide — Splash Sports</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@700;800;900&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --splash-dark: #1A1A1A; --splash-page-bg: #F4F4F2; --splash-card: #FFFFFF;
+      --splash-teal: #4BEBE2; --splash-teal-dim: rgba(75,235,226,0.1);
+      --splash-white: #FFFFFF; --splash-text: #1A1A1A; --splash-muted: #6B7280;
+      --splash-border: #E4E4E0; --splash-warn-bg: #FFFBEB; --splash-warn-border: #F59E0B;
+      --splash-tip-bg: rgba(75,235,226,0.08); --radius: 12px;
+      --shadow: 0 2px 16px rgba(0,0,0,0.07);
+      --font-heading: 'Barlow', system-ui, sans-serif;
+      --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); background: var(--splash-page-bg); color: var(--splash-text); font-size: 1rem; line-height: 1.65; min-height: 100vh; }
+
+    .site-header { background: var(--splash-dark); padding: 0.75rem 2rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(75,235,226,0.15); box-shadow: 0 2px 24px rgba(0,0,0,0.5); flex-wrap: wrap; gap: 0.5rem; }
+    .logo-link { display: flex; align-items: center; }
+    .logo-img { height: 40px; width: auto; }
+    .site-nav { display: flex; gap: 0.25rem; flex-wrap: wrap; align-items: center; }
+    .nav-link { color: rgba(255,255,255,0.55); font-size: 0.75rem; font-weight: 600; text-decoration: none; padding: 0.3rem 0.7rem; border-radius: 99px; transition: color 0.15s, background 0.15s; letter-spacing: 0.02em; white-space: nowrap; }
+    .nav-link:hover { color: #fff; background: rgba(255,255,255,0.08); }
+    .nav-link.active { background: var(--splash-teal-dim); border: 1px solid rgba(75,235,226,0.3); color: var(--splash-teal); }
+
+    .hero { background: var(--splash-dark); color: var(--splash-white); padding: 3.5rem 2rem 4.5rem; text-align: center; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; top: -150px; left: 50%; transform: translateX(-50%); width: 800px; height: 800px; background: radial-gradient(circle, rgba(75,235,226,0.07) 0%, transparent 60%); pointer-events: none; }
+    .hero-badge { display: inline-flex; align-items: center; background: var(--splash-teal-dim); border: 1px solid rgba(75,235,226,0.35); color: var(--splash-teal); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.35rem 1rem; border-radius: 99px; margin-bottom: 1.5rem; }
+    .hero h1 { font-family: var(--font-heading); font-size: clamp(1.8rem, 4.5vw, 3rem); font-weight: 900; margin-bottom: 1rem; line-height: 1.1; letter-spacing: 0.04em; text-transform: uppercase; color: var(--splash-white); }
+    .hero h1 span { color: var(--splash-teal); text-shadow: 0 0 50px rgba(75,235,226,0.45); }
+    .hero-sub { color: rgba(255,255,255,0.5); max-width: 520px; margin: 0 auto 1.5rem; font-size: 1rem; font-weight: 300; line-height: 1.75; }
+    .share-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.8); font-size: 0.8rem; font-weight: 600; padding: 0.5rem 1.1rem; border-radius: 99px; cursor: pointer; font-family: var(--font-body); transition: background 0.15s; }
+    .share-btn:hover { background: rgba(255,255,255,0.15); }
+
+    .main { max-width: 680px; margin: 0 auto; padding: 2.5rem 1.5rem 6rem; }
+
+    /* Steps */
+    .steps { display: grid; gap: 0.75rem; margin-bottom: 2rem; }
+    .step-row { background: var(--splash-card); border: 1px solid var(--splash-border); border-radius: var(--radius); box-shadow: var(--shadow); display: flex; align-items: flex-start; gap: 1.1rem; padding: 1.25rem 1.4rem; }
+    .step-num { width: 2.25rem; height: 2.25rem; border-radius: 50%; background: var(--splash-teal); color: var(--splash-dark); font-family: var(--font-heading); font-weight: 900; font-size: 0.95rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 0 16px rgba(75,235,226,0.35); }
+    .step-content strong { display: block; font-size: 1rem; font-weight: 700; color: var(--splash-text); margin-bottom: 0.3rem; }
+    .step-content p { font-size: 0.875rem; color: var(--splash-muted); line-height: 1.65; }
+    .step-content a { color: var(--splash-teal); text-decoration: none; font-weight: 600; }
+    .step-content a:hover { text-decoration: underline; }
+
+    /* FAQ */
+    .faq-section { margin-top: 2rem; }
+    .faq-title { font-family: var(--font-heading); font-size: 1.1rem; font-weight: 900; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.75rem; color: var(--splash-text); }
+    .faq-item { background: var(--splash-card); border: 1px solid var(--splash-border); border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 0.5rem; overflow: hidden; }
+    .faq-q { display: flex; align-items: center; gap: 0.75rem; padding: 0.9rem 1.1rem; cursor: pointer; font-size: 0.9rem; font-weight: 600; color: var(--splash-text); transition: background 0.15s; user-select: none; }
+    .faq-q:hover { background: #F8F8F6; }
+    .faq-item.open .faq-q { background: rgba(75,235,226,0.06); color: #0D9E97; }
+    .faq-chevron { color: #ccc; font-size: 0.8rem; transition: transform 0.2s, color 0.2s; flex-shrink: 0; margin-left: auto; }
+    .faq-item.open .faq-chevron { transform: rotate(180deg); color: var(--splash-teal); }
+    .faq-a { display: none; padding: 0 1.1rem 1rem 1.1rem; font-size: 0.875rem; color: var(--splash-muted); line-height: 1.7; }
+    .faq-item.open .faq-a { display: block; }
+
+    .tip { background: var(--splash-tip-bg); border-left: 3px solid var(--splash-teal); border-radius: 0 var(--radius) var(--radius) 0; padding: 0.9rem 1.1rem; margin: 1.25rem 0; font-size: 0.875rem; }
+    .tip strong { color: #0D9E97; display: block; margin-bottom: 0.25rem; }
+
+    .site-footer { background: var(--splash-dark); border-top: 1px solid rgba(255,255,255,0.06); color: rgba(255,255,255,0.4); text-align: center; padding: 2.5rem 1.5rem; font-size: 0.8rem; }
+    .footer-logo { height: 40px; width: auto; opacity: 0.35; margin: 0 auto 0.85rem; display: block; }
+    .site-footer a { color: var(--splash-teal); text-decoration: none; opacity: 0.7; }
+    .site-footer a:hover { opacity: 1; }
+
+    @media (max-width: 600px) { .hero { padding: 2.5rem 1.5rem 3rem; } .main { padding: 1.5rem 1rem 4rem; } .site-header { padding: 0.75rem 1.25rem; } }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="index.html" class="logo-link"><img src="assets/splash-whale.png" alt="Splash Sports" class="logo-img" /></a>
+    <nav class="site-nav">
+      <a href="index.html" class="nav-link">Contest Guide</a>
+      <a href="contest-picker.html" class="nav-link">Contest Picker</a>
+      <a href="payout-calculator.html" class="nav-link">Payouts</a>
+      <a href="pre-launch.html" class="nav-link">Pre-Launch</a>
+      <a href="player-guide.html" class="nav-link active">Player Guide</a>
+      <a href="calendar.html" class="nav-link">Calendar</a>
+      <a href="best-practices.html" class="nav-link">Best Practices</a>
+      <a href="troubleshooting.html" class="nav-link">Troubleshoot</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-badge">🎮 For Players — Share This With Your Group</div>
+    <h1>New to Splash? <span>You're in the right place.</span></h1>
+    <p class="hero-sub">Your commissioner set up a contest for you. Here's everything you need to join, make picks, and compete.</p>
+    <button class="share-btn" onclick="copyLink()">📋 Copy this page's link to share</button>
+  </section>
+
+  <main class="main">
+
+    <div class="steps">
+
+      <div class="step-row">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <strong>Create a free Splash Sports account</strong>
+          <p>Go to <a href="https://app.splashsports.com" target="_blank" rel="noopener">app.splashsports.com</a> and sign up. It's free — you only pay an entry fee if your commissioner set one up. Use the same email address your commissioner invited you with, or sign up fresh and join via the invite link.</p>
+        </div>
+      </div>
+
+      <div class="step-row">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <strong>Click the invite link your commissioner sent</strong>
+          <p>Your commissioner will share an invite link via text, email, or group chat. Click it while logged into your Splash account. If you got an email invite, check your Spam folder for an email from <strong>noreply@splashsports.com</strong>.</p>
+        </div>
+      </div>
+
+      <div class="step-row">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <strong>Pay your entry fee (if there is one)</strong>
+          <p>If the contest has an entry fee, you'll be prompted to pay when you join. If the entry fee is $0 or your commissioner is collecting money themselves, just click to confirm your entry — no payment needed through Splash.</p>
+        </div>
+      </div>
+
+      <div class="step-row">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <strong>Make your picks before the deadline</strong>
+          <p>Once you're in the contest, head to <strong>My Contests</strong> and click your contest to make your picks. Picks lock before the first game of each week or round — ask your commissioner for the exact deadline. Submit early!</p>
+        </div>
+      </div>
+
+      <div class="step-row">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <strong>Track the leaderboard</strong>
+          <p>After games are played, scores update in near real-time. Open your contest in <strong>My Contests</strong> to see where you stand. You'll get email updates when results are posted.</p>
+        </div>
+      </div>
+
+      <div class="step-row">
+        <div class="step-num">6</div>
+        <div class="step-content">
+          <strong>Collect your winnings 🏆</strong>
+          <p>If Splash is handling payouts, winnings are sent to your Splash account within 3–5 business days after the contest ends. Make sure your payment info is set up under <strong>Account Settings</strong>. If your commissioner is handling payouts themselves, they'll reach out directly.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="tip">
+      <strong>💡 Missed the invite email?</strong>
+      Ask your commissioner to resend the invite link, or have them share it directly via text. The link is the fastest way in — no email needed.
+    </div>
+
+    <!-- FAQ -->
+    <div class="faq-section">
+      <div class="faq-title">Common Questions</div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.closest('.faq-item').classList.toggle('open')">
+          When do picks lock? <span class="faq-chevron">▾</span>
+        </div>
+        <div class="faq-a">Picks lock before the first game of each week, round, or tournament depending on the format. Your commissioner should tell you the deadline — when in doubt, submit as soon as you can. You can change your picks any time before the deadline.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.closest('.faq-item').classList.toggle('open')">
+          Can I change my pick after submitting? <span class="faq-chevron">▾</span>
+        </div>
+        <div class="faq-a">Yes — you can change your picks as many times as you want before the pick deadline. Once the deadline passes and games begin, picks are locked for that week/round.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.closest('.faq-item').classList.toggle('open')">
+          I forgot to make picks — what happens? <span class="faq-chevron">▾</span>
+        </div>
+        <div class="faq-a">It depends on the contest format. In Survivor, missing a week typically counts as a loss and you're eliminated. In Pick'Em, you score 0 points for that week. Set a reminder on your phone for the day before picks lock.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.closest('.faq-item').classList.toggle('open')">
+          I can't find the contest in my account — where is it? <span class="faq-chavron">▾</span>
+        </div>
+        <div class="faq-a">Go to <strong>My Contests</strong> in the top navigation after logging in. If it's not there, make sure you're logged into the same account you used when joining — you may have multiple accounts if you signed up with different emails.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.closest('.faq-item').classList.toggle('open')">
+          How do I get paid if I win? <span class="faq-chevron">▾</span>
+        </div>
+        <div class="faq-a">For Splash-managed contests: winnings are deposited to your Splash account within 3–5 business days after the final result. Make sure your payment method is set up in Account Settings. For self-managed contests, your commissioner will handle payouts directly — usually via cash, Venmo, or whatever your group agreed to.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.closest('.faq-item').classList.toggle('open')">
+          I think my score is wrong — what do I do? <span class="faq-chevron">▾</span>
+        </div>
+        <div class="faq-a">First, check your entry detail page — it shows exactly what picks were recorded and how they scored. Scores can have a 5–15 minute delay during live games. If it still looks wrong after the game has been final for 24 hours, let your commissioner know so they can contact Splash support.</div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <img src="assets/splash-whale.png" alt="Splash Sports" class="footer-logo" />
+    <p>Splash Sports Commissioner Hub &middot; <a href="https://app.splashsports.com" target="_blank" rel="noopener">app.splashsports.com</a></p>
+  </footer>
+
+  <script>
+    function copyLink() {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        const btn = document.querySelector('.share-btn');
+        const original = btn.textContent;
+        btn.textContent = '✅ Link copied!';
+        setTimeout(() => btn.textContent = original, 2000);
+      });
+    }
+  </script>
+
+</body>
+</html>

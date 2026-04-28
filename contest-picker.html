@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contest Picker — Splash Sports Commissioner Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@700;800;900&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --splash-dark: #1A1A1A; --splash-page-bg: #F4F4F2; --splash-card: #FFFFFF;
+      --splash-teal: #4BEBE2; --splash-teal-dim: rgba(75,235,226,0.1);
+      --splash-white: #FFFFFF; --splash-text: #1A1A1A; --splash-muted: #6B7280;
+      --splash-border: #E4E4E0; --splash-warn-bg: #FFFBEB; --splash-warn-border: #F59E0B;
+      --splash-tip-bg: rgba(75,235,226,0.08); --radius: 12px;
+      --shadow: 0 2px 16px rgba(0,0,0,0.07);
+      --font-heading: 'Barlow', system-ui, sans-serif;
+      --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); background: var(--splash-page-bg); color: var(--splash-text); font-size: 1rem; line-height: 1.65; min-height: 100vh; }
+
+    .site-header { background: var(--splash-dark); padding: 0.75rem 2rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(75,235,226,0.15); box-shadow: 0 2px 24px rgba(0,0,0,0.5); flex-wrap: wrap; gap: 0.5rem; }
+    .logo-link { display: flex; align-items: center; }
+    .logo-img { height: 40px; width: auto; }
+    .site-nav { display: flex; gap: 0.25rem; flex-wrap: wrap; align-items: center; }
+    .nav-link { color: rgba(255,255,255,0.55); font-size: 0.75rem; font-weight: 600; text-decoration: none; padding: 0.3rem 0.7rem; border-radius: 99px; transition: color 0.15s, background 0.15s; letter-spacing: 0.02em; white-space: nowrap; }
+    .nav-link:hover { color: #fff; background: rgba(255,255,255,0.08); }
+    .nav-link.active { background: var(--splash-teal-dim); border: 1px solid rgba(75,235,226,0.3); color: var(--splash-teal); }
+
+    .hero { background: var(--splash-dark); color: var(--splash-white); padding: 3.5rem 2rem 4.5rem; text-align: center; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; top: -150px; left: 50%; transform: translateX(-50%); width: 800px; height: 800px; background: radial-gradient(circle, rgba(75,235,226,0.07) 0%, transparent 60%); pointer-events: none; }
+    .hero-badge { display: inline-flex; align-items: center; background: var(--splash-teal-dim); border: 1px solid rgba(75,235,226,0.35); color: var(--splash-teal); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.35rem 1rem; border-radius: 99px; margin-bottom: 1.5rem; }
+    .hero h1 { font-family: var(--font-heading); font-size: clamp(1.8rem, 4.5vw, 3rem); font-weight: 900; margin-bottom: 1rem; line-height: 1.1; letter-spacing: 0.04em; text-transform: uppercase; color: var(--splash-white); }
+    .hero h1 span { color: var(--splash-teal); text-shadow: 0 0 50px rgba(75,235,226,0.45); }
+    .hero-sub { color: rgba(255,255,255,0.5); max-width: 480px; margin: 0 auto; font-size: 1rem; font-weight: 300; line-height: 1.75; }
+
+    .main { max-width: 720px; margin: 0 auto; padding: 2.5rem 1.5rem 6rem; }
+
+    /* Quiz */
+    .quiz-card { background: var(--splash-card); border: 1px solid var(--splash-border); border-radius: var(--radius); box-shadow: var(--shadow); padding: 2rem; margin-bottom: 1rem; }
+    .quiz-step { display: none; }
+    .quiz-step.active { display: block; }
+    .step-label { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: var(--splash-teal); margin-bottom: 0.5rem; }
+    .quiz-q { font-family: var(--font-heading); font-size: 1.35rem; font-weight: 900; letter-spacing: 0.03em; text-transform: uppercase; margin-bottom: 1.5rem; color: var(--splash-text); }
+
+    .option-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.65rem; }
+    .option-btn {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 0.4rem; padding: 1.1rem 0.75rem; border: 1px solid var(--splash-border);
+      border-radius: var(--radius); background: #F8F8F6; cursor: pointer;
+      font-family: var(--font-body); font-size: 0.85rem; font-weight: 600;
+      color: var(--splash-text); transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
+      text-align: center; line-height: 1.35;
+    }
+    .option-btn .opt-icon { font-size: 1.75rem; }
+    .option-btn:hover { border-color: rgba(75,235,226,0.45); background: rgba(75,235,226,0.05); }
+    .option-btn.selected { border-color: var(--splash-teal); background: rgba(75,235,226,0.1); box-shadow: 0 0 0 2px rgba(75,235,226,0.2); color: #0D9E97; }
+
+    /* Result */
+    .result-card { display: none; background: var(--splash-dark); border: 1px solid rgba(75,235,226,0.3); border-radius: var(--radius); padding: 2.25rem; text-align: center; margin-bottom: 1rem; position: relative; overflow: hidden; }
+    .result-card::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 500px; height: 500px; background: radial-gradient(circle, rgba(75,235,226,0.07) 0%, transparent 65%); pointer-events: none; }
+    .result-card.visible { display: block; }
+    .result-label { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: var(--splash-teal); margin-bottom: 0.75rem; position: relative; }
+    .result-format { font-family: var(--font-heading); font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 900; letter-spacing: 0.05em; text-transform: uppercase; color: var(--splash-white); margin-bottom: 0.75rem; position: relative; }
+    .result-format span { color: var(--splash-teal); }
+    .result-why { color: rgba(255,255,255,0.6); font-size: 0.9rem; line-height: 1.75; max-width: 480px; margin: 0 auto 1.5rem; position: relative; }
+    .result-alt { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius); padding: 1rem 1.25rem; text-align: left; position: relative; }
+    .result-alt-label { font-size: 0.65rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 0.4rem; }
+    .result-alt-name { font-weight: 700; color: rgba(255,255,255,0.75); font-size: 0.9rem; }
+
+    .btn-restart { margin-top: 1.5rem; display: inline-block; background: none; border: 1px solid rgba(75,235,226,0.35); color: var(--splash-teal); font-family: var(--font-heading); font-size: 0.78rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.6rem 1.4rem; border-radius: var(--radius); cursor: pointer; transition: background 0.15s; position: relative; }
+    .btn-restart:hover { background: rgba(75,235,226,0.1); }
+
+    .progress-dots { display: flex; justify-content: center; gap: 0.5rem; margin-bottom: 2rem; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--splash-border); transition: background 0.25s; }
+    .dot.done { background: var(--splash-teal); }
+    .dot.active { background: var(--splash-teal); box-shadow: 0 0 8px rgba(75,235,226,0.5); }
+
+    .site-footer { background: var(--splash-dark); border-top: 1px solid rgba(255,255,255,0.06); color: rgba(255,255,255,0.4); text-align: center; padding: 2.5rem 1.5rem; font-size: 0.8rem; }
+    .footer-logo { height: 40px; width: auto; opacity: 0.35; margin: 0 auto 0.85rem; display: block; }
+    .site-footer a { color: var(--splash-teal); text-decoration: none; opacity: 0.7; }
+    .site-footer a:hover { opacity: 1; }
+
+    @media (max-width: 600px) { .hero { padding: 2.5rem 1.5rem 3rem; } .main { padding: 1.5rem 1rem 4rem; } .site-header { padding: 0.75rem 1.25rem; } .option-grid { grid-template-columns: 1fr 1fr; } }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="index.html" class="logo-link"><img src="assets/splash-whale.png" alt="Splash Sports" class="logo-img" /></a>
+    <nav class="site-nav">
+      <a href="index.html" class="nav-link">Contest Guide</a>
+      <a href="contest-picker.html" class="nav-link active">Contest Picker</a>
+      <a href="payout-calculator.html" class="nav-link">Payouts</a>
+      <a href="pre-launch.html" class="nav-link">Pre-Launch</a>
+      <a href="player-guide.html" class="nav-link">Player Guide</a>
+      <a href="calendar.html" class="nav-link">Calendar</a>
+      <a href="best-practices.html" class="nav-link">Best Practices</a>
+      <a href="troubleshooting.html" class="nav-link">Troubleshoot</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-badge">🎯 3 Questions · Instant Answer</div>
+    <h1>Find Your <span>Perfect Format</span></h1>
+    <p class="hero-sub">Answer three quick questions and we'll recommend the best contest type for your group.</p>
+  </section>
+
+  <main class="main">
+
+    <div class="quiz-card">
+      <div class="progress-dots">
+        <div class="dot active" id="dot-1"></div>
+        <div class="dot" id="dot-2"></div>
+        <div class="dot" id="dot-3"></div>
+      </div>
+
+      <!-- Step 1: Sport -->
+      <div class="quiz-step active" id="step-1">
+        <div class="step-label">Question 1 of 3</div>
+        <div class="quiz-q">Which sport are you running?</div>
+        <div class="option-grid">
+          <button class="option-btn" onclick="pick('sport','nfl',this)"><span class="opt-icon">🏈</span>NFL</button>
+          <button class="option-btn" onclick="pick('sport','pga',this)"><span class="opt-icon">⛳</span>PGA</button>
+          <button class="option-btn" onclick="pick('sport','nba',this)"><span class="opt-icon">🏀</span>NBA</button>
+          <button class="option-btn" onclick="pick('sport','mlb',this)"><span class="opt-icon">⚾</span>MLB</button>
+          <button class="option-btn" onclick="pick('sport','ncaab',this)"><span class="opt-icon">🏀</span>NCAAB</button>
+          <button class="option-btn" onclick="pick('sport','ncaaf',this)"><span class="opt-icon">🏈</span>NCAAF</button>
+        </div>
+      </div>
+
+      <!-- Step 2: Group size -->
+      <div class="quiz-step" id="step-2">
+        <div class="step-label">Question 2 of 3</div>
+        <div class="quiz-q">How many players in your group?</div>
+        <div class="option-grid">
+          <button class="option-btn" onclick="pick('size','small',this)"><span class="opt-icon">👥</span>Under 10</button>
+          <button class="option-btn" onclick="pick('size','medium',this)"><span class="opt-icon">👥</span>10 – 25</button>
+          <button class="option-btn" onclick="pick('size','large',this)"><span class="opt-icon">👥</span>25 – 50</button>
+          <button class="option-btn" onclick="pick('size','xlarge',this)"><span class="opt-icon">👥</span>50+</button>
+        </div>
+      </div>
+
+      <!-- Step 3: Experience -->
+      <div class="quiz-step" id="step-3">
+        <div class="step-label">Question 3 of 3</div>
+        <div class="quiz-q">What's your group's experience level?</div>
+        <div class="option-grid">
+          <button class="option-btn" onclick="pick('exp','casual',this)"><span class="opt-icon">😄</span>Casual — mostly new to fantasy</button>
+          <button class="option-btn" onclick="pick('exp','mixed',this)"><span class="opt-icon">🤔</span>Mixed — some veterans, some new</button>
+          <button class="option-btn" onclick="pick('exp','hardcore',this)"><span class="opt-icon">🔥</span>Hardcore — fantasy veterans</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Result -->
+    <div class="result-card" id="resultCard">
+      <div class="result-label">⭐ We recommend</div>
+      <div class="result-format" id="resultFormat">—</div>
+      <p class="result-why" id="resultWhy">—</p>
+      <div class="result-alt" id="resultAlt" style="display:none;">
+        <div class="result-alt-label">Also worth considering</div>
+        <div class="result-alt-name" id="resultAltName">—</div>
+      </div>
+      <button class="btn-restart" onclick="restart()">← Start Over</button>
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <img src="assets/splash-whale.png" alt="Splash Sports" class="footer-logo" />
+    <p>Splash Sports Commissioner Hub &middot; <a href="https://app.splashsports.com" target="_blank" rel="noopener">app.splashsports.com</a></p>
+  </footer>
+
+  <script>
+    const answers = { sport: null, size: null, exp: null };
+    const steps = ['sport', 'size', 'exp'];
+    let currentStep = 0;
+
+    function pick(key, value, btn) {
+      answers[key] = value;
+      // highlight selected
+      btn.closest('.option-grid').querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+
+      setTimeout(() => {
+        if (currentStep < steps.length - 1) {
+          nextStep();
+        } else {
+          showResult();
+        }
+      }, 280);
+    }
+
+    function nextStep() {
+      document.getElementById('step-' + (currentStep + 1)).classList.remove('active');
+      currentStep++;
+      document.getElementById('step-' + (currentStep + 1)).classList.add('active');
+      document.getElementById('dot-' + currentStep).classList.remove('active');
+      document.getElementById('dot-' + currentStep).classList.add('done');
+      document.getElementById('dot-' + (currentStep + 1)).classList.add('active');
+    }
+
+    function showResult() {
+      document.querySelector('.quiz-card').style.display = 'none';
+      const { sport, size, exp } = answers;
+      let format = '', why = '', alt = '';
+
+      if (sport === 'nfl') {
+        if (exp === 'casual') {
+          format = 'NFL Survivor';
+          why = 'Survivor is Splash\'s most popular NFL format — one pick per week, easy to explain, and nail-biting until the end. Perfect for groups new to fantasy.';
+          alt = size === 'xlarge' ? 'Pick\'Em (easier for very large groups)' : '';
+        } else if (exp === 'mixed') {
+          format = size === 'small' || size === 'medium' ? 'NFL Survivor' : 'Pick\'Em';
+          why = size === 'small' || size === 'medium'
+            ? 'Survivor keeps everyone engaged all season and works great for mixed groups — veterans love the strategy, newcomers love the simplicity.'
+            : 'Pick\'Em is ideal for large mixed groups. Everyone picks every game each week, scoring is easy to follow, and it stays competitive all season.';
+          alt = 'Pick\'Em: Confidence (adds a strategy layer for veterans)';
+        } else {
+          format = size === 'small' ? 'Pick\'Em: Confidence' : 'Pick\'Em: Confidence';
+          why = 'Confidence Pick\'Em adds a point-weighting system that rewards smart picks, not just lucky ones. Your veterans will love the extra strategy layer.';
+          alt = 'Tiers: Fantasy Points (if your group wants player-level picks)';
+        }
+      } else if (sport === 'pga') {
+        if (exp === 'hardcore' && (size === 'small' || size === 'medium')) {
+          format = 'Multi-Tournament Tiers — Dollar Winnings';
+          why = 'Season-long tier picks across multiple tournaments, scored by prize money. The deepest PGA format on Splash — ideal for serious golf fans who want weekly engagement.';
+          alt = 'One & Done — Dollar Winnings (simpler, still great for veterans)';
+        } else {
+          format = 'One & Done — Dollar Winnings';
+          why = 'One pick per week, can\'t reuse a golfer, scored by prize money. The most popular PGA format on Splash — simple enough for newcomers, strategic enough for veterans.';
+          alt = exp === 'hardcore' ? 'Multi-Tournament Tiers (more lineup depth)' : '';
+        }
+      } else if (sport === 'nba') {
+        format = 'NBA Tiers';
+        why = 'NBA Tiers is Splash\'s only NBA format — pick players from pre-set tiers each week, scored by fantasy points. Great for NBA fans who want a lighter lift than traditional DFS.';
+      } else if (sport === 'mlb') {
+        if (exp === 'hardcore') {
+          format = '13-Run';
+          why = 'High-risk, high-reward format where you bet on teams scoring 13 or more runs. Fast, fun, and perfect for hardcore baseball fans who want something different.';
+          alt = 'Player Survivor (season-long elimination format)';
+        } else {
+          format = 'Player Survivor';
+          why = 'Pick one MLB player to perform each week — if they don\'t hit the threshold, you\'re eliminated. Season-long elimination that keeps everyone invested through October.';
+        }
+      } else if (sport === 'ncaab') {
+        format = 'Men\'s Bracket';
+        why = 'The March Madness bracket is the most well-known format in sports — everyone already knows how it works. Perfect for any group size and experience level.';
+        alt = exp === 'hardcore' ? 'Survivor — Pick by Round (more strategic)' : 'Pick\'Em (great for season-long play before the tournament)';
+      } else if (sport === 'ncaaf') {
+        if (exp === 'casual') {
+          format = 'College Bowl Pick\'Em';
+          why = 'Pick winners across all the college bowl games — runs December through January and is easy for casual fans who only tune in for bowl season.';
+        } else if (exp === 'hardcore') {
+          format = 'CFB Playoffs Survivor';
+          why = 'Pick one team to win each round of the College Football Playoff. Intense, short, and perfect for hardcore CFB fans who care most about the postseason.';
+          alt = 'Pick\'Em: Confidence (great for the full season)';
+        } else {
+          format = 'Pick\'Em';
+          why = 'Pick the winner of every college football game each week. Season-long, great for mixed groups, and keeps everyone engaged from Week 1 through bowl season.';
+          alt = 'College Bowl Pick\'Em (if you want a shorter, lower-commitment option)';
+        }
+      }
+
+      document.getElementById('resultFormat').textContent = format;
+      document.getElementById('resultWhy').textContent = why;
+      if (alt) {
+        document.getElementById('resultAlt').style.display = 'block';
+        document.getElementById('resultAltName').textContent = alt;
+      }
+      document.getElementById('resultCard').classList.add('visible');
+      document.getElementById('resultCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function restart() {
+      answers.sport = null; answers.size = null; answers.exp = null;
+      currentStep = 0;
+      document.querySelectorAll('.quiz-step').forEach(s => s.classList.remove('active'));
+      document.getElementById('step-1').classList.add('active');
+      document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+      document.querySelectorAll('.dot').forEach((d, i) => { d.classList.remove('done', 'active'); if (i === 0) d.classList.add('active'); });
+      document.getElementById('resultCard').classList.remove('visible');
+      document.getElementById('resultAlt').style.display = 'none';
+      document.querySelector('.quiz-card').style.display = 'block';
+      document.querySelector('.quiz-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  </script>
+
+</body>
+</html>
