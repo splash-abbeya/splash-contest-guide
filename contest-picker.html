@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contest Picker — Splash Sports Commissioner Hub</title>
+  <title>Contest Format Guide — Splash Sports Commissioner Hub</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@700;800;900&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
@@ -22,6 +22,7 @@
     html { scroll-behavior: smooth; }
     body { font-family: var(--font-body); background: var(--splash-page-bg); color: var(--splash-text); font-size: 1rem; line-height: 1.65; min-height: 100vh; }
 
+    /* Header */
     .site-header { background: var(--splash-dark); padding: 0.75rem 2rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(75,235,226,0.15); box-shadow: 0 2px 24px rgba(0,0,0,0.5); flex-wrap: wrap; gap: 0.5rem; }
     .logo-link { display: flex; align-items: center; }
     .logo-img { height: 40px; width: auto; }
@@ -30,61 +31,85 @@
     .nav-link:hover { color: #fff; background: rgba(255,255,255,0.08); }
     .nav-link.active { background: var(--splash-teal-dim); border: 1px solid rgba(75,235,226,0.3); color: var(--splash-teal); }
 
+    /* Hero */
     .hero { background: var(--splash-dark); color: var(--splash-white); padding: 3.5rem 2rem 4.5rem; text-align: center; position: relative; overflow: hidden; }
     .hero::before { content: ''; position: absolute; top: -150px; left: 50%; transform: translateX(-50%); width: 800px; height: 800px; background: radial-gradient(circle, rgba(75,235,226,0.07) 0%, transparent 60%); pointer-events: none; }
     .hero-badge { display: inline-flex; align-items: center; background: var(--splash-teal-dim); border: 1px solid rgba(75,235,226,0.35); color: var(--splash-teal); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.35rem 1rem; border-radius: 99px; margin-bottom: 1.5rem; }
     .hero h1 { font-family: var(--font-heading); font-size: clamp(1.8rem, 4.5vw, 3rem); font-weight: 900; margin-bottom: 1rem; line-height: 1.1; letter-spacing: 0.04em; text-transform: uppercase; color: var(--splash-white); }
     .hero h1 span { color: var(--splash-teal); text-shadow: 0 0 50px rgba(75,235,226,0.45); }
-    .hero-sub { color: rgba(255,255,255,0.5); max-width: 480px; margin: 0 auto; font-size: 1rem; font-weight: 300; line-height: 1.75; }
+    .hero-sub { color: rgba(255,255,255,0.5); max-width: 520px; margin: 0 auto; font-size: 1rem; font-weight: 300; line-height: 1.75; }
 
-    .main { max-width: 720px; margin: 0 auto; padding: 2.5rem 1.5rem 6rem; }
+    /* Main */
+    .main { max-width: 820px; margin: 0 auto; padding: 2.5rem 1.5rem 6rem; }
 
-    /* Quiz */
-    .quiz-card { background: var(--splash-card); border: 1px solid var(--splash-border); border-radius: var(--radius); box-shadow: var(--shadow); padding: 2rem; margin-bottom: 1rem; }
-    .quiz-step { display: none; }
-    .quiz-step.active { display: block; }
-    .step-label { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: var(--splash-teal); margin-bottom: 0.5rem; }
-    .quiz-q { font-family: var(--font-heading); font-size: 1.35rem; font-weight: 900; letter-spacing: 0.03em; text-transform: uppercase; margin-bottom: 1.5rem; color: var(--splash-text); }
-
-    .option-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.65rem; }
-    .option-btn {
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      gap: 0.4rem; padding: 1.1rem 0.75rem; border: 1px solid var(--splash-border);
-      border-radius: var(--radius); background: #F8F8F6; cursor: pointer;
-      font-family: var(--font-body); font-size: 0.85rem; font-weight: 600;
-      color: var(--splash-text); transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
-      text-align: center; line-height: 1.35;
+    /* Sport selector */
+    .picker-label { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: var(--splash-teal); margin-bottom: 0.75rem; }
+    .sport-tiles { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0.5rem; margin-bottom: 0.75rem; }
+    .sport-tile {
+      display: flex; flex-direction: column; align-items: center; gap: 0.35rem;
+      padding: 0.9rem 0.5rem; border: 1px solid var(--splash-border);
+      border-radius: var(--radius); background: var(--splash-card);
+      cursor: pointer; font-family: var(--font-body); font-size: 0.78rem;
+      font-weight: 700; color: var(--splash-text); transition: all 0.15s;
+      text-align: center; line-height: 1.2; box-shadow: var(--shadow);
     }
-    .option-btn .opt-icon { font-size: 1.75rem; }
-    .option-btn:hover { border-color: rgba(75,235,226,0.45); background: rgba(75,235,226,0.05); }
-    .option-btn.selected { border-color: var(--splash-teal); background: rgba(75,235,226,0.1); box-shadow: 0 0 0 2px rgba(75,235,226,0.2); color: #0D9E97; }
+    .sport-tile .tile-icon { font-size: 1.5rem; }
+    .sport-tile:hover { border-color: rgba(75,235,226,0.5); background: rgba(75,235,226,0.04); }
+    .sport-tile.active { border-color: var(--splash-teal); background: rgba(75,235,226,0.1); color: #0D9E97; box-shadow: 0 0 0 2px rgba(75,235,226,0.2); }
+    .show-all-link { font-size: 0.8rem; color: var(--splash-muted); text-align: center; margin-bottom: 2rem; }
+    .show-all-link button { background: none; border: none; color: var(--splash-teal); font-size: 0.8rem; cursor: pointer; text-decoration: underline; font-family: var(--font-body); }
+    .show-all-link button:hover { opacity: 0.8; }
 
-    /* Result */
-    .result-card { display: none; background: var(--splash-dark); border: 1px solid rgba(75,235,226,0.3); border-radius: var(--radius); padding: 2.25rem; text-align: center; margin-bottom: 1rem; position: relative; overflow: hidden; }
-    .result-card::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 500px; height: 500px; background: radial-gradient(circle, rgba(75,235,226,0.07) 0%, transparent 65%); pointer-events: none; }
-    .result-card.visible { display: block; }
-    .result-label { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: var(--splash-teal); margin-bottom: 0.75rem; position: relative; }
-    .result-format { font-family: var(--font-heading); font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 900; letter-spacing: 0.05em; text-transform: uppercase; color: var(--splash-white); margin-bottom: 0.75rem; position: relative; }
-    .result-format span { color: var(--splash-teal); }
-    .result-why { color: rgba(255,255,255,0.6); font-size: 0.9rem; line-height: 1.75; max-width: 480px; margin: 0 auto 1.5rem; position: relative; }
-    .result-alt { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius); padding: 1rem 1.25rem; text-align: left; position: relative; }
-    .result-alt-label { font-size: 0.65rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 0.4rem; }
-    .result-alt-name { font-weight: 700; color: rgba(255,255,255,0.75); font-size: 0.9rem; }
+    /* Format chart — sport sections */
+    .chart-section { border: 1px solid var(--splash-border); border-radius: var(--radius); background: var(--splash-card); box-shadow: var(--shadow); margin-bottom: 0.65rem; overflow: hidden; }
+    .chart-sport-header {
+      display: flex; align-items: center; gap: 0.9rem; padding: 1rem 1.3rem;
+      cursor: pointer; user-select: none; transition: background 0.15s;
+    }
+    .chart-sport-header:hover { background: rgba(75,235,226,0.04); }
+    .chart-section.open .chart-sport-header { background: rgba(75,235,226,0.07); border-bottom: 1px solid var(--splash-border); }
+    .chart-sport-icon { font-size: 1.4rem; flex-shrink: 0; }
+    .chart-sport-name { font-family: var(--font-heading); font-size: 1rem; font-weight: 900; letter-spacing: 0.06em; text-transform: uppercase; flex: 1; }
+    .chart-sport-meta { font-size: 0.72rem; color: var(--splash-muted); font-weight: 600; }
+    .chart-sport-chevron { color: #bbb; font-size: 0.85rem; transition: transform 0.25s, color 0.2s; flex-shrink: 0; }
+    .chart-section.open .chart-sport-chevron { transform: rotate(180deg); color: var(--splash-teal); }
+    .chart-sport-body { display: none; }
+    .chart-section.open .chart-sport-body { display: block; }
 
-    .btn-restart { margin-top: 1.5rem; display: inline-block; background: none; border: 1px solid rgba(75,235,226,0.35); color: var(--splash-teal); font-family: var(--font-heading); font-size: 0.78rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.6rem 1.4rem; border-radius: var(--radius); cursor: pointer; transition: background 0.15s; position: relative; }
-    .btn-restart:hover { background: rgba(75,235,226,0.1); }
+    /* Format rows inside each sport section */
+    .format-row { border-bottom: 1px solid var(--splash-border); }
+    .format-row:last-child { border-bottom: none; }
+    .format-row-header {
+      display: flex; align-items: center; gap: 0.75rem; padding: 0.8rem 1.3rem 0.8rem 2.5rem;
+      cursor: pointer; user-select: none; transition: background 0.15s; font-size: 0.875rem;
+      font-weight: 700; color: var(--splash-text);
+    }
+    .format-row-header:hover { background: #F8F8F6; }
+    .format-row.open .format-row-header { background: #F5FFFE; color: #0D9E97; }
+    .fmt-chevron { color: #ccc; font-size: 0.7rem; flex-shrink: 0; transition: transform 0.2s, color 0.2s; }
+    .format-row.open .fmt-chevron { transform: rotate(90deg); color: var(--splash-teal); }
+    .fmt-popular { font-size: 0.6rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; background: rgba(75,235,226,0.15); border: 1px solid rgba(75,235,226,0.35); color: #0D9E97; padding: 0.15rem 0.5rem; border-radius: 99px; white-space: nowrap; }
+    .format-row-body { display: none; padding: 0 1.3rem 1.1rem 2.5rem; }
+    .format-row.open .format-row-body { display: block; }
+    .fmt-desc { font-size: 0.875rem; color: var(--splash-text); margin-bottom: 0.65rem; line-height: 1.7; }
+    .fmt-why { background: var(--splash-tip-bg); border-left: 3px solid var(--splash-teal); border-radius: 0 6px 6px 0; padding: 0.65rem 0.9rem; margin-bottom: 0.75rem; font-size: 0.83rem; }
+    .fmt-why strong { display: block; color: #0D9E97; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.2rem; }
+    .fmt-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+    .fmt-tag { font-size: 0.7rem; font-weight: 600; padding: 0.2rem 0.6rem; border-radius: 99px; background: #F4F4F2; border: 1px solid var(--splash-border); color: var(--splash-muted); }
 
-    .progress-dots { display: flex; justify-content: center; gap: 0.5rem; margin-bottom: 2rem; }
-    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--splash-border); transition: background 0.25s; }
-    .dot.done { background: var(--splash-teal); }
-    .dot.active { background: var(--splash-teal); box-shadow: 0 0 8px rgba(75,235,226,0.5); }
-
+    /* Footer */
     .site-footer { background: var(--splash-dark); border-top: 1px solid rgba(255,255,255,0.06); color: rgba(255,255,255,0.4); text-align: center; padding: 2.5rem 1.5rem; font-size: 0.8rem; }
     .footer-logo { height: 40px; width: auto; opacity: 0.35; margin: 0 auto 0.85rem; display: block; }
     .site-footer a { color: var(--splash-teal); text-decoration: none; opacity: 0.7; }
     .site-footer a:hover { opacity: 1; }
 
-    @media (max-width: 600px) { .hero { padding: 2.5rem 1.5rem 3rem; } .main { padding: 1.5rem 1rem 4rem; } .site-header { padding: 0.75rem 1.25rem; } .option-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 700px) {
+      .hero { padding: 2.5rem 1.5rem 3rem; }
+      .main { padding: 1.5rem 1rem 4rem; }
+      .site-header { padding: 0.75rem 1.25rem; }
+      .sport-tiles { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 420px) { .sport-tiles { grid-template-columns: repeat(2, 1fr); } }
   </style>
 </head>
 <body>
@@ -93,79 +118,455 @@
     <a href="index.html" class="logo-link"><img src="assets/splash-whale.png" alt="Splash Sports" class="logo-img" /></a>
     <nav class="site-nav">
       <a href="index.html" class="nav-link">Contest Guide</a>
-      <a href="contest-picker.html" class="nav-link active">Contest Picker</a>
-      <a href="payout-calculator.html" class="nav-link">Payouts</a>
+      <a href="contest-picker.html" class="nav-link active">Format Guide</a>
       <a href="pre-launch.html" class="nav-link">Pre-Launch</a>
       <a href="player-guide.html" class="nav-link">Player Guide</a>
       <a href="calendar.html" class="nav-link">Calendar</a>
       <a href="best-practices.html" class="nav-link">Best Practices</a>
-      <a href="troubleshooting.html" class="nav-link">Troubleshoot</a>
+      <a href="troubleshooting.html" class="nav-link">Help Center</a>
     </nav>
   </header>
 
   <section class="hero">
-    <div class="hero-badge">🎯 3 Questions · Instant Answer</div>
-    <h1>Find Your <span>Perfect Format</span></h1>
-    <p class="hero-sub">Answer three quick questions and we'll recommend the best contest type for your group.</p>
+    <div class="hero-badge">📖 Format Reference Guide</div>
+    <h1>Every Format, <span>Explained</span></h1>
+    <p class="hero-sub">Select a sport to jump to its formats — or browse every option below. Each format includes a description and who it's best for.</p>
   </section>
 
   <main class="main">
 
-    <div class="quiz-card">
-      <div class="progress-dots">
-        <div class="dot active" id="dot-1"></div>
-        <div class="dot" id="dot-2"></div>
-        <div class="dot" id="dot-3"></div>
-      </div>
+    <div class="picker-label">Jump to a sport</div>
+    <div class="sport-tiles">
+      <button class="sport-tile" id="tile-nfl" onclick="selectSport('nfl', this)"><span class="tile-icon">🏈</span>NFL</button>
+      <button class="sport-tile" id="tile-pga" onclick="selectSport('pga', this)"><span class="tile-icon">⛳</span>PGA</button>
+      <button class="sport-tile" id="tile-nba" onclick="selectSport('nba', this)"><span class="tile-icon">🏀</span>NBA</button>
+      <button class="sport-tile" id="tile-mlb" onclick="selectSport('mlb', this)"><span class="tile-icon">⚾</span>MLB</button>
+      <button class="sport-tile" id="tile-ncaab" onclick="selectSport('ncaab', this)"><span class="tile-icon">🏀</span>NCAAB</button>
+      <button class="sport-tile" id="tile-ncaaf" onclick="selectSport('ncaaf', this)"><span class="tile-icon">🏈</span>NCAAF</button>
+    </div>
+    <div class="show-all-link"><button onclick="expandAll()">Show all sports &darr;</button></div>
 
-      <!-- Step 1: Sport -->
-      <div class="quiz-step active" id="step-1">
-        <div class="step-label">Question 1 of 3</div>
-        <div class="quiz-q">Which sport are you running?</div>
-        <div class="option-grid">
-          <button class="option-btn" onclick="pick('sport','nfl',this)"><span class="opt-icon">🏈</span>NFL</button>
-          <button class="option-btn" onclick="pick('sport','pga',this)"><span class="opt-icon">⛳</span>PGA</button>
-          <button class="option-btn" onclick="pick('sport','nba',this)"><span class="opt-icon">🏀</span>NBA</button>
-          <button class="option-btn" onclick="pick('sport','mlb',this)"><span class="opt-icon">⚾</span>MLB</button>
-          <button class="option-btn" onclick="pick('sport','ncaab',this)"><span class="opt-icon">🏀</span>NCAAB</button>
-          <button class="option-btn" onclick="pick('sport','ncaaf',this)"><span class="opt-icon">🏈</span>NCAAF</button>
-        </div>
+    <!-- NFL -->
+    <div class="chart-section" id="chart-nfl">
+      <div class="chart-sport-header" onclick="toggleSport('nfl')">
+        <span class="chart-sport-icon">🏈</span>
+        <span class="chart-sport-name">NFL</span>
+        <span class="chart-sport-meta">9 formats available</span>
+        <span class="chart-sport-chevron">▾</span>
       </div>
+      <div class="chart-sport-body">
 
-      <!-- Step 2: Group size -->
-      <div class="quiz-step" id="step-2">
-        <div class="step-label">Question 2 of 3</div>
-        <div class="quiz-q">How many players in your group?</div>
-        <div class="option-grid">
-          <button class="option-btn" onclick="pick('size','small',this)"><span class="opt-icon">👥</span>Under 10</button>
-          <button class="option-btn" onclick="pick('size','medium',this)"><span class="opt-icon">👥</span>10 – 25</button>
-          <button class="option-btn" onclick="pick('size','large',this)"><span class="opt-icon">👥</span>25 – 50</button>
-          <button class="option-btn" onclick="pick('size','xlarge',this)"><span class="opt-icon">👥</span>50+</button>
+        <div class="format-row" id="fmt-nfl-survivor">
+          <div class="format-row-header" onclick="toggleFormat('nfl-survivor')">
+            <span class="fmt-chevron">▶</span>
+            Survivor
+            <span class="fmt-popular">⭐ Most Popular</span>
+          </div>
+          <div class="format-row-body">
+            <p class="fmt-desc">Pick one NFL team to win each week. You can't use the same team twice all season. If your pick loses, you're eliminated. Last player standing wins the pool.</p>
+            <div class="fmt-why"><strong>Why choose this</strong>The most played NFL format on Splash. Simple to explain in 30 seconds, strategic enough to debate every Sunday. Everyone stays invested all season because one bad week ends your run.</div>
+            <div class="fmt-tags"><span class="fmt-tag">Any group size</span><span class="fmt-tag">Any experience level</span><span class="fmt-tag">Full season</span><span class="fmt-tag">Elimination format</span></div>
+          </div>
         </div>
-      </div>
 
-      <!-- Step 3: Experience -->
-      <div class="quiz-step" id="step-3">
-        <div class="step-label">Question 3 of 3</div>
-        <div class="quiz-q">What's your group's experience level?</div>
-        <div class="option-grid">
-          <button class="option-btn" onclick="pick('exp','casual',this)"><span class="opt-icon">😄</span>Casual — mostly new to fantasy</button>
-          <button class="option-btn" onclick="pick('exp','mixed',this)"><span class="opt-icon">🤔</span>Mixed — some veterans, some new</button>
-          <button class="option-btn" onclick="pick('exp','hardcore',this)"><span class="opt-icon">🔥</span>Hardcore — fantasy veterans</button>
+        <div class="format-row" id="fmt-nfl-pickem">
+          <div class="format-row-header" onclick="toggleFormat('nfl-pickem')">
+            <span class="fmt-chevron">▶</span>
+            Pick'Em
+            <span class="fmt-popular">⭐ Great for Large Groups</span>
+          </div>
+          <div class="format-row-body">
+            <p class="fmt-desc">Pick the winners of every game each week. Correct picks earn points. The player with the most correct picks at season's end wins. No elimination — everyone plays all season.</p>
+            <div class="fmt-why"><strong>Why choose this</strong>Ideal for large groups (25+) where you don't want anyone dropping out early. The leaderboard stays competitive all season, and even casual fans can win a week by going 10-for-10.</div>
+            <div class="fmt-tags"><span class="fmt-tag">Large groups (25+)</span><span class="fmt-tag">Mixed experience</span><span class="fmt-tag">Full season</span><span class="fmt-tag">No elimination</span></div>
+          </div>
         </div>
+
+        <div class="format-row" id="fmt-nfl-confidence">
+          <div class="format-row-header" onclick="toggleFormat('nfl-confidence')">
+            <span class="fmt-chevron">▶</span>
+            Pick'Em: Confidence
+          </div>
+          <div class="format-row-body">
+            <p class="fmt-desc">Same as Pick'Em but you assign confidence points to each game pick — 1 through the number of games that week. Your highest-confidence picks earn the most points if correct, but cost the most if wrong.</p>
+            <div class="fmt-why"><strong>Why choose this</strong>Adds a skill layer that rewards football knowledge, not just luck. Separates sharp pickers from casual ones. A weekly upset can flip the leaderboard in a single afternoon.</div>
+            <div class="fmt-tags"><span class="fmt-tag">Competitive groups</span><span class="fmt-tag">Fantasy veterans</span><span class="fmt-tag">Medium–large groups</span><span class="fmt-tag">Full season</span></div>
+          </div>
+        </div>
+
+        <div class="format-row" id="fmt-nfl-player-survivor">
+          <div class="format-row-header" onclick="toggleFormat('nfl-player-survivor')">
+            <span class="fmt-chevron">▶</span>
+            Player Survivor
+          </div>
+          <div class="format-row-body">
+            <p class="fmt-desc">Pick one NFL player to hit a stat threshold each week (e.g., 100+ rushing yards, 250+ passing yards). You can't use the same player twice. Miss the threshold and you're eliminated.</p>
+            <div class="fmt-why"><strong>Why choose this</strong>A player-focused twist on the classic Survivor formula. Perfect for fantasy football fans who love tracking individual player performance rather than just team wins.</div>
+            <div class="fmt-tags"><span class="fmt-tag">Fantasy football fans</span><span class="fmt-tag">10–50 players</span><span class="fmt-tag">Full season</span><span class="fmt-tag">Elimination format</span></div>
+          </div>
+        </div>
+
+        <div class="format-row" id="fmt-nfl-tiers">
+          <div class="format-row-header" onclick="toggleFormat('nfl-tiers')">
+            <span class="fmt-chevron">▶</span>
+            Tiers: Fantasy Points
+          </div>
+          <div class="format-row-body">
+            <p class="fmt-desc">Pick players from pre-defined tiers each week and earn points based on their fantasy performance. A new lineup every week — no elimination, pure accumulation.</p>
+            <div class="fmt-why"><strong>Why choose this</strong>Great for groups who want DFS-lite without the daily burnout. No elimination pressure means everyone stays engaged all season, and fresh weekly lineups keep it interesting.</div>
+            <div class="fmt-tags"><span class="fmt-tag">Fantasy regulars</span><span class="fmt-tag">10–50 players</span><span class="fmt-tag">Full season</span><span class="fmt-tag">No elimination</span></div>
+          </div>
+        </div>
+
+        <div class="format-row" id="fmt-nfl-one-done">
+          <div class="format-row-header" onclick="toggleFormat('nfl-one-done')">
+            <span class="fmt-chevron">▶</span>
+            One &amp; Done
+          </div>
+          <div class="format-row-body">
+            <p class="fmt-desc">Pick one team to win each week. Each team can only be used once all season. Track your record — the most wins at season's end wins the pool. No elimination.</p>
+            <div class="fmt-why"><strong>Why choose this</strong>Like Survivor without the elimination stress. Good teams are used up as the season goes on, forcing increasingly creative picks later. Great for groups who want strategy without the "you're out" drama.</div>
+            <div class="fmt-tags"><span class="fmt-tag">Any group size</span><span class="fmt-tag">Casual–mixed</span><span class="fmt-tag">Full season</span><span class="fmt-tag">No elimination</span></div>
+          </div>
+        </div>
+
+        <div class="format-row" id="fmt-nfl-playoffs">
+          <div class="format-row-header" onclick="toggleFormat('nfl-playoffs')">
+            <span class="fmt-chevron">▶</span>
+            Playoffs Formats
+          </div>
+          <div class="format-row-body">
+            <p class="fmt-desc">Bracket-style or Survivor-style picks specifically for the NFL Playoffs — from Wild Card Weekend through the Super Bowl. Short, intense, and high-stakes.</p>
+            <div class="fmt-why"><strong>Why choose this</strong>Perfect if your group doesn't want a full-season commitment. Launch when the playoff bracket is set in January and run through the Super Bowl. Great standalone or add-on contest.</div>
+            <div class="fmt-tags"><span class="fmt-tag">Any group size</span><span class="fmt-tag">January–February only</span><span class="fmt-tag">Short season</span></div>
+          </div>
+        </div>
+
+        <div class="format-row" id="fmt-nfl-squares">
+          <div class="format-row-header" onclick="toggleFormat('nfl-squares')">
+            <span class="fmt-chevron">▶</span>
+            Squares
+          </div>
+          <div class="format-row-body">
+            <p class="fmt-desc">A classic 10×10 grid game. Players claim squares, and winners are determined by the last digit of each team's score at the end of each quarter.</p>
+            <div class="fmt-why"><strong>Why choose this</strong>No football knowledge required — pure fun. Perfect for Super Bowl parties where you have non-football fans in the room. Everyone has a stake in every score change.</div>
+            <div class="fmt-tags"><span class="fmt-tag">Any group</span><span class="fmt-tag">Party format</span><span class="fmt-tag">Single game</span><span class="fmt-tag">Casual-friendly</span></div>
+          </div>
+        </div>
+
+        <div class="format-row" id="fmt-nfl-props">
+          <div class="format-row-header" onclick="toggleFormat('nfl-props')">
+            <span class="fmt-chevron">▶</span>
+            SB Props
+          </div>
+          <div class="format-row-body">
+            <p class="fmt-desc">Players predict specific Super Bowl prop outcomes — coin flip, first score, MVP, halftime show moments, and more. Pure fun, no deep football knowledge needed.</p>
+            <div class="fmt-why"><strong>Why choose this</strong>Great companion to your main season contest. Very accessible — casual fans and non-football watchers can compete on coin flips and celebrity appearances alongside your fantasy veterans.</div>
+            <div class="fmt-tags"><span class="fmt-tag">Any group</span><span class="fmt-tag">Super Bowl only</span><span class="fmt-tag">Casual-friendly</span></div>
+          </div>
+        </div>
+
       </div>
     </div>
 
-    <!-- Result -->
-    <div class="result-card" id="resultCard">
-      <div class="result-label">⭐ We recommend</div>
-      <div class="result-format" id="resultFormat">—</div>
-      <p class="result-why" id="resultWhy">—</p>
-      <div class="result-alt" id="resultAlt" style="display:none;">
-        <div class="result-alt-label">Also worth considering</div>
-        <div class="result-alt-name" id="resultAltName">—</div>
+    <!-- PGA -->
+    <div class="chart-section" id="chart-pga">
+      <div class="chart-sport-header" onclick="toggleSport('pga')">
+        <span class="chart-sport-icon">⛳</span>
+        <span class="chart-sport-name">PGA Tour</span>
+        <span class="chart-sport-meta">5 formats available</span>
+        <span class="chart-sport-chevron">▾</span>
       </div>
-      <button class="btn-restart" onclick="restart()">← Start Over</button>
+      <div class="chart-sport-body">
+
+        <div class="format-row" id="fmt-pga-oad-dollar">
+          <div class="format-row-header" onclick="toggleFormat('pga-oad-dollar')">
+            <span class="fmt-chevron">▶</span>
+            One &amp; Done — Dollar Winnings
+            <span class="fmt-popular">⭐ Most Popular</span>
+          </div>
+          <div class="format-row-body">
+            <p class="fmt-desc">Pick one golfer per tournament to follow all season. You can't use the same golfer twice. Players are scored by their official prize money earnings — the more your golfer wins, the better your score.</p>
+            <div class="fmt-why"><strong>Why choose this</strong>Splash's most popular PGA format. Strategy builds over the season — save your top-tier golfers for the majors, or ride a hot streak early. Big prize events mean big leaderboard swings.</div>
+            <div class="fmt-tags"><span class="fmt-tag">Golf fans of all levels</span><span class="fmt-tag">10–50 players</span><span class="fmt-tag">Full season</span><span class="fmt-tag">No elimination</span></div>
+          </div>
+        </div>
+
+        <div class="format-row" id="fmt-pga-oad-strokes">
+          <div class="format-row-header" onclick="toggleFormat('pga-oad-strokes')">
+            <span class="fmt-chevron">▶</span>
+            One &amp; Done — Strokes
+          </div>
+          <div class="format-row-body">
+            <p class="fmt-desc">Same One &amp; Done mechanic — one golfer per week, can't repeat — but scored by strokes gained or finishing position instead of prize money.</p>
+            <div class="fmt-why"><strong>Why choose this</strong>Better for groups more comfortable reading leaderboards than prize money totals. Finishing position is easy to follow live and doesn't require understanding payout distributions.</div>
+            <div class="fmt-tags"><span class="fmt-tag">Casual golf fans</span><span class="fmt-tag">Smaller groups</span><span class="fmt-tag">Full season</span></div>
+          </div>
+        </div>
+
+        <div class="format-row" id="fmt-pga-majors-tiers">
+          <div class="format-row-header" onclick="toggleFormat('pga-majors-tiers')">
+            <span class="fmt-chevron">▶</span>
+            Golf Majors Tiers
+          </div>
+          <div class="format-row-body">
+            <p class="fmt-desc">Pick golfers from pre-set tiers specifically for the four major championships: The Masters, PGA Championship, US Open, and The Open. Short, focused, and high-prestige.</p>
+            <div class="fmt-why"><strong>Why choose this</strong>Perfect if your group only tunes in for the majors. Four events, four rounds of drama. Run it alongside your NFL Survivor or as a standalone spring/summer golf contest.</div>
+            <div class="fmt-tags"><span class="fmt-tag">Casual–mixed</span><span class="fmt-tag">8–40 players</span><span class="fmt-tag">Majors only</span><span class="fmt-tag">Short commitment</span></div>
+          </div>
+        </div>
+
+        <div class="format-row" id="fmt-pga-multi-tiers">
+          <div class="format-row-header" onclick="toggleFormat('pga-multi-tiers')">
+            <span class="fmt-chevron">▶</span>
+            Multi-Tournament Tiers
+          </div>
+          <div class="format-row-body">
+            <p class="fmt-desc">Season-long tier selections across multiple PGA Tour events. Pick from tiered golfer pools each tournament and accumulate fantasy points as the season progresses.</p>
+            <div class="fmt-why"><strong>Why choose this</strong>The deepest PGA format on Splash. Rewards golfers who follow the tour week-to-week, not just during the majors. Ideal for serious golf groups who want consistent weekly engagement.</div>
+            <div class="fmt-tags"><span class="fmt-tag">Hardcore golf fans</span><span class="fmt-tag">Smaller competitive groups</span><span class="fmt-tag">Full season</span></div>
+          </div>
+        </div>
+
+        <div class="format-row" id="fmt-pga-single-tiers">
+          <div class="format-row-header" onclick="toggleFormat('pga-single-tiers')">
+            <span class="fmt-chevron">▶</span>
+            Single Tournament Tiers
+          </div>
+          <div class="format-row-body">
+            <p class="fmt-desc">Tier picks for one specific PGA Tour event. Pick your lineup from tiered golfer pools and track your points across four days of competition.</p>
+            <div class="fmt-why"><strong>Why choose this</strong>Zero season-long commitment. Perfect for a single big event — launch a Masters or US Open contest, watch the event, done. Great for bringing in groups who wouldn't commit to a full season.</div>
+            <div class="fmt-tags"><span class="fmt-tag">Any group size</span><span class="fmt-tag">Casual fans</span><span class="fmt-tag">Single event</span><span class="fmt-tag">Low commitment</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- NBA -->
+    <div class="chart-section" id="chart-nba">
+      <div class="chart-sport-header" onclick="toggleSport('nba')">
+        <span class="chart-sport-icon">🏀</span>
+        <span class="chart-sport-name">NBA</span>
+        <span class="chart-sport-meta">1 format available</span>
+        <span class="chart-sport-chevron">▾</span>
+      </div>
+      <div class="chart-sport-body">
+
+        <div class="format-row" id="fmt-nba-tiers">
+          <div class="format-row-header" onclick="toggleFormat('nba-tiers')">
+            <span class="fmt-chevron">▶</span>
+            NBA Tiers
+            <span class="fmt-popular">⭐ Only NBA Format</span>
+          </div>
+          <div class="format-row-body">
+            <p class="fmt-desc">Pick players from pre-set tiers each week and earn points based on their NBA fantasy performance. Fresh lineup every week, no elimination, cumulative scoring all season.</p>
+            <div class="fmt-why"><strong>Why choose this</strong>The only NBA format on Splash — and a great one. Lower lift than daily DFS: one weekly lineup instead of managing a team every night. Perfect for NBA fans who want skin in the game without the daily grind.</div>
+            <div class="fmt-tags"><span class="fmt-tag">NBA fans</span><span class="fmt-tag">10–40 players</span><span class="fmt-tag">Weekly lineups</span><span class="fmt-tag">October–June</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- MLB -->
+    <div class="chart-section" id="chart-mlb">
+      <div class="chart-sport-header" onclick="toggleSport('mlb')">
+        <span class="chart-sport-icon">⚾</span>
+        <span class="chart-sport-name">MLB</span>
+        <span class="chart-sport-meta">2 formats available</span>
+        <span class="chart-sport-chevron">▾</span>
+      </div>
+      <div class="chart-sport-body">
+
+        <div class="format-row" id="fmt-mlb-survivor">
+          <div class="format-row-header" onclick="toggleFormat('mlb-survivor')">
+            <span class="fmt-chevron">▶</span>
+            Player Survivor
+            <span class="fmt-popular">⭐ Most Popular</span>
+          </div>
+          <div class="format-row-body">
+            <p class="fmt-desc">Pick one MLB player to hit a stat threshold each week (e.g., 1+ home run, 3+ RBI). You can't repeat a player. Miss the threshold and you're eliminated. Last player standing wins.</p>
+            <div class="fmt-why"><strong>Why choose this</strong>Season-long elimination that keeps players invested from Opening Day through October. Great for baseball fans who follow individual hitter and pitcher performances closely.</div>
+            <div class="fmt-tags"><span class="fmt-tag">Baseball fans</span><span class="fmt-tag">15–50 players</span><span class="fmt-tag">Full season</span><span class="fmt-tag">Elimination format</span></div>
+          </div>
+        </div>
+
+        <div class="format-row" id="fmt-mlb-13run">
+          <div class="format-row-header" onclick="toggleFormat('mlb-13run')">
+            <span class="fmt-chevron">▶</span>
+            13-Run
+          </div>
+          <div class="format-row-body">
+            <p class="fmt-desc">Pick one MLB team to score 13 or more runs in a single game. High risk — most games don't hit 13 — but high reward when they do. Can be run as a standalone or recurring format.</p>
+            <div class="fmt-why"><strong>Why choose this</strong>A completely different flavor from any other format on Splash. Short, exciting, and great for hardcore baseball fans who love offensive fireworks. No season-long commitment required.</div>
+            <div class="fmt-tags"><span class="fmt-tag">Hardcore baseball fans</span><span class="fmt-tag">Smaller groups</span><span class="fmt-tag">Short format</span><span class="fmt-tag">High risk / high reward</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- NCAAB -->
+    <div class="chart-section" id="chart-ncaab">
+      <div class="chart-sport-header" onclick="toggleSport('ncaab')">
+        <span class="chart-sport-icon">🏀</span>
+        <span class="chart-sport-name">NCAAB — College Basketball</span>
+        <span class="chart-sport-meta">5 formats available</span>
+        <span class="chart-sport-chevron">▾</span>
+      </div>
+      <div class="chart-sport-body">
+
+        <div class="format-row" id="fmt-ncaab-bracket-m">
+          <div class="format-row-header" onclick="toggleFormat('ncaab-bracket-m')">
+            <span class="fmt-chevron">▶</span>
+            Men's Bracket
+            <span class="fmt-popular">⭐ March Madness</span>
+          </div>
+          <div class="format-row-body">
+            <p class="fmt-desc">Pick the winner of every game in the NCAA Men's Basketball Tournament. Score points for each correct pick, with higher-value points in later rounds. Fill it out after Selection Sunday and watch it play out over three weeks.</p>
+            <div class="fmt-why"><strong>Why choose this</strong>The most well-known contest format in all of sports. Literally everyone knows how a bracket works. Perfect for any office pool, friend group, or family — including people who don't watch basketball the rest of the year.</div>
+            <div class="fmt-tags"><span class="fmt-tag">Any group</span><span class="fmt-tag">Any size</span><span class="fmt-tag">March–April only</span><span class="fmt-tag">No experience needed</span></div>
+          </div>
+        </div>
+
+        <div class="format-row" id="fmt-ncaab-bracket-w">
+          <div class="format-row-header" onclick="toggleFormat('ncaab-bracket-w')">
+            <span class="fmt-chevron">▶</span>
+            Women's Bracket
+            <span class="fmt-popular">⭐ Growing Fast</span>
+          </div>
+          <div class="format-row-body">
+            <p class="fmt-desc">Same bracket format as the men's tournament but for the NCAA Women's Basketball Tournament. Runs concurrently with the men's bracket in March and April.</p>
+            <div class="fmt-why"><strong>Why choose this</strong>Run both brackets simultaneously for double the engagement. Women's tournament parity often makes the bracket harder to predict — which can mean a more competitive result. Great for groups with fans of the women's game.</div>
+            <div class="fmt-tags"><span class="fmt-tag">Any group</span><span class="fmt-tag">Any size</span><span class="fmt-tag">March–April only</span></div>
+          </div>
+        </div>
+
+        <div class="format-row" id="fmt-ncaab-survivor">
+          <div class="format-row-header" onclick="toggleFormat('ncaab-survivor')">
+            <span class="fmt-chevron">▶</span>
+            Survivor — Pick by Round
+          </div>
+          <div class="format-row-body">
+            <p class="fmt-desc">Pick one team to survive each round of March Madness. If your team loses in any round, you're eliminated. No upfront bracket — fresh pick each round. Last player standing wins.</p>
+            <div class="fmt-why"><strong>Why choose this</strong>More strategic than filling out a full bracket. Forces deliberate round-by-round decisions. High drama in the final rounds when only a few players remain — great for competitive groups.</div>
+            <div class="fmt-tags"><span class="fmt-tag">Competitive groups</span><span class="fmt-tag">10–30 players</span><span class="fmt-tag">March–April only</span></div>
+          </div>
+        </div>
+
+        <div class="format-row" id="fmt-ncaab-pickem">
+          <div class="format-row-header" onclick="toggleFormat('ncaab-pickem')">
+            <span class="fmt-chevron">▶</span>
+            Pick'Em
+          </div>
+          <div class="format-row-body">
+            <p class="fmt-desc">Pick game winners each week throughout the college basketball regular season. Season-long point accumulation. No elimination — everyone plays all year.</p>
+            <div class="fmt-why"><strong>Why choose this</strong>Great for groups who follow college basketball beyond just March Madness. Season-long engagement from November through the conference tournaments in early March.</div>
+            <div class="fmt-tags"><span class="fmt-tag">CBB fans</span><span class="fmt-tag">Any group size</span><span class="fmt-tag">November–March</span></div>
+          </div>
+        </div>
+
+        <div class="format-row" id="fmt-ncaab-squares">
+          <div class="format-row-header" onclick="toggleFormat('ncaab-squares')">
+            <span class="fmt-chevron">▶</span>
+            Squares
+          </div>
+          <div class="format-row-body">
+            <p class="fmt-desc">Classic grid-based game tied to the last digit of the score for a single college basketball game. Perfect for championship watch parties.</p>
+            <div class="fmt-why"><strong>Why choose this</strong>Zero knowledge barrier — anyone can play regardless of CBB familiarity. Great for Final Four or championship game events where you want everyone involved.</div>
+            <div class="fmt-tags"><span class="fmt-tag">Any group</span><span class="fmt-tag">Single game</span><span class="fmt-tag">Watch party format</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- NCAAF -->
+    <div class="chart-section" id="chart-ncaaf">
+      <div class="chart-sport-header" onclick="toggleSport('ncaaf')">
+        <span class="chart-sport-icon">🏈</span>
+        <span class="chart-sport-name">NCAAF — College Football</span>
+        <span class="chart-sport-meta">6 formats available</span>
+        <span class="chart-sport-chevron">▾</span>
+      </div>
+      <div class="chart-sport-body">
+
+        <div class="format-row" id="fmt-ncaaf-pickem">
+          <div class="format-row-header" onclick="toggleFormat('ncaaf-pickem')">
+            <span class="fmt-chevron">▶</span>
+            Pick'Em
+            <span class="fmt-popular">⭐ Most Popular</span>
+          </div>
+          <div class="format-row-body">
+            <p class="fmt-desc">Pick the winners of college football games each week. Season-long point accumulation from Week 1 through conference championships. No elimination — most correct picks wins.</p>
+            <div class="fmt-why"><strong>Why choose this</strong>The most popular NCAAF format. Season-long engagement for college football fans from August through December. With 130+ FBS teams playing each week, there's always action to follow.</div>
+            <div class="fmt-tags"><span class="fmt-tag">CFB fans</span><span class="fmt-tag">10–100+ players</span><span class="fmt-tag">Full season</span><span class="fmt-tag">No elimination</span></div>
+          </div>
+        </div>
+
+        <div class="format-row" id="fmt-ncaaf-bowl">
+          <div class="format-row-header" onclick="toggleFormat('ncaaf-bowl')">
+            <span class="fmt-chevron">▶</span>
+            College Bowl Pick'Em
+            <span class="fmt-popular">⭐ Great Short Season</span>
+          </div>
+          <div class="format-row-body">
+            <p class="fmt-desc">Pick the winners of all college bowl games across December and January, including the CFP championship. Short-season — launch in early December and finish in January.</p>
+            <div class="fmt-why"><strong>Why choose this</strong>Much shorter commitment than a full-season contest. Perfect for groups who only tune in for bowl season, or as a standalone contest to run alongside your NFL Survivor. Easy to set up and finish in weeks.</div>
+            <div class="fmt-tags"><span class="fmt-tag">Any group size</span><span class="fmt-tag">Casual fans</span><span class="fmt-tag">December–January only</span><span class="fmt-tag">Low commitment</span></div>
+          </div>
+        </div>
+
+        <div class="format-row" id="fmt-ncaaf-confidence">
+          <div class="format-row-header" onclick="toggleFormat('ncaaf-confidence')">
+            <span class="fmt-chevron">▶</span>
+            Pick'Em: Confidence
+          </div>
+          <div class="format-row-body">
+            <p class="fmt-desc">Weighted pick'em where you assign confidence points to each game pick every week. Higher confidence picks earn more points when correct — and hurt more if wrong.</p>
+            <div class="fmt-why"><strong>Why choose this</strong>Adds competitive depth for knowledgeable CFB fans. Rewards strategic thinking over just picking chalk. A few big upsets per week can swing the entire leaderboard.</div>
+            <div class="fmt-tags"><span class="fmt-tag">Hardcore CFB fans</span><span class="fmt-tag">Competitive groups</span><span class="fmt-tag">Full season</span></div>
+          </div>
+        </div>
+
+        <div class="format-row" id="fmt-ncaaf-survivor">
+          <div class="format-row-header" onclick="toggleFormat('ncaaf-survivor')">
+            <span class="fmt-chevron">▶</span>
+            Survivor
+          </div>
+          <div class="format-row-body">
+            <p class="fmt-desc">Pick one college team to win each week. Can't repeat teams. Your pick loses and you're eliminated. Last player standing wins. With 130+ FBS teams, strategy is deep.</p>
+            <div class="fmt-why"><strong>Why choose this</strong>College football's depth of teams gives you far more strategic runway than NFL Survivor. You can avoid top programs early and save elite teams for crunch time — or go chalk and survive longer.</div>
+            <div class="fmt-tags"><span class="fmt-tag">CFB fans</span><span class="fmt-tag">Mid-sized groups</span><span class="fmt-tag">Full season</span><span class="fmt-tag">Elimination format</span></div>
+          </div>
+        </div>
+
+        <div class="format-row" id="fmt-ncaaf-cfp">
+          <div class="format-row-header" onclick="toggleFormat('ncaaf-cfp')">
+            <span class="fmt-chevron">▶</span>
+            CFB Playoffs Survivor
+          </div>
+          <div class="format-row-body">
+            <p class="fmt-desc">Pick one team to advance each round of the College Football Playoff. Currently an expanded 12-team bracket. Launch when the CFP field is announced in December — finish in January.</p>
+            <div class="fmt-why"><strong>Why choose this</strong>Short and intense — everything is decided in just a few rounds. Great for groups who care most about the postseason. Launch at bracket time and wrap up by the national championship.</div>
+            <div class="fmt-tags"><span class="fmt-tag">Any group size</span><span class="fmt-tag">December–January only</span><span class="fmt-tag">Short season</span><span class="fmt-tag">CFP fans</span></div>
+          </div>
+        </div>
+
+        <div class="format-row" id="fmt-ncaaf-squares">
+          <div class="format-row-header" onclick="toggleFormat('ncaaf-squares')">
+            <span class="fmt-chevron">▶</span>
+            Squares
+          </div>
+          <div class="format-row-body">
+            <p class="fmt-desc">Classic grid-based game tied to the last digit of the score for a single college football game. Perfect for championship game or rivalry game watch parties.</p>
+            <div class="fmt-why"><strong>Why choose this</strong>No CFB knowledge barrier — anyone can play. Great for National Championship or conference title game events where you want the whole room involved regardless of fandom.</div>
+            <div class="fmt-tags"><span class="fmt-tag">Any group</span><span class="fmt-tag">Single game</span><span class="fmt-tag">Watch party format</span></div>
+          </div>
+        </div>
+
+      </div>
     </div>
 
   </main>
@@ -176,117 +577,42 @@
   </footer>
 
   <script>
-    const answers = { sport: null, size: null, exp: null };
-    const steps = ['sport', 'size', 'exp'];
-    let currentStep = 0;
+    const SPORTS = ['nfl','pga','nba','mlb','ncaab','ncaaf'];
 
-    function pick(key, value, btn) {
-      answers[key] = value;
-      // highlight selected
-      btn.closest('.option-grid').querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
-      btn.classList.add('selected');
-
+    function selectSport(id, btn) {
+      // Highlight tile
+      document.querySelectorAll('.sport-tile').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+      // Collapse all, expand selected
+      SPORTS.forEach(s => {
+        const section = document.getElementById('chart-' + s);
+        if (section) section.classList.toggle('open', s === id);
+      });
+      // Scroll to chart
       setTimeout(() => {
-        if (currentStep < steps.length - 1) {
-          nextStep();
-        } else {
-          showResult();
-        }
-      }, 280);
+        document.getElementById('chart-' + id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 60);
     }
 
-    function nextStep() {
-      document.getElementById('step-' + (currentStep + 1)).classList.remove('active');
-      currentStep++;
-      document.getElementById('step-' + (currentStep + 1)).classList.add('active');
-      document.getElementById('dot-' + currentStep).classList.remove('active');
-      document.getElementById('dot-' + currentStep).classList.add('done');
-      document.getElementById('dot-' + (currentStep + 1)).classList.add('active');
+    function toggleSport(id) {
+      const section = document.getElementById('chart-' + id);
+      section.classList.toggle('open');
     }
 
-    function showResult() {
-      document.querySelector('.quiz-card').style.display = 'none';
-      const { sport, size, exp } = answers;
-      let format = '', why = '', alt = '';
-
-      if (sport === 'nfl') {
-        if (exp === 'casual') {
-          format = 'NFL Survivor';
-          why = 'Survivor is Splash\'s most popular NFL format — one pick per week, easy to explain, and nail-biting until the end. Perfect for groups new to fantasy.';
-          alt = size === 'xlarge' ? 'Pick\'Em (easier for very large groups)' : '';
-        } else if (exp === 'mixed') {
-          format = size === 'small' || size === 'medium' ? 'NFL Survivor' : 'Pick\'Em';
-          why = size === 'small' || size === 'medium'
-            ? 'Survivor keeps everyone engaged all season and works great for mixed groups — veterans love the strategy, newcomers love the simplicity.'
-            : 'Pick\'Em is ideal for large mixed groups. Everyone picks every game each week, scoring is easy to follow, and it stays competitive all season.';
-          alt = 'Pick\'Em: Confidence (adds a strategy layer for veterans)';
-        } else {
-          format = size === 'small' ? 'Pick\'Em: Confidence' : 'Pick\'Em: Confidence';
-          why = 'Confidence Pick\'Em adds a point-weighting system that rewards smart picks, not just lucky ones. Your veterans will love the extra strategy layer.';
-          alt = 'Tiers: Fantasy Points (if your group wants player-level picks)';
-        }
-      } else if (sport === 'pga') {
-        if (exp === 'hardcore' && (size === 'small' || size === 'medium')) {
-          format = 'Multi-Tournament Tiers — Dollar Winnings';
-          why = 'Season-long tier picks across multiple tournaments, scored by prize money. The deepest PGA format on Splash — ideal for serious golf fans who want weekly engagement.';
-          alt = 'One & Done — Dollar Winnings (simpler, still great for veterans)';
-        } else {
-          format = 'One & Done — Dollar Winnings';
-          why = 'One pick per week, can\'t reuse a golfer, scored by prize money. The most popular PGA format on Splash — simple enough for newcomers, strategic enough for veterans.';
-          alt = exp === 'hardcore' ? 'Multi-Tournament Tiers (more lineup depth)' : '';
-        }
-      } else if (sport === 'nba') {
-        format = 'NBA Tiers';
-        why = 'NBA Tiers is Splash\'s only NBA format — pick players from pre-set tiers each week, scored by fantasy points. Great for NBA fans who want a lighter lift than traditional DFS.';
-      } else if (sport === 'mlb') {
-        if (exp === 'hardcore') {
-          format = '13-Run';
-          why = 'High-risk, high-reward format where you bet on teams scoring 13 or more runs. Fast, fun, and perfect for hardcore baseball fans who want something different.';
-          alt = 'Player Survivor (season-long elimination format)';
-        } else {
-          format = 'Player Survivor';
-          why = 'Pick one MLB player to perform each week — if they don\'t hit the threshold, you\'re eliminated. Season-long elimination that keeps everyone invested through October.';
-        }
-      } else if (sport === 'ncaab') {
-        format = 'Men\'s Bracket';
-        why = 'The March Madness bracket is the most well-known format in sports — everyone already knows how it works. Perfect for any group size and experience level.';
-        alt = exp === 'hardcore' ? 'Survivor — Pick by Round (more strategic)' : 'Pick\'Em (great for season-long play before the tournament)';
-      } else if (sport === 'ncaaf') {
-        if (exp === 'casual') {
-          format = 'College Bowl Pick\'Em';
-          why = 'Pick winners across all the college bowl games — runs December through January and is easy for casual fans who only tune in for bowl season.';
-        } else if (exp === 'hardcore') {
-          format = 'CFB Playoffs Survivor';
-          why = 'Pick one team to win each round of the College Football Playoff. Intense, short, and perfect for hardcore CFB fans who care most about the postseason.';
-          alt = 'Pick\'Em: Confidence (great for the full season)';
-        } else {
-          format = 'Pick\'Em';
-          why = 'Pick the winner of every college football game each week. Season-long, great for mixed groups, and keeps everyone engaged from Week 1 through bowl season.';
-          alt = 'College Bowl Pick\'Em (if you want a shorter, lower-commitment option)';
-        }
-      }
-
-      document.getElementById('resultFormat').textContent = format;
-      document.getElementById('resultWhy').textContent = why;
-      if (alt) {
-        document.getElementById('resultAlt').style.display = 'block';
-        document.getElementById('resultAltName').textContent = alt;
-      }
-      document.getElementById('resultCard').classList.add('visible');
-      document.getElementById('resultCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    function toggleFormat(id) {
+      const row = document.getElementById('fmt-' + id);
+      if (row) row.classList.toggle('open');
     }
 
-    function restart() {
-      answers.sport = null; answers.size = null; answers.exp = null;
-      currentStep = 0;
-      document.querySelectorAll('.quiz-step').forEach(s => s.classList.remove('active'));
-      document.getElementById('step-1').classList.add('active');
-      document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
-      document.querySelectorAll('.dot').forEach((d, i) => { d.classList.remove('done', 'active'); if (i === 0) d.classList.add('active'); });
-      document.getElementById('resultCard').classList.remove('visible');
-      document.getElementById('resultAlt').style.display = 'none';
-      document.querySelector('.quiz-card').style.display = 'block';
-      document.querySelector('.quiz-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    function expandAll() {
+      document.querySelectorAll('.sport-tile').forEach(t => t.classList.remove('active'));
+      SPORTS.forEach(s => {
+        const section = document.getElementById('chart-' + s);
+        if (section) section.classList.add('open');
+      });
+      setTimeout(() => {
+        document.getElementById('chart-nfl').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 60);
     }
   </script>
 
