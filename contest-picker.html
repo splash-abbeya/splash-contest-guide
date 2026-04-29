@@ -44,7 +44,7 @@
 
     /* Sport selector */
     .picker-label { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: var(--splash-teal); margin-bottom: 0.75rem; }
-    .sport-tiles { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0.5rem; margin-bottom: 0.75rem; }
+    .sport-tiles { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.5rem; margin-bottom: 0.75rem; }
     .sport-tile {
       display: flex; flex-direction: column; align-items: center; gap: 0.35rem;
       padding: 0.9rem 0.5rem; border: 1px solid var(--splash-border);
@@ -140,6 +140,7 @@
       <button class="sport-tile" id="tile-nfl" onclick="selectSport('nfl', this)"><span class="tile-icon">🏈</span>NFL</button>
       <button class="sport-tile" id="tile-pga" onclick="selectSport('pga', this)"><span class="tile-icon">⛳</span>PGA</button>
       <button class="sport-tile" id="tile-nba" onclick="selectSport('nba', this)"><span class="tile-icon">🏀</span>NBA</button>
+      <button class="sport-tile" id="tile-nhl" onclick="selectSport('nhl', this)"><span class="tile-icon">🏒</span>NHL</button>
       <button class="sport-tile" id="tile-mlb" onclick="selectSport('mlb', this)"><span class="tile-icon">⚾</span>MLB</button>
       <button class="sport-tile" id="tile-ncaab" onclick="selectSport('ncaab', this)"><span class="tile-icon">🏀</span>NCAAB</button>
       <button class="sport-tile" id="tile-ncaaf" onclick="selectSport('ncaaf', this)"><span class="tile-icon">🏈</span>NCAAF</button>
@@ -482,6 +483,56 @@
       </div>
     </div>
 
+    <!-- NHL -->
+    <div class="chart-section" id="chart-nhl">
+      <div class="chart-sport-header" onclick="toggleSport('nhl')">
+        <span class="chart-sport-icon">🏒</span>
+        <span class="chart-sport-name">NHL</span>
+        <span class="chart-sport-meta">3 formats available</span>
+        <span class="chart-sport-chevron">▾</span>
+      </div>
+      <div class="chart-sport-body">
+
+        <div class="format-row" id="fmt-nhl-player-survivor">
+          <div class="format-row-header" onclick="toggleFormat('nhl-player-survivor')">
+            <span class="fmt-chevron">▶</span>
+            Player Survivor
+            <span class="fmt-popular">⭐ Most Engaging</span>
+          </div>
+          <div class="format-row-body">
+            <p class="fmt-desc">Pick one NHL player to hit a stat threshold each week (e.g., 1+ goal, 2+ points). You can't use the same player twice. Miss the threshold and you're eliminated. Last player standing wins.</p>
+            <div class="fmt-why"><strong>Why choose this</strong>Perfect for hockey fans who follow individual player performance. Adds a personal stake to every game your picked player is on the ice — and forces increasingly creative picks as top players get used up.</div>
+            <div class="fmt-tags"><span class="fmt-tag">Hockey fans</span><span class="fmt-tag">10–50 players</span><span class="fmt-tag">Full season</span><span class="fmt-tag">Elimination format</span></div>
+          </div>
+        </div>
+
+        <div class="format-row" id="fmt-nhl-pickem">
+          <div class="format-row-header" onclick="toggleFormat('nhl-pickem')">
+            <span class="fmt-chevron">▶</span>
+            Pick'Em
+          </div>
+          <div class="format-row-body">
+            <p class="fmt-desc">Pick the winners of NHL games each week. Correct picks earn points. The player with the most correct picks at season's end wins. No elimination — everyone stays in all season.</p>
+            <div class="fmt-why"><strong>Why choose this</strong>Great for larger groups where you don't want people dropping out. With 30+ NHL teams playing throughout the week, there's always something to track. The leaderboard stays competitive all the way to June.</div>
+            <div class="fmt-tags"><span class="fmt-tag">Any group size</span><span class="fmt-tag">Mixed experience</span><span class="fmt-tag">Full season</span><span class="fmt-tag">No elimination</span></div>
+          </div>
+        </div>
+
+        <div class="format-row" id="fmt-nhl-survivor">
+          <div class="format-row-header" onclick="toggleFormat('nhl-survivor')">
+            <span class="fmt-chevron">▶</span>
+            Survivor
+          </div>
+          <div class="format-row-body">
+            <p class="fmt-desc">Pick one NHL team to win each week. You can't use the same team twice. If your pick loses, you're eliminated. Last player standing wins the pool.</p>
+            <div class="fmt-why"><strong>Why choose this</strong>Classic Survivor tension applied to hockey. Simple to explain, easy for new players to understand, and season-long engagement with a single weekly decision. Strong option for hockey groups of any size.</div>
+            <div class="fmt-tags"><span class="fmt-tag">Any group size</span><span class="fmt-tag">Any experience level</span><span class="fmt-tag">Full season</span><span class="fmt-tag">Elimination format</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
     <!-- NCAAF -->
     <div class="chart-section" id="chart-ncaaf">
       <div class="chart-sport-header" onclick="toggleSport('ncaaf')">
@@ -577,7 +628,7 @@
   </footer>
 
   <script>
-    const SPORTS = ['nfl','pga','nba','mlb','ncaab','ncaaf'];
+    const SPORTS = ['nfl','pga','nba','nhl','mlb','ncaab','ncaaf'];
 
     function selectSport(id, btn) {
       // Highlight tile
