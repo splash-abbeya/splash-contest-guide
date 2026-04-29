@@ -894,13 +894,106 @@
             </div>
           </div>
 
-          <!-- PGA -->
-          <div class="sport-accordion" id="sport-pga">
-            <button class="sport-accordion-header" onclick="toggleSport('pga')" aria-expanded="false">
-              <span class="sport-accordion-title">⛳ PGA</span>
-              <span class="sport-accordion-count">8 formats</span>
+          <!-- NCAAF (moved to slot 2) -->
+          <div class="sport-accordion" id="sport-ncaaf">
+            <button class="sport-accordion-header" onclick="toggleSport('ncaaf')" aria-expanded="false">
+              <span class="sport-accordion-title">🏈 NCAAF — College Football</span>
+              <span class="sport-accordion-count">5 formats</span>
               <span class="sport-accordion-chevron">▾</span>
             </button>
+            <div class="sport-accordion-body">
+              <div class="contest-types">
+                <div class="contest-type">
+                  <div>
+                    <div class="contest-type-name">CFB Playoffs Survivor</div>
+                    <div class="contest-type-desc">Survivor format for the College Football Playoff. Pick one team to win each round — lose and you're out.</div>
+                  </div>
+                </div>
+                <div class="contest-type">
+                  <div>
+                    <div class="contest-type-name">College Bowl Pick'Em</div>
+                    <div class="contest-type-desc">Pick winners across all the college bowl games. Best for bowl season (December–January). Easy to run with a big group.</div>
+                  </div>
+                </div>
+                <div class="contest-type">
+                  <div>
+                    <div class="contest-type-name">Pick'Em / Pick'Em: Confidence</div>
+                    <div class="contest-type-desc">Pick the winner of every college football game each week, with optional confidence point weighting.</div>
+                  </div>
+                </div>
+                <div class="contest-type">
+                  <div>
+                    <div class="contest-type-name">Survivor</div>
+                    <div class="contest-type-desc">Pick one college team to win each week. If they lose, you're eliminated. Season-long format for dedicated CFB fans.</div>
+                  </div>
+                </div>
+                <div class="contest-type">
+                  <div>
+                    <div class="contest-type-name">Squares</div>
+                    <div class="contest-type-desc">Classic squares grid applied to college football. Perfect for big rivalry games or bowl games with casual fans.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- NHL (moved to slot 3) -->
+          <div class="sport-accordion" id="sport-nhl">
+            <button class="sport-accordion-header" onclick="toggleSport('nhl')" aria-expanded="false">
+              <span class="sport-accordion-title">🏒 NHL</span>
+              <span class="sport-accordion-count">4 formats</span>
+              <span class="sport-accordion-chevron">▾</span>
+            </button>
+            <div class="sport-accordion-body">
+              <div class="contest-types">
+                <div class="contest-type">
+                  <div>
+                    <div class="contest-type-name">Player Survivor</div>
+                    <div class="contest-type-desc">Pick one NHL player to hit a stat threshold each week — can't reuse them. If your player misses, you're eliminated. Season-long format perfect for hockey fans who follow individual performance.</div>
+                  </div>
+                </div>
+                <div class="contest-type">
+                  <div>
+                    <div class="contest-type-name">Pick'Em</div>
+                    <div class="contest-type-desc">Pick the winners of NHL games each week. Most correct picks at season's end wins. No elimination — everyone stays in all season. Great for any group size.</div>
+                  </div>
+                </div>
+                <div class="contest-type">
+                  <div>
+                    <div class="contest-type-name">Survivor</div>
+                    <div class="contest-type-desc">Pick one NHL team to win each week. Can't reuse teams. Your pick loses and you're out. Last player standing wins the pool.</div>
+                  </div>
+                </div>
+                <div class="contest-type">
+                  <div>
+                    <div class="contest-type-name">Survivor — Pick by Day</div>
+                    <div class="contest-type-desc">A faster-paced Survivor where you pick one NHL team to win each day instead of each week. Higher frequency decisions, faster eliminations — great for groups who want more action throughout the season.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- NBA (moved to slot 4) -->
+          <div class="sport-accordion" id="sport-nba">
+            <button class="sport-accordion-header" onclick="toggleSport('nba')" aria-expanded="false">
+              <span class="sport-accordion-title">🏀 NBA</span>
+              <span class="sport-accordion-count">1 format</span>
+              <span class="sport-accordion-chevron">▾</span>
+            </button>
+            <div class="sport-accordion-body">
+              <div class="contest-types">
+                <div class="contest-type">
+                  <div>
+                    <div class="contest-type-name">NBA Tiers</div>
+                    <div class="contest-type-desc">Pick players from pre-set tiers each week. Scored by fantasy points. Great for NBA fans who want a lighter lift than traditional DFS.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PGA (slot 5, was slot 2) -->
             <div class="sport-accordion-body">
               <div class="contest-types">
                 <div class="contest-type recommended">
@@ -971,51 +1064,7 @@
             </div>
           </div>
 
-          <!-- NBA -->
-          <div class="sport-accordion" id="sport-nba">
-            <button class="sport-accordion-header" onclick="toggleSport('nba')" aria-expanded="false">
-              <span class="sport-accordion-title">🏀 NBA</span>
-              <span class="sport-accordion-count">1 format</span>
-              <span class="sport-accordion-chevron">▾</span>
-            </button>
-            <div class="sport-accordion-body">
-              <div class="contest-types">
-                <div class="contest-type">
-                  <div>
-                    <div class="contest-type-name">NBA Tiers</div>
-                    <div class="contest-type-desc">Pick players from pre-set tiers each week. Scored by fantasy points. Great for NBA fans who want a lighter lift than traditional DFS.</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- MLB -->
-          <div class="sport-accordion" id="sport-mlb">
-            <button class="sport-accordion-header" onclick="toggleSport('mlb')" aria-expanded="false">
-              <span class="sport-accordion-title">⚾ MLB</span>
-              <span class="sport-accordion-count">2 formats</span>
-              <span class="sport-accordion-chevron">▾</span>
-            </button>
-            <div class="sport-accordion-body">
-              <div class="contest-types">
-                <div class="contest-type">
-                  <div>
-                    <div class="contest-type-name">Player Survivor</div>
-                    <div class="contest-type-desc">Pick one MLB player to perform each week — can't reuse them. If your player doesn't hit the threshold, you're out. Season-long elimination format.</div>
-                  </div>
-                </div>
-                <div class="contest-type">
-                  <div>
-                    <div class="contest-type-name">13-Run</div>
-                    <div class="contest-type-desc">Pick a team and bet on whether they'll score 13 or more runs in a game. High-risk, fun, and perfect for baseball fans.</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- NCAAB -->
+          <!-- NCAAB (slot 6) -->
           <div class="sport-accordion" id="sport-ncaab">
             <button class="sport-accordion-header" onclick="toggleSport('ncaab')" aria-expanded="false">
               <span class="sport-accordion-title">🏀 NCAAB — College Basketball</span>
@@ -1053,11 +1102,11 @@
             </div>
           </div>
 
-          <!-- NHL -->
-          <div class="sport-accordion" id="sport-nhl">
-            <button class="sport-accordion-header" onclick="toggleSport('nhl')" aria-expanded="false">
-              <span class="sport-accordion-title">🏒 NHL</span>
-              <span class="sport-accordion-count">4 formats</span>
+          <!-- MLB (slot 7) -->
+          <div class="sport-accordion" id="sport-mlb">
+            <button class="sport-accordion-header" onclick="toggleSport('mlb')" aria-expanded="false">
+              <span class="sport-accordion-title">⚾ MLB</span>
+              <span class="sport-accordion-count">2 formats</span>
               <span class="sport-accordion-chevron">▾</span>
             </button>
             <div class="sport-accordion-body">
@@ -1065,68 +1114,13 @@
                 <div class="contest-type">
                   <div>
                     <div class="contest-type-name">Player Survivor</div>
-                    <div class="contest-type-desc">Pick one NHL player to hit a stat threshold each week — can't reuse them. If your player misses, you're eliminated. Season-long format perfect for hockey fans who follow individual performance.</div>
+                    <div class="contest-type-desc">Pick one MLB player to perform each week — can't reuse them. If your player doesn't hit the threshold, you're out. Season-long elimination format.</div>
                   </div>
                 </div>
                 <div class="contest-type">
                   <div>
-                    <div class="contest-type-name">Pick'Em</div>
-                    <div class="contest-type-desc">Pick the winners of NHL games each week. Most correct picks at season's end wins. No elimination — everyone stays in all season. Great for any group size.</div>
-                  </div>
-                </div>
-                <div class="contest-type">
-                  <div>
-                    <div class="contest-type-name">Survivor</div>
-                    <div class="contest-type-desc">Pick one NHL team to win each week. Can't reuse teams. Your pick loses and you're out. Last player standing wins the pool.</div>
-                  </div>
-                </div>
-                <div class="contest-type">
-                  <div>
-                    <div class="contest-type-name">Survivor — Pick by Day</div>
-                    <div class="contest-type-desc">A faster-paced Survivor where you pick one NHL team to win each day instead of each week. Higher frequency decisions, faster eliminations — great for groups who want more action throughout the season.</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- NCAAF -->
-          <div class="sport-accordion" id="sport-ncaaf">
-            <button class="sport-accordion-header" onclick="toggleSport('ncaaf')" aria-expanded="false">
-              <span class="sport-accordion-title">🏈 NCAAF — College Football</span>
-              <span class="sport-accordion-count">5 formats</span>
-              <span class="sport-accordion-chevron">▾</span>
-            </button>
-            <div class="sport-accordion-body">
-              <div class="contest-types">
-                <div class="contest-type">
-                  <div>
-                    <div class="contest-type-name">CFB Playoffs Survivor</div>
-                    <div class="contest-type-desc">Survivor format for the College Football Playoff. Pick one team to win each round — lose and you're out.</div>
-                  </div>
-                </div>
-                <div class="contest-type">
-                  <div>
-                    <div class="contest-type-name">College Bowl Pick'Em</div>
-                    <div class="contest-type-desc">Pick winners across all the college bowl games. Best for bowl season (December–January). Easy to run with a big group.</div>
-                  </div>
-                </div>
-                <div class="contest-type">
-                  <div>
-                    <div class="contest-type-name">Pick'Em / Pick'Em: Confidence</div>
-                    <div class="contest-type-desc">Pick the winner of every college football game each week, with optional confidence point weighting.</div>
-                  </div>
-                </div>
-                <div class="contest-type">
-                  <div>
-                    <div class="contest-type-name">Survivor</div>
-                    <div class="contest-type-desc">Pick one college team to win each week. If they lose, you're eliminated. Season-long format for dedicated CFB fans.</div>
-                  </div>
-                </div>
-                <div class="contest-type">
-                  <div>
-                    <div class="contest-type-name">Squares</div>
-                    <div class="contest-type-desc">Classic squares grid applied to college football. Perfect for big rivalry games or bowl games with casual fans.</div>
+                    <div class="contest-type-name">13-Run</div>
+                    <div class="contest-type-desc">Pick a team and bet on whether they'll score 13 or more runs in a game. High-risk, fun, and perfect for baseball fans.</div>
                   </div>
                 </div>
               </div>

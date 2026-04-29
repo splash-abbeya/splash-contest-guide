@@ -138,12 +138,12 @@
     <div class="picker-label">Jump to a sport</div>
     <div class="sport-tiles">
       <button class="sport-tile" id="tile-nfl" onclick="selectSport('nfl', this)"><span class="tile-icon">🏈</span>NFL</button>
-      <button class="sport-tile" id="tile-pga" onclick="selectSport('pga', this)"><span class="tile-icon">⛳</span>PGA</button>
-      <button class="sport-tile" id="tile-nba" onclick="selectSport('nba', this)"><span class="tile-icon">🏀</span>NBA</button>
-      <button class="sport-tile" id="tile-nhl" onclick="selectSport('nhl', this)"><span class="tile-icon">🏒</span>NHL</button>
-      <button class="sport-tile" id="tile-mlb" onclick="selectSport('mlb', this)"><span class="tile-icon">⚾</span>MLB</button>
-      <button class="sport-tile" id="tile-ncaab" onclick="selectSport('ncaab', this)"><span class="tile-icon">🏀</span>NCAAB</button>
       <button class="sport-tile" id="tile-ncaaf" onclick="selectSport('ncaaf', this)"><span class="tile-icon">🏈</span>NCAAF</button>
+      <button class="sport-tile" id="tile-nhl" onclick="selectSport('nhl', this)"><span class="tile-icon">🏒</span>NHL</button>
+      <button class="sport-tile" id="tile-nba" onclick="selectSport('nba', this)"><span class="tile-icon">🏀</span>NBA</button>
+      <button class="sport-tile" id="tile-pga" onclick="selectSport('pga', this)"><span class="tile-icon">⛳</span>PGA</button>
+      <button class="sport-tile" id="tile-ncaab" onclick="selectSport('ncaab', this)"><span class="tile-icon">🏀</span>NCAAB</button>
+      <button class="sport-tile" id="tile-mlb" onclick="selectSport('mlb', this)"><span class="tile-icon">⚾</span>MLB</button>
     </div>
     <div class="show-all-link"><button onclick="expandAll()">Show all sports &darr;</button></div>
 
@@ -270,294 +270,7 @@
       </div>
     </div>
 
-    <!-- PGA -->
-    <div class="chart-section" id="chart-pga">
-      <div class="chart-sport-header" onclick="toggleSport('pga')">
-        <span class="chart-sport-icon">⛳</span>
-        <span class="chart-sport-name">PGA Tour</span>
-        <span class="chart-sport-meta">5 formats available</span>
-        <span class="chart-sport-chevron">▾</span>
-      </div>
-      <div class="chart-sport-body">
-
-        <div class="format-row" id="fmt-pga-oad-dollar">
-          <div class="format-row-header" onclick="toggleFormat('pga-oad-dollar')">
-            <span class="fmt-chevron">▶</span>
-            One &amp; Done — Dollar Winnings
-            <span class="fmt-popular">⭐ Most Popular</span>
-          </div>
-          <div class="format-row-body">
-            <p class="fmt-desc">Pick one golfer per tournament to follow all season. You can't use the same golfer twice. Players are scored by their official prize money earnings — the more your golfer wins, the better your score.</p>
-            <div class="fmt-why"><strong>Why choose this</strong>Splash's most popular PGA format. Strategy builds over the season — save your top-tier golfers for the majors, or ride a hot streak early. Big prize events mean big leaderboard swings.</div>
-            <div class="fmt-tags"><span class="fmt-tag">Golf fans of all levels</span><span class="fmt-tag">10–50 players</span><span class="fmt-tag">Full season</span><span class="fmt-tag">No elimination</span></div>
-          </div>
-        </div>
-
-        <div class="format-row" id="fmt-pga-oad-strokes">
-          <div class="format-row-header" onclick="toggleFormat('pga-oad-strokes')">
-            <span class="fmt-chevron">▶</span>
-            One &amp; Done — Strokes
-          </div>
-          <div class="format-row-body">
-            <p class="fmt-desc">Same One &amp; Done mechanic — one golfer per week, can't repeat — but scored by strokes gained or finishing position instead of prize money.</p>
-            <div class="fmt-why"><strong>Why choose this</strong>Better for groups more comfortable reading leaderboards than prize money totals. Finishing position is easy to follow live and doesn't require understanding payout distributions.</div>
-            <div class="fmt-tags"><span class="fmt-tag">Casual golf fans</span><span class="fmt-tag">Smaller groups</span><span class="fmt-tag">Full season</span></div>
-          </div>
-        </div>
-
-        <div class="format-row" id="fmt-pga-majors-tiers">
-          <div class="format-row-header" onclick="toggleFormat('pga-majors-tiers')">
-            <span class="fmt-chevron">▶</span>
-            Golf Majors Tiers
-          </div>
-          <div class="format-row-body">
-            <p class="fmt-desc">Pick golfers from pre-set tiers specifically for the four major championships: The Masters, PGA Championship, US Open, and The Open. Short, focused, and high-prestige.</p>
-            <div class="fmt-why"><strong>Why choose this</strong>Perfect if your group only tunes in for the majors. Four events, four rounds of drama. Run it alongside your NFL Survivor or as a standalone spring/summer golf contest.</div>
-            <div class="fmt-tags"><span class="fmt-tag">Casual–mixed</span><span class="fmt-tag">8–40 players</span><span class="fmt-tag">Majors only</span><span class="fmt-tag">Short commitment</span></div>
-          </div>
-        </div>
-
-        <div class="format-row" id="fmt-pga-multi-tiers">
-          <div class="format-row-header" onclick="toggleFormat('pga-multi-tiers')">
-            <span class="fmt-chevron">▶</span>
-            Multi-Tournament Tiers
-          </div>
-          <div class="format-row-body">
-            <p class="fmt-desc">Season-long tier selections across multiple PGA Tour events. Pick from tiered golfer pools each tournament and accumulate fantasy points as the season progresses.</p>
-            <div class="fmt-why"><strong>Why choose this</strong>The deepest PGA format on Splash. Rewards golfers who follow the tour week-to-week, not just during the majors. Ideal for serious golf groups who want consistent weekly engagement.</div>
-            <div class="fmt-tags"><span class="fmt-tag">Hardcore golf fans</span><span class="fmt-tag">Smaller competitive groups</span><span class="fmt-tag">Full season</span></div>
-          </div>
-        </div>
-
-        <div class="format-row" id="fmt-pga-single-tiers">
-          <div class="format-row-header" onclick="toggleFormat('pga-single-tiers')">
-            <span class="fmt-chevron">▶</span>
-            Single Tournament Tiers
-          </div>
-          <div class="format-row-body">
-            <p class="fmt-desc">Tier picks for one specific PGA Tour event. Pick your lineup from tiered golfer pools and track your points across four days of competition.</p>
-            <div class="fmt-why"><strong>Why choose this</strong>Zero season-long commitment. Perfect for a single big event — launch a Masters or US Open contest, watch the event, done. Great for bringing in groups who wouldn't commit to a full season.</div>
-            <div class="fmt-tags"><span class="fmt-tag">Any group size</span><span class="fmt-tag">Casual fans</span><span class="fmt-tag">Single event</span><span class="fmt-tag">Low commitment</span></div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- NBA -->
-    <div class="chart-section" id="chart-nba">
-      <div class="chart-sport-header" onclick="toggleSport('nba')">
-        <span class="chart-sport-icon">🏀</span>
-        <span class="chart-sport-name">NBA</span>
-        <span class="chart-sport-meta">1 format available</span>
-        <span class="chart-sport-chevron">▾</span>
-      </div>
-      <div class="chart-sport-body">
-
-        <div class="format-row" id="fmt-nba-tiers">
-          <div class="format-row-header" onclick="toggleFormat('nba-tiers')">
-            <span class="fmt-chevron">▶</span>
-            NBA Tiers
-            <span class="fmt-popular">⭐ Only NBA Format</span>
-          </div>
-          <div class="format-row-body">
-            <p class="fmt-desc">Pick players from pre-set tiers each week and earn points based on their NBA fantasy performance. Fresh lineup every week, no elimination, cumulative scoring all season.</p>
-            <div class="fmt-why"><strong>Why choose this</strong>The only NBA format on Splash — and a great one. Lower lift than daily DFS: one weekly lineup instead of managing a team every night. Perfect for NBA fans who want skin in the game without the daily grind.</div>
-            <div class="fmt-tags"><span class="fmt-tag">NBA fans</span><span class="fmt-tag">10–40 players</span><span class="fmt-tag">Weekly lineups</span><span class="fmt-tag">October–June</span></div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- MLB -->
-    <div class="chart-section" id="chart-mlb">
-      <div class="chart-sport-header" onclick="toggleSport('mlb')">
-        <span class="chart-sport-icon">⚾</span>
-        <span class="chart-sport-name">MLB</span>
-        <span class="chart-sport-meta">2 formats available</span>
-        <span class="chart-sport-chevron">▾</span>
-      </div>
-      <div class="chart-sport-body">
-
-        <div class="format-row" id="fmt-mlb-survivor">
-          <div class="format-row-header" onclick="toggleFormat('mlb-survivor')">
-            <span class="fmt-chevron">▶</span>
-            Player Survivor
-            <span class="fmt-popular">⭐ Most Popular</span>
-          </div>
-          <div class="format-row-body">
-            <p class="fmt-desc">Pick one MLB player to hit a stat threshold each week (e.g., 1+ home run, 3+ RBI). You can't repeat a player. Miss the threshold and you're eliminated. Last player standing wins.</p>
-            <div class="fmt-why"><strong>Why choose this</strong>Season-long elimination that keeps players invested from Opening Day through October. Great for baseball fans who follow individual hitter and pitcher performances closely.</div>
-            <div class="fmt-tags"><span class="fmt-tag">Baseball fans</span><span class="fmt-tag">15–50 players</span><span class="fmt-tag">Full season</span><span class="fmt-tag">Elimination format</span></div>
-          </div>
-        </div>
-
-        <div class="format-row" id="fmt-mlb-13run">
-          <div class="format-row-header" onclick="toggleFormat('mlb-13run')">
-            <span class="fmt-chevron">▶</span>
-            13-Run
-          </div>
-          <div class="format-row-body">
-            <p class="fmt-desc">Pick one MLB team to score 13 or more runs in a single game. High risk — most games don't hit 13 — but high reward when they do. Can be run as a standalone or recurring format.</p>
-            <div class="fmt-why"><strong>Why choose this</strong>A completely different flavor from any other format on Splash. Short, exciting, and great for hardcore baseball fans who love offensive fireworks. No season-long commitment required.</div>
-            <div class="fmt-tags"><span class="fmt-tag">Hardcore baseball fans</span><span class="fmt-tag">Smaller groups</span><span class="fmt-tag">Short format</span><span class="fmt-tag">High risk / high reward</span></div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- NCAAB -->
-    <div class="chart-section" id="chart-ncaab">
-      <div class="chart-sport-header" onclick="toggleSport('ncaab')">
-        <span class="chart-sport-icon">🏀</span>
-        <span class="chart-sport-name">NCAAB — College Basketball</span>
-        <span class="chart-sport-meta">6 formats available</span>
-        <span class="chart-sport-chevron">▾</span>
-      </div>
-      <div class="chart-sport-body">
-
-        <div class="format-row" id="fmt-ncaab-bracket-m">
-          <div class="format-row-header" onclick="toggleFormat('ncaab-bracket-m')">
-            <span class="fmt-chevron">▶</span>
-            Men's Bracket
-            <span class="fmt-popular">⭐ March Madness</span>
-          </div>
-          <div class="format-row-body">
-            <p class="fmt-desc">Pick the winner of every game in the NCAA Men's Basketball Tournament. Score points for each correct pick, with higher-value points in later rounds. Fill it out after Selection Sunday and watch it play out over three weeks.</p>
-            <div class="fmt-why"><strong>Why choose this</strong>The most well-known contest format in all of sports. Literally everyone knows how a bracket works. Perfect for any office pool, friend group, or family — including people who don't watch basketball the rest of the year.</div>
-            <div class="fmt-tags"><span class="fmt-tag">Any group</span><span class="fmt-tag">Any size</span><span class="fmt-tag">March–April only</span><span class="fmt-tag">No experience needed</span></div>
-          </div>
-        </div>
-
-        <div class="format-row" id="fmt-ncaab-bracket-w">
-          <div class="format-row-header" onclick="toggleFormat('ncaab-bracket-w')">
-            <span class="fmt-chevron">▶</span>
-            Women's Bracket
-            <span class="fmt-popular">⭐ Growing Fast</span>
-          </div>
-          <div class="format-row-body">
-            <p class="fmt-desc">Same bracket format as the men's tournament but for the NCAA Women's Basketball Tournament. Runs concurrently with the men's bracket in March and April.</p>
-            <div class="fmt-why"><strong>Why choose this</strong>Run both brackets simultaneously for double the engagement. Women's tournament parity often makes the bracket harder to predict — which can mean a more competitive result. Great for groups with fans of the women's game.</div>
-            <div class="fmt-tags"><span class="fmt-tag">Any group</span><span class="fmt-tag">Any size</span><span class="fmt-tag">March–April only</span></div>
-          </div>
-        </div>
-
-        <div class="format-row" id="fmt-ncaab-survivor-day">
-          <div class="format-row-header" onclick="toggleFormat('ncaab-survivor-day')">
-            <span class="fmt-chevron">▶</span>
-            Survivor — Pick by Day
-          </div>
-          <div class="format-row-body">
-            <p class="fmt-desc">Pick one team to win on a given day during the tournament. Each day of March Madness has multiple games — pick one winner, can't reuse teams. Miss and you're eliminated.</p>
-            <div class="fmt-why"><strong>Why choose this</strong>More frequent decisions than Pick by Round — you're picking every day of the tournament instead of waiting for a full round to finish. Great for groups who want daily engagement across the three-week event.</div>
-            <div class="fmt-tags"><span class="fmt-tag">Competitive groups</span><span class="fmt-tag">10–40 players</span><span class="fmt-tag">March–April only</span><span class="fmt-tag">Daily picks</span></div>
-          </div>
-        </div>
-
-        <div class="format-row" id="fmt-ncaab-survivor">
-          <div class="format-row-header" onclick="toggleFormat('ncaab-survivor')">
-            <span class="fmt-chevron">▶</span>
-            Survivor — Pick by Round
-          </div>
-          <div class="format-row-body">
-            <p class="fmt-desc">Pick one team to survive each round of March Madness. If your team loses in any round, you're eliminated. No upfront bracket — fresh pick each round. Last player standing wins.</p>
-            <div class="fmt-why"><strong>Why choose this</strong>More strategic than filling out a full bracket. Forces deliberate round-by-round decisions. High drama in the final rounds when only a few players remain — great for competitive groups.</div>
-            <div class="fmt-tags"><span class="fmt-tag">Competitive groups</span><span class="fmt-tag">10–30 players</span><span class="fmt-tag">March–April only</span></div>
-          </div>
-        </div>
-
-        <div class="format-row" id="fmt-ncaab-pickem">
-          <div class="format-row-header" onclick="toggleFormat('ncaab-pickem')">
-            <span class="fmt-chevron">▶</span>
-            Pick'Em
-          </div>
-          <div class="format-row-body">
-            <p class="fmt-desc">Pick game winners each week throughout the college basketball regular season. Season-long point accumulation. No elimination — everyone plays all year.</p>
-            <div class="fmt-why"><strong>Why choose this</strong>Great for groups who follow college basketball beyond just March Madness. Season-long engagement from November through the conference tournaments in early March.</div>
-            <div class="fmt-tags"><span class="fmt-tag">CBB fans</span><span class="fmt-tag">Any group size</span><span class="fmt-tag">November–March</span></div>
-          </div>
-        </div>
-
-        <div class="format-row" id="fmt-ncaab-squares">
-          <div class="format-row-header" onclick="toggleFormat('ncaab-squares')">
-            <span class="fmt-chevron">▶</span>
-            Squares
-          </div>
-          <div class="format-row-body">
-            <p class="fmt-desc">Classic grid-based game tied to the last digit of the score for a single college basketball game. Perfect for championship watch parties.</p>
-            <div class="fmt-why"><strong>Why choose this</strong>Zero knowledge barrier — anyone can play regardless of CBB familiarity. Great for Final Four or championship game events where you want everyone involved.</div>
-            <div class="fmt-tags"><span class="fmt-tag">Any group</span><span class="fmt-tag">Single game</span><span class="fmt-tag">Watch party format</span></div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- NHL -->
-    <div class="chart-section" id="chart-nhl">
-      <div class="chart-sport-header" onclick="toggleSport('nhl')">
-        <span class="chart-sport-icon">🏒</span>
-        <span class="chart-sport-name">NHL</span>
-        <span class="chart-sport-meta">4 formats available</span>
-        <span class="chart-sport-chevron">▾</span>
-      </div>
-      <div class="chart-sport-body">
-
-        <div class="format-row" id="fmt-nhl-player-survivor">
-          <div class="format-row-header" onclick="toggleFormat('nhl-player-survivor')">
-            <span class="fmt-chevron">▶</span>
-            Player Survivor
-            <span class="fmt-popular">⭐ Most Engaging</span>
-          </div>
-          <div class="format-row-body">
-            <p class="fmt-desc">Pick one NHL player to hit a stat threshold each week (e.g., 1+ goal, 2+ points). You can't use the same player twice. Miss the threshold and you're eliminated. Last player standing wins.</p>
-            <div class="fmt-why"><strong>Why choose this</strong>Perfect for hockey fans who follow individual player performance. Adds a personal stake to every game your picked player is on the ice — and forces increasingly creative picks as top players get used up.</div>
-            <div class="fmt-tags"><span class="fmt-tag">Hockey fans</span><span class="fmt-tag">10–50 players</span><span class="fmt-tag">Full season</span><span class="fmt-tag">Elimination format</span></div>
-          </div>
-        </div>
-
-        <div class="format-row" id="fmt-nhl-pickem">
-          <div class="format-row-header" onclick="toggleFormat('nhl-pickem')">
-            <span class="fmt-chevron">▶</span>
-            Pick'Em
-          </div>
-          <div class="format-row-body">
-            <p class="fmt-desc">Pick the winners of NHL games each week. Correct picks earn points. The player with the most correct picks at season's end wins. No elimination — everyone stays in all season.</p>
-            <div class="fmt-why"><strong>Why choose this</strong>Great for larger groups where you don't want people dropping out. With 30+ NHL teams playing throughout the week, there's always something to track. The leaderboard stays competitive all the way to June.</div>
-            <div class="fmt-tags"><span class="fmt-tag">Any group size</span><span class="fmt-tag">Mixed experience</span><span class="fmt-tag">Full season</span><span class="fmt-tag">No elimination</span></div>
-          </div>
-        </div>
-
-        <div class="format-row" id="fmt-nhl-survivor">
-          <div class="format-row-header" onclick="toggleFormat('nhl-survivor')">
-            <span class="fmt-chevron">▶</span>
-            Survivor
-          </div>
-          <div class="format-row-body">
-            <p class="fmt-desc">Pick one NHL team to win each week. You can't use the same team twice. If your pick loses, you're eliminated. Last player standing wins the pool.</p>
-            <div class="fmt-why"><strong>Why choose this</strong>Classic Survivor tension applied to hockey. Simple to explain, easy for new players to understand, and season-long engagement with a single weekly decision. Strong option for hockey groups of any size.</div>
-            <div class="fmt-tags"><span class="fmt-tag">Any group size</span><span class="fmt-tag">Any experience level</span><span class="fmt-tag">Full season</span><span class="fmt-tag">Elimination format</span></div>
-          </div>
-        </div>
-
-        <div class="format-row" id="fmt-nhl-survivor-day">
-          <div class="format-row-header" onclick="toggleFormat('nhl-survivor-day')">
-            <span class="fmt-chevron">▶</span>
-            Survivor — Pick by Day
-          </div>
-          <div class="format-row-body">
-            <p class="fmt-desc">A faster-paced version of Survivor where you pick one NHL team to win each day instead of each week. With games every night, decisions come quickly and eliminations happen faster.</p>
-            <div class="fmt-why"><strong>Why choose this</strong>Best for groups who want more frequent action and don't want to wait a full week between decisions. The NHL's daily schedule makes this format feel live all season long.</div>
-            <div class="fmt-tags"><span class="fmt-tag">Any group size</span><span class="fmt-tag">Daily picks</span><span class="fmt-tag">Fast-paced</span><span class="fmt-tag">Elimination format</span></div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- NCAAF -->
+    <!-- NCAAF (slot 2) -->
     <div class="chart-section" id="chart-ncaaf">
       <div class="chart-sport-header" onclick="toggleSport('ncaaf')">
         <span class="chart-sport-icon">🏈</span>
@@ -644,6 +357,293 @@
       </div>
     </div>
 
+    <!-- NHL (slot 3) -->
+    <div class="chart-section" id="chart-nhl">
+      <div class="chart-sport-header" onclick="toggleSport('nhl')">
+        <span class="chart-sport-icon">🏒</span>
+        <span class="chart-sport-name">NHL</span>
+        <span class="chart-sport-meta">4 formats available</span>
+        <span class="chart-sport-chevron">▾</span>
+      </div>
+      <div class="chart-sport-body">
+
+        <div class="format-row" id="fmt-nhl-player-survivor">
+          <div class="format-row-header" onclick="toggleFormat('nhl-player-survivor')">
+            <span class="fmt-chevron">▶</span>
+            Player Survivor
+            <span class="fmt-popular">⭐ Most Engaging</span>
+          </div>
+          <div class="format-row-body">
+            <p class="fmt-desc">Pick one NHL player to hit a stat threshold each week (e.g., 1+ goal, 2+ points). You can't use the same player twice. Miss the threshold and you're eliminated. Last player standing wins.</p>
+            <div class="fmt-why"><strong>Why choose this</strong>Perfect for hockey fans who follow individual player performance. Adds a personal stake to every game your picked player is on the ice — and forces increasingly creative picks as top players get used up.</div>
+            <div class="fmt-tags"><span class="fmt-tag">Hockey fans</span><span class="fmt-tag">10–50 players</span><span class="fmt-tag">Full season</span><span class="fmt-tag">Elimination format</span></div>
+          </div>
+        </div>
+
+        <div class="format-row" id="fmt-nhl-pickem">
+          <div class="format-row-header" onclick="toggleFormat('nhl-pickem')">
+            <span class="fmt-chevron">▶</span>
+            Pick'Em
+          </div>
+          <div class="format-row-body">
+            <p class="fmt-desc">Pick the winners of NHL games each week. Correct picks earn points. The player with the most correct picks at season's end wins. No elimination — everyone stays in all season.</p>
+            <div class="fmt-why"><strong>Why choose this</strong>Great for larger groups where you don't want people dropping out. With 30+ NHL teams playing throughout the week, there's always something to track. The leaderboard stays competitive all the way to June.</div>
+            <div class="fmt-tags"><span class="fmt-tag">Any group size</span><span class="fmt-tag">Mixed experience</span><span class="fmt-tag">Full season</span><span class="fmt-tag">No elimination</span></div>
+          </div>
+        </div>
+
+        <div class="format-row" id="fmt-nhl-survivor">
+          <div class="format-row-header" onclick="toggleFormat('nhl-survivor')">
+            <span class="fmt-chevron">▶</span>
+            Survivor
+          </div>
+          <div class="format-row-body">
+            <p class="fmt-desc">Pick one NHL team to win each week. You can't use the same team twice. If your pick loses, you're eliminated. Last player standing wins the pool.</p>
+            <div class="fmt-why"><strong>Why choose this</strong>Classic Survivor tension applied to hockey. Simple to explain, easy for new players to understand, and season-long engagement with a single weekly decision. Strong option for hockey groups of any size.</div>
+            <div class="fmt-tags"><span class="fmt-tag">Any group size</span><span class="fmt-tag">Any experience level</span><span class="fmt-tag">Full season</span><span class="fmt-tag">Elimination format</span></div>
+          </div>
+        </div>
+
+        <div class="format-row" id="fmt-nhl-survivor-day">
+          <div class="format-row-header" onclick="toggleFormat('nhl-survivor-day')">
+            <span class="fmt-chevron">▶</span>
+            Survivor — Pick by Day
+          </div>
+          <div class="format-row-body">
+            <p class="fmt-desc">A faster-paced version of Survivor where you pick one NHL team to win each day instead of each week. With games every night, decisions come quickly and eliminations happen faster.</p>
+            <div class="fmt-why"><strong>Why choose this</strong>Best for groups who want more frequent action and don't want to wait a full week between decisions. The NHL's daily schedule makes this format feel live all season long.</div>
+            <div class="fmt-tags"><span class="fmt-tag">Any group size</span><span class="fmt-tag">Daily picks</span><span class="fmt-tag">Fast-paced</span><span class="fmt-tag">Elimination format</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- NBA (slot 4) -->
+    <div class="chart-section" id="chart-nba">
+      <div class="chart-sport-header" onclick="toggleSport('nba')">
+        <span class="chart-sport-icon">🏀</span>
+        <span class="chart-sport-name">NBA</span>
+        <span class="chart-sport-meta">1 format available</span>
+        <span class="chart-sport-chevron">▾</span>
+      </div>
+      <div class="chart-sport-body">
+
+        <div class="format-row" id="fmt-nba-tiers">
+          <div class="format-row-header" onclick="toggleFormat('nba-tiers')">
+            <span class="fmt-chevron">▶</span>
+            NBA Tiers
+            <span class="fmt-popular">⭐ Only NBA Format</span>
+          </div>
+          <div class="format-row-body">
+            <p class="fmt-desc">Pick players from pre-set tiers each week and earn points based on their NBA fantasy performance. Fresh lineup every week, no elimination, cumulative scoring all season.</p>
+            <div class="fmt-why"><strong>Why choose this</strong>The only NBA format on Splash — and a great one. Lower lift than daily DFS: one weekly lineup instead of managing a team every night. Perfect for NBA fans who want skin in the game without the daily grind.</div>
+            <div class="fmt-tags"><span class="fmt-tag">NBA fans</span><span class="fmt-tag">10–40 players</span><span class="fmt-tag">Weekly lineups</span><span class="fmt-tag">October–June</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- PGA (slot 5) -->
+    <div class="chart-section" id="chart-pga">
+      <div class="chart-sport-header" onclick="toggleSport('pga')">
+        <span class="chart-sport-icon">⛳</span>
+        <span class="chart-sport-name">PGA</span>
+        <span class="chart-sport-meta">5 formats available</span>
+        <span class="chart-sport-chevron">▾</span>
+      </div>
+      <div class="chart-sport-body">
+
+        <div class="format-row" id="fmt-pga-oad-dollar">
+          <div class="format-row-header" onclick="toggleFormat('pga-oad-dollar')">
+            <span class="fmt-chevron">▶</span>
+            One &amp; Done — Dollar Winnings
+            <span class="fmt-popular">⭐ Most Popular</span>
+          </div>
+          <div class="format-row-body">
+            <p class="fmt-desc">Pick one golfer per tournament to follow all season. You can't use the same golfer twice. Players are scored by their official prize money earnings — the more your golfer wins, the better your score.</p>
+            <div class="fmt-why"><strong>Why choose this</strong>Splash's most popular PGA format. Strategy builds over the season — save your top-tier golfers for the majors, or ride a hot streak early. Big prize events mean big leaderboard swings.</div>
+            <div class="fmt-tags"><span class="fmt-tag">Golf fans of all levels</span><span class="fmt-tag">10–50 players</span><span class="fmt-tag">Full season</span><span class="fmt-tag">No elimination</span></div>
+          </div>
+        </div>
+
+        <div class="format-row" id="fmt-pga-oad-strokes">
+          <div class="format-row-header" onclick="toggleFormat('pga-oad-strokes')">
+            <span class="fmt-chevron">▶</span>
+            One &amp; Done — Strokes
+          </div>
+          <div class="format-row-body">
+            <p class="fmt-desc">Same One &amp; Done mechanic — one golfer per week, can't repeat — but scored by strokes gained or finishing position instead of prize money.</p>
+            <div class="fmt-why"><strong>Why choose this</strong>Better for groups more comfortable reading leaderboards than prize money totals. Finishing position is easy to follow live and doesn't require understanding payout distributions.</div>
+            <div class="fmt-tags"><span class="fmt-tag">Casual golf fans</span><span class="fmt-tag">Smaller groups</span><span class="fmt-tag">Full season</span></div>
+          </div>
+        </div>
+
+        <div class="format-row" id="fmt-pga-majors-tiers">
+          <div class="format-row-header" onclick="toggleFormat('pga-majors-tiers')">
+            <span class="fmt-chevron">▶</span>
+            Golf Majors Tiers
+          </div>
+          <div class="format-row-body">
+            <p class="fmt-desc">Pick golfers from pre-set tiers specifically for the four major championships: The Masters, PGA Championship, US Open, and The Open. Short, focused, and high-prestige.</p>
+            <div class="fmt-why"><strong>Why choose this</strong>Perfect if your group only tunes in for the majors. Four events, four rounds of drama. Run it alongside your NFL Survivor or as a standalone spring/summer golf contest.</div>
+            <div class="fmt-tags"><span class="fmt-tag">Casual–mixed</span><span class="fmt-tag">8–40 players</span><span class="fmt-tag">Majors only</span><span class="fmt-tag">Short commitment</span></div>
+          </div>
+        </div>
+
+        <div class="format-row" id="fmt-pga-multi-tiers">
+          <div class="format-row-header" onclick="toggleFormat('pga-multi-tiers')">
+            <span class="fmt-chevron">▶</span>
+            Multi-Tournament Tiers
+          </div>
+          <div class="format-row-body">
+            <p class="fmt-desc">Season-long tier selections across multiple PGA Tour events. Pick from tiered golfer pools each tournament and accumulate fantasy points as the season progresses.</p>
+            <div class="fmt-why"><strong>Why choose this</strong>The deepest PGA format on Splash. Rewards golfers who follow the tour week-to-week, not just during the majors. Ideal for serious golf groups who want consistent weekly engagement.</div>
+            <div class="fmt-tags"><span class="fmt-tag">Hardcore golf fans</span><span class="fmt-tag">Smaller competitive groups</span><span class="fmt-tag">Full season</span></div>
+          </div>
+        </div>
+
+        <div class="format-row" id="fmt-pga-single-tiers">
+          <div class="format-row-header" onclick="toggleFormat('pga-single-tiers')">
+            <span class="fmt-chevron">▶</span>
+            Single Tournament Tiers
+          </div>
+          <div class="format-row-body">
+            <p class="fmt-desc">Tier picks for one specific PGA Tour event. Pick your lineup from tiered golfer pools and track your points across four days of competition.</p>
+            <div class="fmt-why"><strong>Why choose this</strong>Zero season-long commitment. Perfect for a single big event — launch a Masters or US Open contest, watch the event, done. Great for bringing in groups who wouldn't commit to a full season.</div>
+            <div class="fmt-tags"><span class="fmt-tag">Any group size</span><span class="fmt-tag">Casual fans</span><span class="fmt-tag">Single event</span><span class="fmt-tag">Low commitment</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- NCAAB (slot 6) -->
+    <div class="chart-section" id="chart-ncaab">
+      <div class="chart-sport-header" onclick="toggleSport('ncaab')">
+        <span class="chart-sport-icon">🏀</span>
+        <span class="chart-sport-name">NCAAB — College Basketball</span>
+        <span class="chart-sport-meta">6 formats available</span>
+        <span class="chart-sport-chevron">▾</span>
+      </div>
+      <div class="chart-sport-body">
+
+        <div class="format-row" id="fmt-ncaab-bracket-m">
+          <div class="format-row-header" onclick="toggleFormat('ncaab-bracket-m')">
+            <span class="fmt-chevron">▶</span>
+            Men's Bracket
+            <span class="fmt-popular">⭐ March Madness</span>
+          </div>
+          <div class="format-row-body">
+            <p class="fmt-desc">Pick the winner of every game in the NCAA Men's Basketball Tournament. Score points for each correct pick, with higher-value points in later rounds. Fill it out after Selection Sunday and watch it play out over three weeks.</p>
+            <div class="fmt-why"><strong>Why choose this</strong>The most well-known contest format in all of sports. Literally everyone knows how a bracket works. Perfect for any office pool, friend group, or family — including people who don't watch basketball the rest of the year.</div>
+            <div class="fmt-tags"><span class="fmt-tag">Any group</span><span class="fmt-tag">Any size</span><span class="fmt-tag">March–April only</span><span class="fmt-tag">No experience needed</span></div>
+          </div>
+        </div>
+
+        <div class="format-row" id="fmt-ncaab-bracket-w">
+          <div class="format-row-header" onclick="toggleFormat('ncaab-bracket-w')">
+            <span class="fmt-chevron">▶</span>
+            Women's Bracket
+            <span class="fmt-popular">⭐ Growing Fast</span>
+          </div>
+          <div class="format-row-body">
+            <p class="fmt-desc">Same bracket format as the men's tournament but for the NCAA Women's Basketball Tournament. Runs concurrently with the men's bracket in March and April.</p>
+            <div class="fmt-why"><strong>Why choose this</strong>Run both brackets simultaneously for double the engagement. Women's tournament parity often makes the bracket harder to predict — which can mean a more competitive result. Great for groups with fans of the women's game.</div>
+            <div class="fmt-tags"><span class="fmt-tag">Any group</span><span class="fmt-tag">Any size</span><span class="fmt-tag">March–April only</span></div>
+          </div>
+        </div>
+
+        <div class="format-row" id="fmt-ncaab-survivor-day">
+          <div class="format-row-header" onclick="toggleFormat('ncaab-survivor-day')">
+            <span class="fmt-chevron">▶</span>
+            Survivor — Pick by Day
+          </div>
+          <div class="format-row-body">
+            <p class="fmt-desc">Pick one team to win on a given day during the tournament. Each day of March Madness has multiple games — pick one winner, can't reuse teams. Miss and you're eliminated.</p>
+            <div class="fmt-why"><strong>Why choose this</strong>More frequent decisions than Pick by Round — you're picking every day of the tournament instead of waiting for a full round to finish. Great for groups who want daily engagement across the three-week event.</div>
+            <div class="fmt-tags"><span class="fmt-tag">Competitive groups</span><span class="fmt-tag">10–40 players</span><span class="fmt-tag">March–April only</span><span class="fmt-tag">Daily picks</span></div>
+          </div>
+        </div>
+
+        <div class="format-row" id="fmt-ncaab-survivor">
+          <div class="format-row-header" onclick="toggleFormat('ncaab-survivor')">
+            <span class="fmt-chevron">▶</span>
+            Survivor — Pick by Round
+          </div>
+          <div class="format-row-body">
+            <p class="fmt-desc">Pick one team to survive each round of March Madness. If your team loses in any round, you're eliminated. No upfront bracket — fresh pick each round. Last player standing wins.</p>
+            <div class="fmt-why"><strong>Why choose this</strong>More strategic than filling out a full bracket. Forces deliberate round-by-round decisions. High drama in the final rounds when only a few players remain — great for competitive groups.</div>
+            <div class="fmt-tags"><span class="fmt-tag">Competitive groups</span><span class="fmt-tag">10–30 players</span><span class="fmt-tag">March–April only</span></div>
+          </div>
+        </div>
+
+        <div class="format-row" id="fmt-ncaab-pickem">
+          <div class="format-row-header" onclick="toggleFormat('ncaab-pickem')">
+            <span class="fmt-chevron">▶</span>
+            Pick'Em
+          </div>
+          <div class="format-row-body">
+            <p class="fmt-desc">Pick game winners each week throughout the college basketball regular season. Season-long point accumulation. No elimination — everyone plays all year.</p>
+            <div class="fmt-why"><strong>Why choose this</strong>Great for groups who follow college basketball beyond just March Madness. Season-long engagement from November through the conference tournaments in early March.</div>
+            <div class="fmt-tags"><span class="fmt-tag">CBB fans</span><span class="fmt-tag">Any group size</span><span class="fmt-tag">November–March</span></div>
+          </div>
+        </div>
+
+        <div class="format-row" id="fmt-ncaab-squares">
+          <div class="format-row-header" onclick="toggleFormat('ncaab-squares')">
+            <span class="fmt-chevron">▶</span>
+            Squares
+          </div>
+          <div class="format-row-body">
+            <p class="fmt-desc">Classic grid-based game tied to the last digit of the score for a single college basketball game. Perfect for championship watch parties.</p>
+            <div class="fmt-why"><strong>Why choose this</strong>Zero knowledge barrier — anyone can play regardless of CBB familiarity. Great for Final Four or championship game events where you want everyone involved.</div>
+            <div class="fmt-tags"><span class="fmt-tag">Any group</span><span class="fmt-tag">Single game</span><span class="fmt-tag">Watch party format</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- MLB (slot 7) -->
+    <div class="chart-section" id="chart-mlb">
+      <div class="chart-sport-header" onclick="toggleSport('mlb')">
+        <span class="chart-sport-icon">⚾</span>
+        <span class="chart-sport-name">MLB</span>
+        <span class="chart-sport-meta">2 formats available</span>
+        <span class="chart-sport-chevron">▾</span>
+      </div>
+      <div class="chart-sport-body">
+
+        <div class="format-row" id="fmt-mlb-survivor">
+          <div class="format-row-header" onclick="toggleFormat('mlb-survivor')">
+            <span class="fmt-chevron">▶</span>
+            Player Survivor
+            <span class="fmt-popular">⭐ Most Popular</span>
+          </div>
+          <div class="format-row-body">
+            <p class="fmt-desc">Pick one MLB player to hit a stat threshold each week (e.g., 1+ home run, 3+ RBI). You can't repeat a player. Miss the threshold and you're eliminated. Last player standing wins.</p>
+            <div class="fmt-why"><strong>Why choose this</strong>Season-long elimination that keeps players invested from Opening Day through October. Great for baseball fans who follow individual hitter and pitcher performances closely.</div>
+            <div class="fmt-tags"><span class="fmt-tag">Baseball fans</span><span class="fmt-tag">15–50 players</span><span class="fmt-tag">Full season</span><span class="fmt-tag">Elimination format</span></div>
+          </div>
+        </div>
+
+        <div class="format-row" id="fmt-mlb-13run">
+          <div class="format-row-header" onclick="toggleFormat('mlb-13run')">
+            <span class="fmt-chevron">▶</span>
+            13-Run
+          </div>
+          <div class="format-row-body">
+            <p class="fmt-desc">Pick one MLB team to score 13 or more runs in a single game. High risk — most games don't hit 13 — but high reward when they do. Can be run as a standalone or recurring format.</p>
+            <div class="fmt-why"><strong>Why choose this</strong>A completely different flavor from any other format on Splash. Short, exciting, and great for hardcore baseball fans who love offensive fireworks. No season-long commitment required.</div>
+            <div class="fmt-tags"><span class="fmt-tag">Hardcore baseball fans</span><span class="fmt-tag">Smaller groups</span><span class="fmt-tag">Short format</span><span class="fmt-tag">High risk / high reward</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
   </main>
 
   <footer class="site-footer">
@@ -652,7 +652,7 @@
   </footer>
 
   <script>
-    const SPORTS = ['nfl','pga','nba','nhl','mlb','ncaab','ncaaf'];
+    const SPORTS = ['nfl','ncaaf','nhl','nba','pga','ncaab','mlb'];
 
     function selectSport(id, btn) {
       // Highlight tile
